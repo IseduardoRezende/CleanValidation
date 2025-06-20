@@ -8,20 +8,20 @@ namespace CleanValidation.Core.Tests
     
     internal class UserValidator : Validator<User>
     {
-        public override async Task<Result<User>> ValidateAsync(
+        public override async Task<Result> ValidateAsync(
             User value, 
             string cultureName = "en-US", 
             CancellationToken cancellationToken = default)
         {
             var result = await base.ValidateAsync(value, cultureName, cancellationToken);
 
-            if (!result.Sucess)
+            if (!result.Success)
                 return result;
 
-            return Guard<User>.Create(cultureName)
+            return Guard.Create(cultureName)
                 .AgainstNullOrWhiteSpace(value.Name)
                 .AgainstNullOrWhiteSpace(value.Description)
-                .Result;
+                .GetResult();
         }
     }    
 }
