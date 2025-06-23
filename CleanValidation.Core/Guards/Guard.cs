@@ -10,7 +10,7 @@ namespace CleanValidation.Core.Guards
     /// <remarks>
     /// The <see cref="Guard"/> class is designed to facilitate input validation in a fluent
     /// manner. It allows chaining multiple validation methods, such as <see cref="AgainstNullOrWhiteSpace(string,
-    /// string?)"/> and <see cref="AgainstNull{TIn}(TIn, string?)"/>, while maintaining a result that indicates whether
+    /// string?)"/> and <see cref="AgainstNull(object?, string?)"/>, while maintaining a result that indicates whether
     /// validation succeeded. If validation fails, the <see cref="IResult"/> property is updated with an error
     /// result.
     /// </remarks>
@@ -89,11 +89,10 @@ namespace CleanValidation.Core.Guards
         /// provided value is null, the <see cref="Result"/> property is updated with an error result
         /// indicating an invalid parameter.
         /// </remarks>
-        /// <typeparam name="TIn">The type of the value being checked.</typeparam>
         /// <param name="value">The value to validate.</param>
         /// <param name="paramName">The name of <paramref name="value"/> captured by expression or manually.</param>
         /// <returns>The current <see cref="Guard"/> instance, allowing for method chaining.</returns>
-        public Guard AgainstNull<TIn>(TIn value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+        public Guard AgainstNull(object? value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && value is null)
                 Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -108,7 +107,7 @@ namespace CleanValidation.Core.Guards
     /// <remarks>
     /// The <see cref="Guard{T}"/> class is designed to facilitate input validation in a fluent
     /// manner. It allows chaining multiple validation methods, such as <see cref="AgainstNullOrWhiteSpace(string,
-    /// string?)"/> and <see cref="AgainstNull{TIn}(TIn, string)"/>, while maintaining a result that indicates whether
+    /// string?)"/> and <see cref="AgainstNull(object?, string?)"/>, while maintaining a result that indicates whether
     /// validation succeeded. If validation fails, the <see cref="Result"/> property is updated with an error
     /// result.
     /// </remarks>
@@ -177,11 +176,10 @@ namespace CleanValidation.Core.Guards
         /// provided value is null, the <see cref="Result"/> property is updated with an error result
         /// indicating an invalid parameter.
         /// </remarks>
-        /// <typeparam name="TIn">The type of the value being checked.</typeparam>
         /// <param name="value">The value to validate.</param>
         /// <param name="paramName">The name of <paramref name="value"/> captured by expression or manually.</param>
         /// <returns>The current <see cref="Guard{T}"/> instance, allowing for method chaining.</returns>
-        new public Guard<T> AgainstNull<TIn>(TIn value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+        new public Guard<T> AgainstNull(object? value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && value is null)
                 Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
