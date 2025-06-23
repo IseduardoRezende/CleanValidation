@@ -28,11 +28,4 @@
     <ProjectReference Include="..\CleanValidation.Core\CleanValidation.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Guards\" />
-    <Folder Include="Errors\" />
-    <Folder Include="Resources\" />
-    <Folder Include="Results\" />
-  </ItemGroup>
-
 </Project>
