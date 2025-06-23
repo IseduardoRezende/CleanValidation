@@ -12,7 +12,7 @@ namespace CleanValidation.Core.Tests.Validators
         }
 
         [Fact]
-        public async Task Test1()
+        public async Task ValidateAsync_ValidUser_ReturnsSuccessResult()
         {
             var user = new User("User1", 20, "First User!");
 
@@ -24,7 +24,7 @@ namespace CleanValidation.Core.Tests.Validators
         }
 
         [Fact]
-        public async Task Test2()
+        public async Task ValidateAsync_InvalidUserName_ReturnsInvalidResult()
         {
             var user = new User("", 40, "Empty User Name ?");
 
@@ -36,7 +36,7 @@ namespace CleanValidation.Core.Tests.Validators
         }
 
         [Fact]
-        public async Task Test3()
+        public async Task ValidateAsync_NullUser_ReturnsErrorResult()
         {
             User? user = null;
 

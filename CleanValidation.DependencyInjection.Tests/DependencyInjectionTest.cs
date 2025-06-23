@@ -5,7 +5,7 @@ namespace CleanValidation.DependencyInjection.Tests
     public class DependencyInjectionTest
     {
         [Fact]
-        public void Test1()
+        public void AddCleanValidation_IncrementsServiceCollectionCount_ReturnsTrue()
         {
             ServiceCollection services = new();
             int startCount = services.Count;

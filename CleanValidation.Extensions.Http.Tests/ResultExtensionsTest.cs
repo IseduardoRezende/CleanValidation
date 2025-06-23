@@ -6,7 +6,7 @@ namespace CleanValidation.Extensions.Http.Tests
     public class ResultExtensionsTest
     {
         [Fact]
-        public void Test1()
+        public void ToActionResult_SucessResult_ReturnsOkObjectResult()
         {
             User user = new("Lívia", 21, "Lady");
             IResult<User> result = SuccessResult<User>.Create(user);
@@ -18,7 +18,7 @@ namespace CleanValidation.Extensions.Http.Tests
         }
 
         [Fact]
-        public void Test2()
+        public void ToActionResult_SucessResultType_ReturnsOkObjectResult()
         {
             User user = new("Eduardo", 19, "Gentleman");
             IResult<User> result = SuccessResult<User>.Create(user);
