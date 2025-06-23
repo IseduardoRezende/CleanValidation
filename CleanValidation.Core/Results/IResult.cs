@@ -4,7 +4,7 @@
     /// Represents the result of an operation, encapsulating a success status.
     /// </summary>
     /// <remarks>
-    /// This class is designed to provide a standardized way to represent the outcome of an
+    /// This interface is designed to provide a standardized way to represent the outcome of an
     /// operation. It includes a boolean indicating whether the operation
     /// was successful.
     /// </remarks>
@@ -20,7 +20,7 @@
     /// Represents the result of an operation, encapsulating a value and a success status.
     /// </summary>
     /// <remarks>
-    /// This class is designed to provide a standardized way to represent the outcome of an
+    /// This interface is designed to provide a standardized way to represent the outcome of an
     /// operation. It includes a value of type <typeparamref name="T"/> and a boolean indicating whether the operation
     /// was successful.
     /// </remarks>

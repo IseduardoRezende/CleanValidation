@@ -19,7 +19,7 @@ namespace CleanValidation.Core.Guards
         /// <summary>
         /// Initializes a new instance of the <see cref="Guard"/> class.
         /// </summary>
-        /// <param name="result"></param>
+        /// <param name="result">The initial result.</param>
         /// <param name="cultureName">The name of the culture to use for message.</param>
         protected Guard(IResult result, string cultureName)
         {
@@ -118,7 +118,7 @@ namespace CleanValidation.Core.Guards
         /// <summary>
         /// Initializes a new instance of the <see cref="Guard{T}"/> class.
         /// </summary>
-        /// <param name="result"></param>
+        /// <param name="result">The initial result.</param>
         /// <param name="cultureName">The name of the culture to use for message.</param>
         protected Guard(IResult<T> result, string cultureName) : base(result, cultureName)
         {

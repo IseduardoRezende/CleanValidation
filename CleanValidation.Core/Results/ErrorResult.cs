@@ -10,11 +10,19 @@ namespace CleanValidation.Core.Results
     /// unsuccessful.</remarks>
     public class ErrorResult : IResult
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ErrorResult"/> class.
+        /// </summary>
+        /// <param name="errors">The entry errors.</param>
         protected ErrorResult(IEnumerable<Error> errors)
         {
             Errors = errors;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ErrorResult"/> class.
+        /// </summary>
+        /// <param name="error">The entry error.</param>
         protected ErrorResult(Error error) : this([error]) { }
 
         /// <summary>
@@ -22,6 +30,9 @@ namespace CleanValidation.Core.Results
         /// </summary>
         public IEnumerable<Error> Errors { get; }
 
+        /// <summary>
+        /// Boolean indicating the operation status.
+        /// </summary>
         public bool Success { get { return false; } }
 
         /// <summary>
@@ -54,10 +65,21 @@ namespace CleanValidation.Core.Results
     /// <typeparam name="T">The type of the value associated with the result, if applicable.</typeparam>
     public class ErrorResult<T> : ErrorResult, IResult<T>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ErrorResult{T}"/> class.
+        /// </summary>
+        /// <param name="errors">The entry errors.</param>
         protected ErrorResult(IEnumerable<Error> errors) : base(errors) { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ErrorResult{T}"/> class.
+        /// </summary>
+        /// <param name="error">The entry error.</param>
         protected ErrorResult(Error error) : base(error) { }
 
+        /// <summary>
+        /// The value of type <typeparamref name="T"/>.
+        /// </summary>
         public T? Value { get { return default; } }
 
         /// <summary>
