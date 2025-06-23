@@ -30,7 +30,8 @@
         /// white space.</exception>
         public static void ThrowIfNullOrWhiteSpace(string argument, string? paramName = null)
         {
-            throw new CleanValidationException($"Argument is null or white space. {AddParamNameMessage(paramName)}");
+            if (string.IsNullOrWhiteSpace(argument))
+                throw new CleanValidationException($"Argument is null or white space. {AddParamNameMessage(paramName)}");
         }
 
         /// <summary>
@@ -41,7 +42,8 @@
         /// <exception cref="CleanValidationException">Thrown if <paramref name="argument"/> is <see langword="null"/>.</exception>
         public static void ThrowIfNull(object? argument, string? paramName = null)
         {
-            throw new CleanValidationException($"Argument is null. {AddParamNameMessage(paramName)}");
+            if (argument is null)
+                throw new CleanValidationException($"Argument is null. {AddParamNameMessage(paramName)}");
         }
     }
 }
