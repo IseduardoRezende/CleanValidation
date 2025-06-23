@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CleanValidation.Extensions.Http.Tests
 {
-    public class ExtensionsTest
+    public class ResultExtensionsTest
     {
         [Fact]
         public void Test1()

@@ -3,7 +3,7 @@ using CleanValidation.Core.Results;
 
 namespace CleanValidation.Core.Tests.Extensions
 {
-    public class ExtensionsTest
+    public class ResultExtensionsTest
     {
         [Fact]
         public void Test1()
