@@ -22,26 +22,26 @@
         }
 
         /// <summary>
-        /// Throws an exception if <paramref name="value"/> is <see langword="null"/> or white space.
+        /// Throws an exception if <paramref name="argument"/> is <see langword="null"/> or white space.
         /// </summary>
-        /// <param name="value">The value to validate.</param>
-        /// <param name="paramName">The name of <paramref name="value"/>.</param>
-        /// <exception cref="CleanValidationException">Thrown if <paramref name="value"/> is <see langword="null"/> or
+        /// <param name="argument">The value to validate.</param>
+        /// <param name="paramName">The name of <paramref name="argument"/>.</param>
+        /// <exception cref="CleanValidationException">Thrown if <paramref name="argument"/> is <see langword="null"/> or
         /// white space.</exception>
-        public static void ThrowIfNullOrWhiteSpace(string value, string? paramName = null)
+        public static void ThrowIfNullOrWhiteSpace(string argument, string? paramName = null)
         {
-            throw new CleanValidationException($"Value is null or white space. {AddParamNameMessage(paramName)}");
+            throw new CleanValidationException($"Argument is null or white space. {AddParamNameMessage(paramName)}");
         }
 
         /// <summary>
-        /// Throws an exception if <paramref name="value"/> is <see langword="null"/>.
+        /// Throws an exception if <paramref name="argument"/> is <see langword="null"/>.
         /// </summary>
-        /// <param name="value">The value to validate.</param>
-        /// <param name="paramName">The name of <paramref name="value"/>.</param>
-        /// <exception cref="CleanValidationException">Thrown if <paramref name="value"/> is <see langword="null"/>.</exception>
-        public static void ThrowIfNull(object? value, string? paramName = null)
+        /// <param name="argument">The value to validate.</param>
+        /// <param name="paramName">The name of <paramref name="argument"/>.</param>
+        /// <exception cref="CleanValidationException">Thrown if <paramref name="argument"/> is <see langword="null"/>.</exception>
+        public static void ThrowIfNull(object? argument, string? paramName = null)
         {
-            throw new CleanValidationException($"Value is null. {AddParamNameMessage(paramName)}");
+            throw new CleanValidationException($"Argument is null. {AddParamNameMessage(paramName)}");
         }
     }
 }
