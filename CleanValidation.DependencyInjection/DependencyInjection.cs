@@ -1,5 +1,6 @@
 ﻿using CleanValidation.Core.Validators;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace CleanValidation.DependencyInjection
 {
@@ -19,11 +20,12 @@ namespace CleanValidation.DependencyInjection
         /// cref="IValidator{T}"/> interface  and registers them with a scoped lifetime. It is typically used to
         /// integrate validation logic into an application.</remarks>
         /// <param name="services">The <see cref="IServiceCollection"/> to which the validators will be added.</param>
+        /// <param name="assemblies">Represents the assemblies to scan.</param>
         /// <returns>The updated <see cref="IServiceCollection"/> instance.</returns>
-        public static IServiceCollection AddCleanValidation(IServiceCollection services)
+        public static IServiceCollection AddCleanValidation(this IServiceCollection services, Assembly[] assemblies)
         {
             return services.Scan(scan => scan
-            .FromEntryAssembly()
+            .FromAssemblies(assemblies)
             .AddClasses(classes => classes.AssignableTo(typeof(IValidator<>)))
             .AsImplementedInterfaces()
             .WithScopedLifetime());

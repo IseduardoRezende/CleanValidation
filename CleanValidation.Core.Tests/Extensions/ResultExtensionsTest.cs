@@ -3,10 +3,10 @@ using CleanValidation.Core.Results;
 
 namespace CleanValidation.Core.Tests.Extensions
 {
-    public class ExtensionsTest
+    public class ResultExtensionsTest
     {
         [Fact]
-        public void Test1()
+        public void ErrorsTo_ResultType_ReturnsMappedResultType()
         {
             var result = ErrorResult<bool>.Create(error: new("User Error", field: null));
 
@@ -17,7 +17,7 @@ namespace CleanValidation.Core.Tests.Extensions
         }
 
         [Fact]
-        public void Test2()
+        public void ErrorsTo_ResultType_ReturnsResultTypeObject()
         {
             var result = ErrorResult<bool>.Create(error: new("User Error", field: null));
 
@@ -30,7 +30,7 @@ namespace CleanValidation.Core.Tests.Extensions
         }
 
         [Fact]
-        public void Test3()
+        public void ErrorsTo_Result_ReturnsMappedResultType()
         {
             var result = ErrorResult.Create(error: new("User Error", field: null));
 
@@ -41,7 +41,7 @@ namespace CleanValidation.Core.Tests.Extensions
         }
 
         [Fact]
-        public void Test4()
+        public void ErrorsTo_Result_ReturnsResultTypeObject()
         {
             var result = ErrorResult.Create(error: new("User Error", field: null));
 

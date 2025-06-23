@@ -2,7 +2,7 @@
 using CleanValidation.Core.Results;
 using CleanValidation.Core.Validators;
 
-namespace CleanValidation.Core.Tests
+namespace CleanValidation.DependencyInjection.Tests
 {
     public record User(string Name, byte Age, string Description);
 
