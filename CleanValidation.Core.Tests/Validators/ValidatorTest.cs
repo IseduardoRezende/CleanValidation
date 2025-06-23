@@ -20,7 +20,7 @@ namespace CleanValidation.Core.Tests.Validators
 
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.IsType<SuccessResult<User>>(result);
+            Assert.IsType<SuccessResult>(result);
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace CleanValidation.Core.Tests.Validators
 
             Assert.NotNull(result);
             Assert.False(result.Success);
-            Assert.IsType<InvalidResult<User>>(result);
+            Assert.IsType<InvalidResult>(result);
         }
 
         [Fact]
@@ -44,7 +44,7 @@ namespace CleanValidation.Core.Tests.Validators
 
             Assert.NotNull(result);
             Assert.False(result.Success);
-            Assert.IsType<ErrorResult<User>>(result);
+            Assert.IsType<ErrorResult>(result);
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿namespace CleanValidation.Core.Results
 {
-    public class SuccessResult : Result
+    public class SuccessResult : IResult
     {
-        private SuccessResult() : base(success: true) { }
+        protected SuccessResult() { }
+        
+        public bool Success { get { return true; } }
 
         public static SuccessResult Create()
         {
@@ -10,11 +12,16 @@
         }
     }
 
-    public class SuccessResult<T> : Result<T>
+    public class SuccessResult<T> : SuccessResult, IResult<T>
     {
-        private SuccessResult(T? value) : base(value, success: true) { }
+        protected SuccessResult(T? value)
+        {
+            Value = value;
+        }
 
-        public static SuccessResult<T> Create(T? value)
+        public T? Value { get; }
+
+        new public static SuccessResult<T> Create(T? value)
         {
             return new SuccessResult<T>(value);
         } 

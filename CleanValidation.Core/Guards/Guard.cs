@@ -11,25 +11,36 @@ namespace CleanValidation.Core.Guards
     /// The <see cref="Guard"/> class is designed to facilitate input validation in a fluent
     /// manner. It allows chaining multiple validation methods, such as <see cref="AgainstNullOrWhiteSpace(string,
     /// string?)"/> and <see cref="AgainstNull{TIn}(TIn)"/>, while maintaining a result that indicates whether
-    /// validation succeeded. If validation fails, the <see cref="Result"/> property is updated with an error
+    /// validation succeeded. If validation fails, the <see cref="IResult"/> property is updated with an error
     /// result.
     /// </remarks>
     public class Guard
     {
-        private Guard(Result result, string cultureName)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Guard"/> class.
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="cultureName"></param>
+        protected Guard(IResult result, string cultureName)
         {
             Result = result;
             CultureName = cultureName;
         }
 
-        private Result Result { get; set; }
+        /// <summary>
+        /// The result associated with the validations
+        /// </summary>
+        protected IResult Result { get; set; }
 
         /// <summary>
         /// The name of the culture to use for message.
         /// </summary>
         public string CultureName { get; }
 
-        private bool Continue { get { return Result.Success; } }
+        /// <summary>
+        /// Determines wheter chaining validation may continue.
+        /// </summary>
+        protected bool Continue { get { return Result.Success; } }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Guard"/> class with <see cref="Result"/> property 
@@ -46,7 +57,7 @@ namespace CleanValidation.Core.Guards
         /// Gets the <see cref="Result"/> property.
         /// </summary>
         /// <returns>The result of chaining validations.</returns>
-        public Result GetResult()
+        public IResult GetResult()
         {
             return Result;
         }
@@ -101,22 +112,17 @@ namespace CleanValidation.Core.Guards
     /// result.
     /// </remarks>
     /// <typeparam name="T">The type associated with the validation result.</typeparam>
-    public class Guard<T>
+    public class Guard<T> : Guard
     {
-        private Guard(Result<T> result, string cultureName)
+        private Guard(IResult<T> result, string cultureName) : base(result, cultureName)
         {
             Result = result;
-            CultureName = cultureName;
         }
 
-        private Result<T> Result { get; set; }
-
         /// <summary>
-        /// The name of the culture to use for message.
+        /// The result associated with the validations
         /// </summary>
-        public string CultureName { get; }
-
-        private bool Continue { get { return Result.Success; } }
+        new protected IResult<T> Result { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Guard{T}"/> class with <see cref="Result"/> property 
@@ -124,7 +130,7 @@ namespace CleanValidation.Core.Guards
         /// </summary>
         /// <param name="cultureName">The name of the culture to use for message.</param>
         /// <returns>The <see cref="Guard{T}"/> instance, allowing for method chaining.</returns>
-        public static Guard<T> Create(string cultureName = "en-US")
+        new public static Guard<T> Create(string cultureName = "en-US")
         {
             return new Guard<T>(result: SuccessResult<T>.Create(default), cultureName);
         }
@@ -133,7 +139,7 @@ namespace CleanValidation.Core.Guards
         /// Gets the <see cref="Result"/> property.
         /// </summary>
         /// <returns>The result of chaining validations.</returns>
-        public Result<T> GetResult()
+        new public IResult<T> GetResult()
         {
             return Result;
         }
@@ -142,14 +148,14 @@ namespace CleanValidation.Core.Guards
         /// Ensures that the specified value is not null or white space.
         /// </summary>
         /// <remarks>
-        /// If the <see cref="Continue"/> property is <see langword="true"/> and the
+        /// If the <see cref="Guard.Continue"/> property is <see langword="true"/> and the
         /// provided value is null or white space, the <see cref="Result"/> property is updated with an error result
         /// indicating an invalid parameter.
         /// </remarks>
         /// <param name="value">The value to validate.</param>
         /// <param name="paramName">The name of <paramref name="value"/> captured by expression or manually.</param>
         /// <returns>The current <see cref="Guard{T}"/> instance, allowing for method chaining.</returns>
-        public Guard<T> AgainstNullOrWhiteSpace(string value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+        new public Guard<T> AgainstNullOrWhiteSpace(string value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && string.IsNullOrWhiteSpace(value))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -161,14 +167,14 @@ namespace CleanValidation.Core.Guards
         /// Ensures that the specified value is not null.
         /// </summary>
         /// <remarks>
-        /// If the <see cref="Continue"/> property is <see langword="true"/> and the
+        /// If the <see cref="Guard.Continue"/> property is <see langword="true"/> and the
         /// provided value is null, the <see cref="Result"/> property is updated with an error result
         /// indicating an invalid parameter.
         /// </remarks>
         /// <typeparam name="TIn">The type of the value being checked.</typeparam>
         /// <param name="value">The value to validate.</param>
         /// <returns>The current <see cref="Guard{T}"/> instance, allowing for method chaining.</returns>
-        public Guard<T> AgainstNull<TIn>(TIn value)
+        new public Guard<T> AgainstNull<TIn>(TIn value)
         {
             if (Continue && value is null)
                 Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, field: null));

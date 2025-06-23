@@ -8,17 +8,8 @@
     /// operation. It includes a boolean indicating whether the operation
     /// was successful.
     /// </remarks>
-    public abstract class Result
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Result"/> class.
-        /// </summary>
-        /// <param name="success">Boolean indicating the operation status.</param>
-        protected Result(bool success)
-        {
-            Success = success;
-        }
-
+    public interface IResult
+    {        
         /// <summary>
         /// Boolean indicating the operation status.
         /// </summary>
@@ -34,27 +25,11 @@
     /// was successful.
     /// </remarks>
     /// <typeparam name="T">The type of the value contained in the result.</typeparam>
-    public abstract class Result<T>
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Result{T}"/> class.
-        /// </summary>
-        /// <param name="value">The value of type <typeparamref name="T"/>.</param>
-        /// <param name="success">Boolean indicating the operation status.</param>
-        protected Result(T? value, bool success)
-        {
-            Value = value;
-            Success = success;
-        }
-
+    public interface IResult<T> : IResult
+    {        
         /// <summary>
         /// The value of type <typeparamref name="T"/>.
         /// </summary>
-        public T? Value { get; }
-
-        /// <summary>
-        /// Boolean indicating the operation status.
-        /// </summary>
-        public bool Success { get; }                
+        public T? Value { get; }             
     }
 }

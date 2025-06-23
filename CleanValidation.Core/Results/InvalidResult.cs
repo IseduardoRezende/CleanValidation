@@ -2,16 +2,18 @@
 
 namespace CleanValidation.Core.Results
 {
-    public class InvalidResult : Result
+    public class InvalidResult : IResult
     {
-        private InvalidResult(IEnumerable<Error> errors) : base(success: false)
+        protected InvalidResult(IEnumerable<Error> errors)
         {
             Errors = errors;
         }
 
-        private InvalidResult(Error error) : this([error]) { }
+        protected InvalidResult(Error error) : this([error]) { }
 
         public IEnumerable<Error> Errors { get; }
+
+        public bool Success { get { return false; } }
 
         public static InvalidResult Create(IEnumerable<Error> errors)
         {
@@ -24,23 +26,20 @@ namespace CleanValidation.Core.Results
         }
     }
 
-    public class InvalidResult<T> : Result<T>
+    public class InvalidResult<T> : InvalidResult, IResult<T>
     {
-        private InvalidResult(IEnumerable<Error> errors) : base(default, success: false)
-        {
-            Errors = errors;
-        }
+        protected InvalidResult(IEnumerable<Error> errors) : base(errors) { }
 
-        private InvalidResult(Error error) : this([error]) { }
+        protected InvalidResult(Error error) : base(error) { }
 
-        public IEnumerable<Error> Errors { get; }
+        public T? Value { get { return default; } }
 
-        public static InvalidResult<T> Create(IEnumerable<Error> errors)
+        new public static InvalidResult<T> Create(IEnumerable<Error> errors)
         {
             return new InvalidResult<T>(errors);
         }
 
-        public static InvalidResult<T> Create(Error error)
+        new public static InvalidResult<T> Create(Error error)
         {
             return new InvalidResult<T>(error);
         }

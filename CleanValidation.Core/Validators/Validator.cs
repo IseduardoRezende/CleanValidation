@@ -23,9 +23,9 @@ namespace CleanValidation.Core.Validators
         /// <param name="value">The value to validate. This must conform to the expected format or constraints for validation.</param>
         /// <param name="cultureName">The name of the culture to use for message, specified as a culture identifier (e.g., "en-US"). Defaults
         /// to "en-US" if not provided.</param>
-        /// <returns>A <see cref="Result"/>
+        /// <returns>A <see cref="IResult"/>
         /// object indicating whether the validation succeeded or failed.</returns>
-        public virtual Result Validate(T value, string cultureName = "en-US")
+        public virtual IResult Validate(T value, string cultureName = "en-US")
         {
             return Guard.Create(cultureName).AgainstNull(value).GetResult();
         }
@@ -41,9 +41,9 @@ namespace CleanValidation.Core.Validators
         /// to "en-US" if not provided.</param>
         /// <param name="cancellationToken">A token to monitor for cancellation requests. If the operation is canceled, the task will complete with a
         /// canceled state.</param>
-        /// <returns>A task that represents the asynchronous validation operation. The result contains a <see cref="Result"/>
+        /// <returns>A task that represents the asynchronous validation operation. The result contains a <see cref="IResult"/>
         /// object indicating whether the validation succeeded or failed.</returns>
-        public virtual Task<Result> ValidateAsync(
+        public virtual Task<IResult> ValidateAsync(
             T value, 
             string cultureName = "en-US", 
             CancellationToken cancellationToken = default)

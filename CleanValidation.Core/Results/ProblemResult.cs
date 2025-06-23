@@ -2,16 +2,18 @@
 
 namespace CleanValidation.Core.Results
 {
-    public class ProblemResult : Result
+    public class ProblemResult : IResult
     {
-        private ProblemResult(IEnumerable<Error> errors) : base(success: false)
+        protected ProblemResult(IEnumerable<Error> errors)
         {
             Errors = errors;
         }
 
-        private ProblemResult(Error error) : this([error]) { }
+        protected ProblemResult(Error error) : this([error]) { }
 
         public IEnumerable<Error> Errors { get; }
+
+        public bool Success { get { return false; } }
 
         public static ProblemResult Create(IEnumerable<Error> errors)
         {
@@ -24,23 +26,22 @@ namespace CleanValidation.Core.Results
         }
     }
 
-    public class ProblemResult<T> : Result<T>
+    public class ProblemResult<T> : ProblemResult, IResult<T>
     {
-        private ProblemResult(IEnumerable<Error> errors) : base(default, success: false)
-        {
-            Errors = errors;
-        }
+        protected ProblemResult(IEnumerable<Error> errors) : base(errors) { }
 
-        private ProblemResult(Error error) : this([error]) { }
+        protected ProblemResult(Error error) : base(error) { }
 
         public IEnumerable<Error> Errors { get; }
 
-        public static ProblemResult<T> Create(IEnumerable<Error> errors)
+        public T? Value { get { return default; } }
+
+        new public static ProblemResult<T> Create(IEnumerable<Error> errors)
         {
             return new ProblemResult<T>(errors);
         }
 
-        public static ProblemResult<T> Create(Error error)
+        new public static ProblemResult<T> Create(Error error)
         {
             return new ProblemResult<T>(error);
         }

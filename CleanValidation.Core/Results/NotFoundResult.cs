@@ -2,16 +2,18 @@
 
 namespace CleanValidation.Core.Results
 {
-    public class NotFoundResult : Result
+    public class NotFoundResult : IResult
     {
-        private NotFoundResult(IEnumerable<Error> errors) : base(success: false)
+        protected NotFoundResult(IEnumerable<Error> errors)
         {
             Errors = errors;
         }
 
-        private NotFoundResult(Error error) : this([error]) { }
+        protected NotFoundResult(Error error) : this([error]) { }
 
         public IEnumerable<Error> Errors { get; }
+
+        public bool Success { get { return false; } }
 
         public static NotFoundResult Create(IEnumerable<Error> errors)
         {
@@ -24,23 +26,22 @@ namespace CleanValidation.Core.Results
         }
     }
 
-    public class NotFoundResult<T> : Result<T>
+    public class NotFoundResult<T> : NotFoundResult, IResult<T>
     {
-        private NotFoundResult(IEnumerable<Error> errors) : base(default, success: false)
-        {
-            Errors = errors;
-        }
+        protected NotFoundResult(IEnumerable<Error> errors) : base(errors) { }
 
-        private NotFoundResult(Error error) : this([error]) { }
+        protected NotFoundResult(Error error) : base(error) { }
 
         public IEnumerable<Error> Errors { get; }
 
-        public static NotFoundResult<T> Create(IEnumerable<Error> errors)
+        public T? Value { get { return default; } }
+
+        new public static NotFoundResult<T> Create(IEnumerable<Error> errors)
         {
             return new NotFoundResult<T>(errors);
         }
 
-        public static NotFoundResult<T> Create(Error error)
+        new public static NotFoundResult<T> Create(Error error)
         {
             return new NotFoundResult<T>(error);
         }       

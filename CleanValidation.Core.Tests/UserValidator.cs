@@ -8,7 +8,7 @@ namespace CleanValidation.Core.Tests
     
     internal class UserValidator : Validator<User>
     {
-        public override async Task<Result> ValidateAsync(
+        public override async Task<IResult> ValidateAsync(
             User value, 
             string cultureName = "en-US", 
             CancellationToken cancellationToken = default)

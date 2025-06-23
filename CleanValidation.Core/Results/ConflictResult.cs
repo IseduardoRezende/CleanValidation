@@ -2,16 +2,18 @@
 
 namespace CleanValidation.Core.Results
 {
-    public class ConflictResult : Result
+    public class ConflictResult : IResult
     {
-        private ConflictResult(IEnumerable<Error> errors) : base(success: false)
+        protected ConflictResult(IEnumerable<Error> errors)
         {
             Errors = errors;
         }
 
-        private ConflictResult(Error error) : this([error]) { }
+        protected ConflictResult(Error error) : this([error]) { }
 
         public IEnumerable<Error> Errors { get; }
+
+        public bool Success { get { return false; } }
 
         public static ConflictResult Create(IEnumerable<Error> errors)
         {
@@ -24,23 +26,20 @@ namespace CleanValidation.Core.Results
         }
     }
 
-    public class ConflictResult<T> : Result<T>
+    public class ConflictResult<T> : ConflictResult, IResult<T>
     {
-        private ConflictResult(IEnumerable<Error> errors) : base(default, success: false)
-        {
-            Errors = errors;
-        }
+        protected ConflictResult(IEnumerable<Error> errors) : base(errors) { }
 
-        private ConflictResult(Error error) : this([error]) { }
+        protected ConflictResult(Error error) : base(error) { }
 
-        public IEnumerable<Error> Errors { get; }
+        public T? Value { get { return default; } }
 
-        public static ConflictResult<T> Create(IEnumerable<Error> errors)
+        new public static ConflictResult<T> Create(IEnumerable<Error> errors)
         {
             return new ConflictResult<T>(errors);
         }
 
-        public static ConflictResult<T> Create(Error error)
+        new public static ConflictResult<T> Create(Error error)
         {
             return new ConflictResult<T>(error);
         }

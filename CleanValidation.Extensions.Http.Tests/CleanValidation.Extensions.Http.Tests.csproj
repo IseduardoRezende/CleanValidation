@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
@@ -21,16 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CleanValidation.Extensions.Http\CleanValidation.Extensions.Http.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CleanValidation.Core\CleanValidation.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Guards\" />
-    <Folder Include="Results\" />
   </ItemGroup>
 
 </Project>
