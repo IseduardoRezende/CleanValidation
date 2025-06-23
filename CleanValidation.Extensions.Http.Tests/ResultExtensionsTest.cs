@@ -6,7 +6,7 @@ namespace CleanValidation.Extensions.Http.Tests
     public class ResultExtensionsTest
     {
         [Fact]
-        public void ToActionResult_SucessResult_ReturnsOkObjectResult()
+        public void ToActionResult_SucessResultType_ReturnsOkObjectResultType()
         {
             User user = new("Lívia", 21, "Lady");
             IResult<User> result = SuccessResult<User>.Create(user);
