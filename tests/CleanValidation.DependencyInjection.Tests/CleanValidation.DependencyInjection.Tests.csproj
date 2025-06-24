@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanValidation.DependencyInjection\CleanValidation.DependencyInjection.csproj" />
+    <ProjectReference Include="..\..\src\CleanValidation.DependencyInjection\CleanValidation.DependencyInjection.csproj" />
   </ItemGroup>
 
   <ItemGroup>
