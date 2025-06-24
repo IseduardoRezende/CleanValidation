@@ -8,6 +8,8 @@ The `.NET` library for **fluent, expressive, and clean validation** using the be
 
 ### 1. Add the NuGet package:
 
+https://www.nuget.org/packages/CleanValidation.Core
+
 ```bash
 Install-Package CleanValidation.Core
 ```
@@ -168,6 +170,8 @@ This package provides seamless mapping from `IResult` / `IResult<T>` (from `Clea
 
 ### 1. Add the NuGet package:
 
+https://www.nuget.org/packages/CleanValidation.Extensions.Http
+
 ```bash
 Install-Package CleanValidation.Extensions.Http
 ```
@@ -243,6 +247,8 @@ Assert.IsType<OkObjectResult>(actionResult);
 ## 🚀 Getting Started
 
 ### 1. Install the package:
+
+https://www.nuget.org/packages/CleanValidation.DependencyInjection
 
 ```bash
 Install-Package CleanValidation.DependencyInjection
