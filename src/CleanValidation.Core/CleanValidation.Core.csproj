@@ -5,8 +5,31 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AppDesignerFolder>Resources</AppDesignerFolder>	  
+    <AppDesignerFolder>Resources</AppDesignerFolder>
+    <Title>CleanValidation.Core</Title>
+    <Authors>Eduardo_Rezende</Authors>
+    <Description>The .NET library for Clean Validations with clarity, consistency, and control. 🐚</Description>
+    <PackageProjectUrl>https://github.com/IseduardoRezende/CleanValidation</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/IseduardoRezende/CleanValidation</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageIcon>LogoCV.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>result;;guard;clause;validator;validation;error;fluent;builder;generic;</PackageTags>
+    <PackageOutputPath>bin\</PackageOutputPath>
+    <PackAsTool>False</PackAsTool>	  
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LogoCV.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Resources\Messages.Designer.cs">
