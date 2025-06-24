@@ -5,14 +5,36 @@
 	<TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>CleanValidation.DependencyInjection</Title>
+    <Authors>Eduardo_Rezende</Authors>
+    <Description>Plug-and-play integration for CleanValidation with ASP.NET Dependency Injection</Description>
+    <PackageProjectUrl>https://github.com/IseduardoRezende/CleanValidation</PackageProjectUrl>
+    <PackageIcon>LogoCV.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/IseduardoRezende/CleanValidation</RepositoryUrl>
+    <PackageOutputPath>bin\</PackageOutputPath>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageTags>result;;guard;clause;validator;validation;error;fluent;builder;generic;dependencyinjection;</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\LogoCV.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CleanValidation.Core" Version="1.0.0" />
     <PackageReference Include="Scrutor" Version="6.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanValidation.Core\CleanValidation.Core.csproj" />
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
