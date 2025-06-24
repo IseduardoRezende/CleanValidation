@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanValidation.Extensions.Http\CleanValidation.Extensions.Http.csproj" />
+    <ProjectReference Include="..\..\src\CleanValidation.Extensions.Http\CleanValidation.Extensions.Http.csproj" />
   </ItemGroup>
 
   <ItemGroup>

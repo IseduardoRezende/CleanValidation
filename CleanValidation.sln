@@ -3,22 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36212.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanValidation.Core", "CleanValidation.Core\CleanValidation.Core.csproj", "{D1366B1F-AD48-449C-9B09-0FDB0B6BDD6D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanValidation.Core", "src\CleanValidation.Core\CleanValidation.Core.csproj", "{D1366B1F-AD48-449C-9B09-0FDB0B6BDD6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanValidation.Extensions.Http", "CleanValidation.Extensions.Http\CleanValidation.Extensions.Http.csproj", "{700FB338-0257-4C62-8640-21C79CCC1069}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanValidation.Extensions.Http", "src\CleanValidation.Extensions.Http\CleanValidation.Extensions.Http.csproj", "{700FB338-0257-4C62-8640-21C79CCC1069}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanValidation.DependencyInjection", "CleanValidation.DependencyInjection\CleanValidation.DependencyInjection.csproj", "{867E9871-CDAB-4AF4-8544-1CABF465FC6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanValidation.DependencyInjection", "src\CleanValidation.DependencyInjection\CleanValidation.DependencyInjection.csproj", "{867E9871-CDAB-4AF4-8544-1CABF465FC6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanValidation.Core.Tests", "CleanValidation.Core.Tests\CleanValidation.Core.Tests.csproj", "{A5599E9B-2E56-4182-8D90-059BBB85B0E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanValidation.Core.Tests", "tests\CleanValidation.Core.Tests\CleanValidation.Core.Tests.csproj", "{A5599E9B-2E56-4182-8D90-059BBB85B0E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanValidation.Extensions.Http.Tests", "CleanValidation.Extensions.Http.Tests\CleanValidation.Extensions.Http.Tests.csproj", "{9A791A1B-A7D1-44DB-B076-7F5D7C12FD00}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanValidation.Extensions.Http.Tests", "tests\CleanValidation.Extensions.Http.Tests\CleanValidation.Extensions.Http.Tests.csproj", "{9A791A1B-A7D1-44DB-B076-7F5D7C12FD00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanValidation.DependencyInjection.Tests", "CleanValidation.DependencyInjection.Tests\CleanValidation.DependencyInjection.Tests.csproj", "{D7AE59A1-AAC7-4047-B0B4-253DE60700F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanValidation.DependencyInjection.Tests", "tests\CleanValidation.DependencyInjection.Tests\CleanValidation.DependencyInjection.Tests.csproj", "{D7AE59A1-AAC7-4047-B0B4-253DE60700F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8E843853-1A1F-481E-AE2E-51AD55CF5BC2}"
 EndProject
