@@ -1,6 +1,4 @@
-﻿using CleanValidation.Core.Errors;
-using CleanValidation.Core.Results;
-using System.Runtime.CompilerServices;
+﻿using CleanValidation.Core.Results;
 
 namespace CleanValidation.Core.Guards
 {
@@ -68,13 +66,13 @@ namespace CleanValidation.Core.Guards
     /// </summary>
     /// <remarks>
     /// The <see cref="Guard{T}"/> class is designed to facilitate input validation in a fluent
-    /// manner. It allows chaining multiple validation methods, such as <see cref="AgainstNullOrWhiteSpace(string,
-    /// string?)"/> and <see cref="AgainstNull(object?, string?)"/>, while maintaining a result that indicates whether
+    /// manner. It allows chaining multiple validation methods, such as <see cref="AgainstWhiteSpace(string,
+    /// string?, string?)"/> and <see cref="AgainstNull(object?, string?, string?)"/>, while maintaining a result that indicates whether
     /// validation succeeded. If validation fails, the <see cref="Result"/> property is updated with an error
     /// result.
     /// </remarks>
     /// <typeparam name="T">The type associated with the validation result.</typeparam>
-    public class Guard<T> : Guard
+    public partial class Guard<T> : Guard
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Guard{T}"/> class.
@@ -109,44 +107,6 @@ namespace CleanValidation.Core.Guards
         new public IResult<T> GetResult()
         {
             return Result;
-        }
-
-        /// <summary>
-        /// Ensures that the specified value is not null or white space.
-        /// </summary>
-        /// <remarks>
-        /// If the <see cref="Guard.Continue"/> property is <see langword="true"/> and the
-        /// provided value is null or white space, the <see cref="Result"/> property is updated with an error result
-        /// indicating an invalid parameter.
-        /// </remarks>
-        /// <param name="value">The value to validate.</param>
-        /// <param name="paramName">The name of <paramref name="value"/> captured by expression or manually.</param>
-        /// <returns>The current <see cref="Guard{T}"/> instance, allowing for method chaining.</returns>
-        new public Guard<T> AgainstNullOrWhiteSpace(string value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (Continue && string.IsNullOrWhiteSpace(value))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            return this;
-        }
-
-        /// <summary>
-        /// Ensures that the specified value is not null.
-        /// </summary>
-        /// <remarks>
-        /// If the <see cref="Guard.Continue"/> property is <see langword="true"/> and the
-        /// provided value is null, the <see cref="Result"/> property is updated with an error result
-        /// indicating an invalid parameter.
-        /// </remarks>
-        /// <param name="value">The value to validate.</param>
-        /// <param name="paramName">The name of <paramref name="value"/> captured by expression or manually.</param>
-        /// <returns>The current <see cref="Guard{T}"/> instance, allowing for method chaining.</returns>
-        new public Guard<T> AgainstNull(object? value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (Continue && value is null)
-                Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            return this;
-        }
+        }        
     }
 }

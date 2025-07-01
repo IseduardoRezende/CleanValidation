@@ -70,4 +70,70 @@ namespace CleanValidation.Core.Guards
             return this;
         }
     }
+
+    public partial class Guard<T>
+    {
+        new public Guard<T> AgainstRange<TValue>(TValue? value, TValue min, TValue max, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+            where TValue : IComparisonOperators<TValue, TValue, bool>
+        {
+            if (Continue && (value is null || value < min || value > max))
+                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+
+            return this;
+        }
+
+        new public Guard<T> AgainstLessThan<TValue>(TValue? value, TValue min, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+            where TValue : IComparisonOperators<TValue, TValue, bool>
+        {
+            if (Continue && (value is null || value < min))
+                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+
+            return this;
+        }
+
+        new public Guard<T> AgainstGreaterThan<TValue>(TValue? value, TValue max, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+            where TValue : IComparisonOperators<TValue, TValue, bool>
+        {
+            if (Continue && (value is null || value > max))
+                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+
+            return this;
+        }
+
+        new public Guard<T> AgainstNegative<TValue>(TValue? value, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+            where TValue : IComparisonOperators<TValue, int, bool>
+        {
+            if (Continue && (value is null || value < 0))
+                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+
+            return this;
+        }
+
+        new public Guard<T> AgainstNegativeOrZero<TValue>(TValue? value, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+           where TValue : IComparisonOperators<TValue, int, bool>
+        {
+            if (Continue && (value is null || value <= 0))
+                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+
+            return this;
+        }
+
+        new public Guard<T> AgainstZero<TValue>(TValue? value, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+            where TValue : INumber<TValue>
+        {
+            if (Continue && value is 0)
+                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+
+            return this;
+        }
+
+        new public Guard<T> AgainstMultipleOf<TValue>(TValue? value, TValue divisor, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+                where TValue : IModulusOperators<TValue, TValue, TValue>, IEqualityOperators<TValue, int, bool>
+        {
+            if (Continue && (value is null || value % divisor != 0))
+                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+
+            return this;
+        }
+    }
 }
