@@ -1,5 +1,5 @@
 ﻿using CleanValidation.Core.Exceptions;
-using CleanValidation.Core.Guards;
+using CleanValidation.Core.GuardThrows;
 
 namespace CleanValidation.Core.Tests.Guards
 {
@@ -24,7 +24,7 @@ namespace CleanValidation.Core.Tests.Guards
 
             GuardThrow guardThrow = GuardThrow.Create()
                 .AgainstNull(user)
-                .AgainstNullOrWhiteSpace(user.Name);
+                .AgainstWhiteSpace(user.Name);
 
             Assert.NotNull(guardThrow);            
         }
