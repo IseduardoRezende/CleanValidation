@@ -16,8 +16,8 @@ namespace CleanValidation.Core.Tests
                 return result;
 
             return Guard.Create(cultureName)
-               .AgainstNullOrWhiteSpace(value.Name)
-               .AgainstNullOrWhiteSpace(value.Description)
+               .AgainstWhiteSpace(value.Name)
+               .AgainstWhiteSpace(value.Description)
                .GetResult();
         }
 
