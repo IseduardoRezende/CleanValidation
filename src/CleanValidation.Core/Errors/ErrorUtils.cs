@@ -37,7 +37,7 @@ namespace CleanValidation.Core.Errors
         /// <param name="cultureName">The name of the culture to use for message.</param>
         /// <param name="fields">The name of the invalid fields.</param>
         /// <returns></returns>
-        public static IEnumerable<Error> InvalidParameters(string cultureName, params string[] fields)
+        public static IEnumerable<Error> InvalidParameters(string cultureName, params IEnumerable<string> fields)
         {
             foreach (var field in fields)
             {
