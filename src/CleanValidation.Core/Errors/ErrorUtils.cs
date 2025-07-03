@@ -11,6 +11,24 @@ namespace CleanValidation.Core.Errors
     public static class ErrorUtils
     {
         /// <summary>
+        /// Creates a custom error based on the specified default error, optionally overriding its message.
+        /// </summary>
+        /// <param name="defaultError">The default error to use as a base. This parameter cannot be <see langword="null"/>.</param>
+        /// <param name="message">An optional custom message for the error. If <see langword="null"/> or whitespace, the message of the
+        /// <paramref name="defaultError"/> is used instead.</param>
+        /// <returns>A new <see cref="Error"/> instance with the specified message or the <paramref
+        /// name="defaultError"/> if no custom message is provided.</returns>
+        public static Error Custom(in Error defaultError, string? message)
+        {
+            ArgumentNullException.ThrowIfNull(defaultError);
+
+            if (string.IsNullOrWhiteSpace(message))
+                return defaultError;
+
+            return new Error(message, defaultError.Field);
+        }
+
+        /// <summary>
         /// Creates a new instance of the <see cref="Error"/> class with localized "Invalid Operation." message.
         /// </summary>
         /// <param name="cultureName">The name of the culture to use for message.</param>
