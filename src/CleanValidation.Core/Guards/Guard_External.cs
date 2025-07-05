@@ -10,7 +10,7 @@ namespace CleanValidation.Core.Guards
 {
     public partial class Guard
     {
-        public Guard AgainstUri(string? uri, UriKind kind = UriKind.Absolute, string? message = null, [CallerArgumentExpression(nameof(uri))] string? paramName = null)
+        public Guard AgainstInvalidUri(string? uri, UriKind kind = UriKind.Absolute, string? message = null, [CallerArgumentExpression(nameof(uri))] string? paramName = null)
         {
             if (Continue && !Uri.TryCreate(uri, kind, out _))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -18,7 +18,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstIpAddress(string? ip, string? message = null, [CallerArgumentExpression(nameof(ip))] string? paramName = null)
+        public Guard AgainstInvalidIpAddress(string? ip, string? message = null, [CallerArgumentExpression(nameof(ip))] string? paramName = null)
         {
             if (Continue && (ip is null || !IPAddress.TryParse(ip, out _)))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -34,7 +34,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstRegex(string? value, string? pattern, RegexOptions options = RegexOptions.None, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+        public Guard AgainstUnmatchRegex(string? value, string? pattern, RegexOptions options = RegexOptions.None, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && (value is null || pattern is null || !Regex.IsMatch(value, pattern, options)))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -42,7 +42,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstJson<T>(string? json, string? message = null, JsonSerializerOptions? options = null, [CallerArgumentExpression(nameof(json))] string? paramName = null)
+        public Guard AgainstInvalidJson<T>(string? json, string? message = null, JsonSerializerOptions? options = null, [CallerArgumentExpression(nameof(json))] string? paramName = null)
         {
             if (Continue && !IsValidJson<T>(json, options))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -69,7 +69,7 @@ namespace CleanValidation.Core.Guards
 
     public partial class Guard<T>
     {
-        new public Guard<T> AgainstUri(string? uri, UriKind kind = UriKind.Absolute, string? message = null, [CallerArgumentExpression(nameof(uri))] string? paramName = null)
+        new public Guard<T> AgainstInvalidUri(string? uri, UriKind kind = UriKind.Absolute, string? message = null, [CallerArgumentExpression(nameof(uri))] string? paramName = null)
         {
             if (Continue && !Uri.TryCreate(uri, kind, out _))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -77,7 +77,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstIpAddress(string? ip, string? message = null, [CallerArgumentExpression(nameof(ip))] string? paramName = null)
+        new public Guard<T> AgainstInvalidIpAddress(string? ip, string? message = null, [CallerArgumentExpression(nameof(ip))] string? paramName = null)
         {
             if (Continue && (ip is null || !IPAddress.TryParse(ip, out _)))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -93,7 +93,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstRegex(string? value, string? pattern, RegexOptions options = RegexOptions.None, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+        new public Guard<T> AgainstUnmatchRegex(string? value, string? pattern, RegexOptions options = RegexOptions.None, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && (value is null || pattern is null || !Regex.IsMatch(value, pattern, options)))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -101,7 +101,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstJson<TValue>(string? json, string? message = null, JsonSerializerOptions? options = null, [CallerArgumentExpression(nameof(json))] string? paramName = null)
+        new public Guard<T> AgainstInvalidJson<TValue>(string? json, string? message = null, JsonSerializerOptions? options = null, [CallerArgumentExpression(nameof(json))] string? paramName = null)
         {
             if (Continue && !IsValidJson<TValue>(json, options))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
