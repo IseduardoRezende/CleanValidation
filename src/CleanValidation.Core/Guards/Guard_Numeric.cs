@@ -7,7 +7,7 @@ namespace CleanValidation.Core.Guards
 {
     public partial class Guard
     {
-        public Guard AgainstRange<T>(T? value, T min, T max, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+        public Guard AgainstOutOfRange<T>(T? value, T min, T max, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
             where T : IComparisonOperators<T, T, bool>
         {
             if (Continue && (value is null || value < min || value > max))
@@ -61,7 +61,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstMultipleOf<T>(T? value, T divisor, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+        public Guard AgainstNotMultipleOf<T>(T? value, T divisor, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
                 where T : IModulusOperators<T, T, T>, IEqualityOperators<T, int, bool>
         {
             if (Continue && (value is null || value % divisor != 0))
@@ -73,7 +73,7 @@ namespace CleanValidation.Core.Guards
 
     public partial class Guard<T>
     {
-        new public Guard<T> AgainstRange<TValue>(TValue? value, TValue min, TValue max, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+        new public Guard<T> AgainstOutOfRange<TValue>(TValue? value, TValue min, TValue max, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
             where TValue : IComparisonOperators<TValue, TValue, bool>
         {
             if (Continue && (value is null || value < min || value > max))
@@ -127,7 +127,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstMultipleOf<TValue>(TValue? value, TValue divisor, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+        new public Guard<T> AgainstNotMultipleOf<TValue>(TValue? value, TValue divisor, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
                 where TValue : IModulusOperators<TValue, TValue, TValue>, IEqualityOperators<TValue, int, bool>
         {
             if (Continue && (value is null || value % divisor != 0))
