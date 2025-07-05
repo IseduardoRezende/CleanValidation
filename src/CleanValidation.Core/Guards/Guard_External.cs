@@ -26,7 +26,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstContainsHtml(string? value, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+        public Guard AgainstHtml(string? value, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && HttpUtility.HtmlEncode(value) is not null)
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -85,7 +85,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstContainsHtml(string? value, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+        new public Guard<T> AgainstHtml(string? value, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && HttpUtility.HtmlEncode(value) is not null)
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
