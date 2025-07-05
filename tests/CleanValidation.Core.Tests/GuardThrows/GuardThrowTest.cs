@@ -1,7 +1,7 @@
 ﻿using CleanValidation.Core.Exceptions;
 using CleanValidation.Core.GuardThrows;
 
-namespace CleanValidation.Core.Tests.Guards
+namespace CleanValidation.Core.Tests.GuardThrows
 {
     public class GuardThrowTest
     {
