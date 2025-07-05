@@ -8,7 +8,7 @@ namespace CleanValidation.Core.Guards
     {
         public Guard AgainstTrue(bool? condition, string? message = null, [CallerArgumentExpression(nameof(condition))] string? paramName = null)
         {
-            if (Continue && condition is true)
+            if (Continue && condition is true or null)
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
@@ -32,7 +32,7 @@ namespace CleanValidation.Core.Guards
 
         public Guard AgainstFalse(bool? condition, string? message = null, [CallerArgumentExpression(nameof(condition))] string? paramName = null)
         {
-            if (Continue && condition is false)
+            if (Continue && condition is false or null)
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
@@ -59,7 +59,7 @@ namespace CleanValidation.Core.Guards
     {
         new public Guard<T> AgainstTrue(bool? condition, string? message = null, [CallerArgumentExpression(nameof(condition))] string? paramName = null)
         {
-            if (Continue && condition is true)
+            if (Continue && condition is true or null)
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
@@ -83,7 +83,7 @@ namespace CleanValidation.Core.Guards
 
         new public Guard<T> AgainstFalse(bool? condition, string? message = null, [CallerArgumentExpression(nameof(condition))] string? paramName = null)
         {
-            if (Continue && condition is false)
+            if (Continue && condition is false or null)
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
