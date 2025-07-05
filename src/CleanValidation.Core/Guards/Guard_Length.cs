@@ -22,7 +22,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstLength(string? value, int exactLength, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+        public Guard AgainstNotExactLength(string? value, int exactLength, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && (string.IsNullOrEmpty(value) || !value.Length.Equals(exactLength)))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -46,13 +46,13 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstLength<T>(IEnumerable<T>? values, int exactLength, string? message = null, [CallerArgumentExpression(nameof(values))] string? paramName = null)
+        public Guard AgainstNotExactLength<T>(IEnumerable<T>? values, int exactLength, string? message = null, [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
             if (Continue && (values is null || !values.Count().Equals(exactLength)))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
-        }
+        }        
     }
 
     public partial class Guard<T>
@@ -73,7 +73,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstLength(string? value, int exactLength, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+        new public Guard<T> AgainstNotExactLength(string? value, int exactLength, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && (string.IsNullOrEmpty(value) || !value.Length.Equals(exactLength)))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -97,12 +97,12 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstLength<TValue>(IEnumerable<TValue>? values, int exactLength, string? message = null, [CallerArgumentExpression(nameof(values))] string? paramName = null)
+        new public Guard<T> AgainstNotExactLength<TValue>(IEnumerable<TValue>? values, int exactLength, string? message = null, [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
             if (Continue && (values is null || !values.Count().Equals(exactLength)))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
-        }
+        }       
     }
 }
