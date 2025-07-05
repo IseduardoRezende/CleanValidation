@@ -28,7 +28,7 @@ namespace CleanValidation.Core.Guards
 
         public Guard AgainstEqual<T>(T? value, T? comparison, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && value is not null && comparison is not null && !value.Equals(comparison))
+            if (Continue && ((value is null && comparison is null) || (value?.Equals(comparison) ?? false)))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
@@ -36,7 +36,7 @@ namespace CleanValidation.Core.Guards
 
         public Guard AgainstNotEqual<T>(T? value, T? comparison, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && ((value is null && comparison is null) || (value?.Equals(comparison) ?? false)))
+            if (Continue && value is not null && comparison is not null && !value.Equals(comparison))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
@@ -77,7 +77,7 @@ namespace CleanValidation.Core.Guards
 
         public Guard AgainstIn<T>(T? value, IEnumerable<T> values, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && (values is null || !values.Contains(value)))
+            if (Continue && (values is null || values.Contains(value)))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
@@ -85,7 +85,7 @@ namespace CleanValidation.Core.Guards
 
         public Guard AgainstNotIn<T>(T? value, IEnumerable<T> values, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && (values is null || values.Contains(value)))
+            if (Continue && (values is null || !values.Contains(value)))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
@@ -104,7 +104,7 @@ namespace CleanValidation.Core.Guards
 
         new public Guard<T> AgainstEqual<TValue>(TValue? value, TValue? comparison, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && value is not null && comparison is not null && !value.Equals(comparison))
+            if (Continue && ((value is null && comparison is null) || (value?.Equals(comparison) ?? false)))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
@@ -112,7 +112,7 @@ namespace CleanValidation.Core.Guards
 
         new public Guard<T> AgainstNotEqual<TValue>(TValue? value, TValue? comparison, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && ((value is null && comparison is null) || (value?.Equals(comparison) ?? false)))
+            if (Continue && value is not null && comparison is not null && !value.Equals(comparison))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
@@ -153,7 +153,7 @@ namespace CleanValidation.Core.Guards
 
         new public Guard<T> AgainstIn<TValue>(TValue? value, IEnumerable<TValue> values, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && (values is null || !values.Contains(value)))
+            if (Continue && (values is null || values.Contains(value)))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
@@ -161,7 +161,7 @@ namespace CleanValidation.Core.Guards
 
         new public Guard<T> AgainstNotIn<TValue>(TValue? value, IEnumerable<TValue> values, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && (values is null || values.Contains(value)))
+            if (Continue && (values is null || !values.Contains(value)))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
