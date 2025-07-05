@@ -7,7 +7,7 @@ namespace CleanValidation.Core.Guards
 {
     public partial class Guard
     {
-        public Guard AgainstPassword(
+        public Guard AgainstWeakPassword(
             string? value,
             int minLength = 5,
             int maxLength = 20,
@@ -45,7 +45,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstEmail(string? email, string? message = null, [CallerArgumentExpression(nameof(email))] string? paramName = null)
+        public Guard AgainstInvalidEmailAddress(string? email, string? message = null, [CallerArgumentExpression(nameof(email))] string? paramName = null)
         {
             if (Continue && (email is null || !new EmailAddressAttribute().IsValid(email)))
                 Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -53,18 +53,18 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstEmailDomains(string? email, IEnumerable<string> domains, string? message = null, [CallerArgumentExpression(nameof(email))] string? paramName = null)
+        public Guard AgainstInvalidDomains(string? value, IEnumerable<string> domains, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (!Continue)
                 return this;
 
-            if (email is null || domains is null)
+            if (value is null || domains is null)
             {
                 Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
                 return this;
             }
 
-            string domain = email.Trim()[email.LastIndexOf('@')..];
+            string domain = value.Trim()[value.LastIndexOf('@')..];
 
             if (domain is null || !domains.Contains(domain, StringComparer.OrdinalIgnoreCase))
                 Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -72,7 +72,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstPhoneNumber(string? phone, string? message = null, [CallerArgumentExpression(nameof(phone))] string? paramName = null)
+        public Guard AgainstInvalidPhone(string? phone, string? message = null, [CallerArgumentExpression(nameof(phone))] string? paramName = null)
         {
             if (Continue && (phone is null || !new PhoneAttribute().IsValid(phone)))
                 Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -83,7 +83,7 @@ namespace CleanValidation.Core.Guards
 
     public partial class Guard<T>
     {
-        new public Guard<T> AgainstPassword(
+        new public Guard<T> AgainstWeakPassword(
             string? value,
             int minLength = 5,
             int maxLength = 20,
@@ -121,7 +121,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstEmail(string? email, string? message = null, [CallerArgumentExpression(nameof(email))] string? paramName = null)
+        new public Guard<T> AgainstInvalidEmailAddress(string? email, string? message = null, [CallerArgumentExpression(nameof(email))] string? paramName = null)
         {
             if (Continue && (email is null || !new EmailAddressAttribute().IsValid(email)))
                 Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -129,18 +129,18 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstEmailDomains(string? email, IEnumerable<string> domains, string? message = null, [CallerArgumentExpression(nameof(email))] string? paramName = null)
+        new public Guard<T> AgainstInvalidDomains(string? value, IEnumerable<string> domains, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (!Continue)
                 return this;
 
-            if (email is null || domains is null)
+            if (value is null || domains is null)
             {
                 Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
                 return this;
             }
 
-            string domain = email.Trim()[email.LastIndexOf('@')..];
+            string domain = value.Trim()[value.LastIndexOf('@')..];
 
             if (domain is null || !domains.Contains(domain, StringComparer.OrdinalIgnoreCase))
                 Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -148,7 +148,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstPhoneNumber(string? phone, string? message = null, [CallerArgumentExpression(nameof(phone))] string? paramName = null)
+        new public Guard<T> AgainstInvalidPhone(string? phone, string? message = null, [CallerArgumentExpression(nameof(phone))] string? paramName = null)
         {
             if (Continue && (phone is null || !new PhoneAttribute().IsValid(phone)))
                 Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
