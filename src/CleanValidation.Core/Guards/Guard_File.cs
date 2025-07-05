@@ -5,16 +5,8 @@ using System.Runtime.CompilerServices;
 namespace CleanValidation.Core.Guards
 {
     public partial class Guard
-    {
-        public Guard AgainstFileLength(IEnumerable<byte>? bytes, long maxSizeBytes, string? message = null, [CallerArgumentExpression(nameof(bytes))] string? paramName = null)
-        {
-            if (Continue && (bytes is null || bytes.LongCount() > maxSizeBytes))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            return this;
-        }
-
-        public Guard AgainstContentTypes(IEnumerable<byte>? bytes, IEnumerable<string> types, string? message = null, [CallerArgumentExpression(nameof(bytes))] string? paramName = null)
+    {        
+        public Guard AgainstInvalidContentTypes(IEnumerable<byte>? bytes, IEnumerable<string> types, string? message = null, [CallerArgumentExpression(nameof(bytes))] string? paramName = null)
         {
             if (!Continue)
                 return this;
@@ -38,16 +30,8 @@ namespace CleanValidation.Core.Guards
     }
 
     public partial class Guard<T>
-    {
-        new public Guard<T> AgainstFileLength(IEnumerable<byte>? bytes, long maxSizeBytes, string? message = null, [CallerArgumentExpression(nameof(bytes))] string? paramName = null)
-        {
-            if (Continue && (bytes is null || bytes.LongCount() > maxSizeBytes))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            return this;
-        }
-
-        new public Guard<T> AgainstContentTypes(IEnumerable<byte>? bytes, IEnumerable<string> types, string? message = null, [CallerArgumentExpression(nameof(bytes))] string? paramName = null)
+    {       
+        new public Guard<T> AgainstInvalidContentTypes(IEnumerable<byte>? bytes, IEnumerable<string> types, string? message = null, [CallerArgumentExpression(nameof(bytes))] string? paramName = null)
         {
             if (!Continue)
                 return this;
