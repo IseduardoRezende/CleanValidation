@@ -22,7 +22,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstDateRange(DateOnly? date, DateOnly min, DateOnly max, string? message = null, [CallerArgumentExpression(nameof(date))] string? paramName = null)
+        public Guard AgainstDateOutOfRange(DateOnly? date, DateOnly min, DateOnly max, string? message = null, [CallerArgumentExpression(nameof(date))] string? paramName = null)
         {
             if (Continue && (date is null || date.Value < min || date.Value > max))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -46,7 +46,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstTimeRange(TimeOnly? time, TimeOnly min, TimeOnly max, string? message = null, [CallerArgumentExpression(nameof(time))] string? paramName = null)
+        public Guard AgainstTimeOutOfRange(TimeOnly? time, TimeOnly min, TimeOnly max, string? message = null, [CallerArgumentExpression(nameof(time))] string? paramName = null)
         {
             if (Continue && (time is null || time.Value < min || time.Value > max))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -70,7 +70,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstDateTimeRange(DateTime? dateTime, DateTime min, DateTime max, string? message = null, [CallerArgumentExpression(nameof(dateTime))] string? paramName = null)
+        public Guard AgainstDateTimeOutOfRange(DateTime? dateTime, DateTime min, DateTime max, string? message = null, [CallerArgumentExpression(nameof(dateTime))] string? paramName = null)
         {
             if (Continue && (dateTime is null || dateTime.Value < min || dateTime.Value > max))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -97,7 +97,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstDateRange(DateOnly? date, DateOnly min, DateOnly max, string? message = null, [CallerArgumentExpression(nameof(date))] string? paramName = null)
+        new public Guard<T> AgainstDateOutOfRange(DateOnly? date, DateOnly min, DateOnly max, string? message = null, [CallerArgumentExpression(nameof(date))] string? paramName = null)
         {
             if (Continue && (date is null || date.Value < min || date.Value > max))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -121,7 +121,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstTimeRange(TimeOnly? time, TimeOnly min, TimeOnly max, string? message = null, [CallerArgumentExpression(nameof(time))] string? paramName = null)
+        new public Guard<T> AgainstTimeOutOfRange(TimeOnly? time, TimeOnly min, TimeOnly max, string? message = null, [CallerArgumentExpression(nameof(time))] string? paramName = null)
         {
             if (Continue && (time is null || time.Value < min || time.Value > max))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -145,7 +145,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstDateTimeRange(DateTime? dateTime, DateTime min, DateTime max, string? message = null, [CallerArgumentExpression(nameof(dateTime))] string? paramName = null)
+        new public Guard<T> AgainstDateTimeOutOfRange(DateTime? dateTime, DateTime min, DateTime max, string? message = null, [CallerArgumentExpression(nameof(dateTime))] string? paramName = null)
         {
             if (Continue && (dateTime is null || dateTime.Value < min || dateTime.Value > max))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
