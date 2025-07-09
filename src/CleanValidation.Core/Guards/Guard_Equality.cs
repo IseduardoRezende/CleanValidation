@@ -36,8 +36,8 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard AgainstNotEqual<T>(T? value, T? comparison, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (Continue && value is not null && comparison is not null && !value.Equals(comparison))
+        {            
+            if (Continue && (value is not null || comparison is not null) && (!value?.Equals(comparison) ?? true))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
@@ -50,15 +50,7 @@ namespace CleanValidation.Core.Guards
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
-        }
-
-        public Guard AgainstEmpty(string? value, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (Continue && string.IsNullOrEmpty(value))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            return this;
-        }
+        }       
 
         public Guard AgainstEmpty<T>(IEnumerable<T>? values, string? message = null, [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
@@ -146,7 +138,7 @@ namespace CleanValidation.Core.Guards
 
         new public Guard<T> AgainstNotEqual<TValue>(TValue? value, TValue? comparison, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && value is not null && comparison is not null && !value.Equals(comparison))
+            if (Continue && (value is not null || comparison is not null) && (!value?.Equals(comparison) ?? true))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
@@ -159,15 +151,7 @@ namespace CleanValidation.Core.Guards
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
-        }
-
-        new public Guard<T> AgainstEmpty(string? value, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (Continue && string.IsNullOrEmpty(value))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            return this;
-        }
+        }        
 
         new public Guard<T> AgainstEmpty<TValue>(IEnumerable<TValue>? values, string? message = null, [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
