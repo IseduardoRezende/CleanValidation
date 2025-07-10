@@ -51,7 +51,7 @@ namespace CleanValidation.Core.Guards
             string? ipAddress,
             IpAddressOptions options = IpAddressOptions.None)
         {
-            if (!IPAddress.TryParse(ipAddress, out var ip))
+            if (!IPAddress.TryParse(ipAddress, out IPAddress? ip))
                 return false;
 
             if ((options & IpAddressOptions.DisallowLeadingZerosInIpv4) != 0 &&
@@ -84,7 +84,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            var html = WebUtility.HtmlEncode(value);
+            string? html = WebUtility.HtmlEncode(value);
 
             if (string.IsNullOrWhiteSpace(html) || !html.Equals(value))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -177,7 +177,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            var html = WebUtility.HtmlEncode(value);
+            string? html = WebUtility.HtmlEncode(value);
 
             if (string.IsNullOrWhiteSpace(html) || !html.Equals(value))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));

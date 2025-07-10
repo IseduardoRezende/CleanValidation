@@ -57,7 +57,7 @@ namespace CleanValidation.Core.Errors
         /// <returns></returns>
         public static IEnumerable<Error> InvalidParameters(string cultureName, params IEnumerable<string> fields)
         {
-            foreach (var field in fields)
+            foreach (string? field in fields)
             {
                 yield return InvalidParameter(cultureName, field);
             }
