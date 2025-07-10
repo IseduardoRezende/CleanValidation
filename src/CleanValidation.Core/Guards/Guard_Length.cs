@@ -5,31 +5,7 @@ using System.Runtime.CompilerServices;
 namespace CleanValidation.Core.Guards
 {
     public partial class Guard
-    {
-        public Guard AgainstMinLength(string? value, int minLength, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (Continue && (string.IsNullOrEmpty(value) || value.Length < minLength))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            return this;
-        }
-
-        public Guard AgainstMaxLength(string? value, int maxLength, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (Continue && (string.IsNullOrEmpty(value) || value.Length > maxLength))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            return this;
-        }
-
-        public Guard AgainstNotExactLength(string? value, int exactLength, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (Continue && (string.IsNullOrEmpty(value) || !value.Length.Equals(exactLength)))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            return this;
-        }
-
+    {        
         public Guard AgainstMinLength<T>(IEnumerable<T>? values, int minLength, string? message = null, [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
             if (Continue && (values is null || values.Count() < minLength))
@@ -56,31 +32,7 @@ namespace CleanValidation.Core.Guards
     }
 
     public partial class Guard<T>
-    {
-        new public Guard<T> AgainstMinLength(string? value, int minLength, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (Continue && (string.IsNullOrEmpty(value) || value.Length < minLength))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            return this;
-        }
-
-        new public Guard<T> AgainstMaxLength(string? value, int maxLength, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (Continue && (string.IsNullOrEmpty(value) || value.Length > maxLength))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            return this;
-        }
-
-        new public Guard<T> AgainstNotExactLength(string? value, int exactLength, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (Continue && (string.IsNullOrEmpty(value) || !value.Length.Equals(exactLength)))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            return this;
-        }
-
+    {        
         new public Guard<T> AgainstMinLength<TValue>(IEnumerable<TValue>? values, int minLength, string? message = null, [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
             if (Continue && (values is null || values.Count() < minLength))
