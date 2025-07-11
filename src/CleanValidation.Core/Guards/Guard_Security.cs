@@ -1,5 +1,6 @@
 ﻿using CleanValidation.Core.Errors;
 using CleanValidation.Core.Results;
+using CleanValidation.Core.Options;
 using System.Runtime.CompilerServices;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,10 +12,7 @@ namespace CleanValidation.Core.Guards
             string? value,
             int minLength = 5,
             int maxLength = 20,
-            bool requireUpper = true,
-            bool requireLower = true,
-            bool requireDigit = true,
-            bool requireSpecial = true,
+            PasswordOptions? options = null,
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
@@ -27,19 +25,22 @@ namespace CleanValidation.Core.Guards
                 return this;
             }
 
-            if (value.Length < minLength || value.Length > maxLength)
+            if ((value.Length < minLength || value.Length > maxLength) && options is null)
+            {
+                Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                return this;
+            }
+
+            if ((options & PasswordOptions.RequireDigit) != 0 && !value.Any(char.IsDigit))
                 Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
-            if (requireDigit && !value.Any(char.IsDigit))
+            if ((options & PasswordOptions.RequireUpper) != 0 && !value.Any(char.IsUpper))
                 Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
-            if (requireUpper && !value.Any(char.IsUpper))
+            if ((options & PasswordOptions.RequireLower) != 0 && !value.Any(char.IsLower))
                 Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
-            if (requireLower && !value.Any(char.IsLower))
-                Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            if (requireSpecial && !value.Any(c => !char.IsLetterOrDigit(c)))
+            if ((options & PasswordOptions.RequireSpecial) != 0 && !value.Any(c => !char.IsLetterOrDigit(c)))
                 Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
@@ -74,10 +75,7 @@ namespace CleanValidation.Core.Guards
             string? value,
             int minLength = 5,
             int maxLength = 20,
-            bool requireUpper = true,
-            bool requireLower = true,
-            bool requireDigit = true,
-            bool requireSpecial = true,
+            PasswordOptions? options = null,
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
@@ -90,19 +88,22 @@ namespace CleanValidation.Core.Guards
                 return this;
             }
 
-            if (value.Length < minLength || value.Length > maxLength)
+            if ((value.Length < minLength || value.Length > maxLength) && options is null)
+            {
+                Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                return this;
+            }
+
+            if ((options & PasswordOptions.RequireDigit) != 0 && !value.Any(char.IsDigit))
                 Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
-            if (requireDigit && !value.Any(char.IsDigit))
+            if ((options & PasswordOptions.RequireUpper) != 0 && !value.Any(char.IsUpper))
                 Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
-            if (requireUpper && !value.Any(char.IsUpper))
+            if ((options & PasswordOptions.RequireLower) != 0 && !value.Any(char.IsLower))
                 Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
-            if (requireLower && !value.Any(char.IsLower))
-                Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            if (requireSpecial && !value.Any(c => !char.IsLetterOrDigit(c)))
+            if ((options & PasswordOptions.RequireSpecial) != 0 && !value.Any(c => !char.IsLetterOrDigit(c)))
                 Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
