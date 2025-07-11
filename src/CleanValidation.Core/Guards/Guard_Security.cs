@@ -51,26 +51,7 @@ namespace CleanValidation.Core.Guards
                 Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
-        }
-
-        public Guard AgainstInvalidDomains(string? value, IEnumerable<string> domains, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (!Continue)
-                return this;
-
-            if (value is null || domains is null)
-            {
-                Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-                return this;
-            }
-
-            string domain = value.Trim()[value.LastIndexOf('@')..];
-
-            if (domain is null || !domains.Contains(domain, StringComparer.OrdinalIgnoreCase))
-                Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            return this;
-        }
+        }        
 
         public Guard AgainstInvalidPhone(string? phone, string? message = null, [CallerArgumentExpression(nameof(phone))] string? paramName = null)
         {
@@ -127,26 +108,7 @@ namespace CleanValidation.Core.Guards
                 Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
-        }
-
-        new public Guard<T> AgainstInvalidDomains(string? value, IEnumerable<string> domains, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (!Continue)
-                return this;
-
-            if (value is null || domains is null)
-            {
-                Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-                return this;
-            }
-
-            string domain = value.Trim()[value.LastIndexOf('@')..];
-
-            if (domain is null || !domains.Contains(domain, StringComparer.OrdinalIgnoreCase))
-                Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            return this;
-        }
+        }        
 
         new public Guard<T> AgainstInvalidPhone(string? phone, string? message = null, [CallerArgumentExpression(nameof(phone))] string? paramName = null)
         {
