@@ -45,7 +45,10 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstInvalidEmailAddress(string? email, string? message = null, [CallerArgumentExpression(nameof(email))] string? paramName = null)
+        public Guard AgainstInvalidEmailAddress(
+            string? email, 
+            string? message = null, 
+            [CallerArgumentExpression(nameof(email))] string? paramName = null)
         {
             if (Continue && (email is null || !new EmailAddressAttribute().IsValid(email)))
                 Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -53,7 +56,10 @@ namespace CleanValidation.Core.Guards
             return this;
         }        
 
-        public Guard AgainstInvalidPhone(string? phone, string? message = null, [CallerArgumentExpression(nameof(phone))] string? paramName = null)
+        public Guard AgainstInvalidPhone(
+            string? phone, 
+            string? message = null, 
+            [CallerArgumentExpression(nameof(phone))] string? paramName = null)
         {
             if (Continue && (phone is null || !new PhoneAttribute().IsValid(phone)))
                 Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -102,7 +108,10 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstInvalidEmailAddress(string? email, string? message = null, [CallerArgumentExpression(nameof(email))] string? paramName = null)
+        new public Guard<T> AgainstInvalidEmailAddress(
+            string? email, 
+            string? message = null, 
+            [CallerArgumentExpression(nameof(email))] string? paramName = null)
         {
             if (Continue && (email is null || !new EmailAddressAttribute().IsValid(email)))
                 Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -110,7 +119,10 @@ namespace CleanValidation.Core.Guards
             return this;
         }        
 
-        new public Guard<T> AgainstInvalidPhone(string? phone, string? message = null, [CallerArgumentExpression(nameof(phone))] string? paramName = null)
+        new public Guard<T> AgainstInvalidPhone(
+            string? phone, 
+            string? message = null, 
+            [CallerArgumentExpression(nameof(phone))] string? paramName = null)
         {
             if (Continue && (phone is null || !new PhoneAttribute().IsValid(phone)))
                 Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));

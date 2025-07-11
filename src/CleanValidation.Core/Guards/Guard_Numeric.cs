@@ -7,8 +7,12 @@ namespace CleanValidation.Core.Guards
 {
     public partial class Guard
     {        
-        public Guard AgainstLessThan<T>(T? value, T min, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-            where T : IComparisonOperators<T, T, bool>
+        public Guard AgainstLessThan<T>(
+            T? value, 
+            T min, 
+            string? message = null, 
+            [CallerArgumentExpression(nameof(value))] string? paramName = null)
+                where T : IComparisonOperators<T, T, bool>
         {
             if (Continue && (value is null || value < min))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -16,8 +20,12 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstGreaterThan<T>(T? value, T max, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-            where T : IComparisonOperators<T, T, bool>
+        public Guard AgainstGreaterThan<T>(
+            T? value, 
+            T max, 
+            string? message = null, 
+            [CallerArgumentExpression(nameof(value))] string? paramName = null)
+                where T : IComparisonOperators<T, T, bool>
         {
             if (Continue && (value is null || value > max))
                 Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -28,8 +36,12 @@ namespace CleanValidation.Core.Guards
 
     public partial class Guard<T>
     {        
-        new public Guard<T> AgainstLessThan<TValue>(TValue? value, TValue min, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-            where TValue : IComparisonOperators<TValue, TValue, bool>
+        new public Guard<T> AgainstLessThan<TValue>(
+            TValue? value, 
+            TValue min, 
+            string? message = null, 
+            [CallerArgumentExpression(nameof(value))] string? paramName = null)
+                where TValue : IComparisonOperators<TValue, TValue, bool>
         {
             if (Continue && (value is null || value < min))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
@@ -37,8 +49,12 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstGreaterThan<TValue>(TValue? value, TValue max, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-            where TValue : IComparisonOperators<TValue, TValue, bool>
+        new public Guard<T> AgainstGreaterThan<TValue>(
+            TValue? value, 
+            TValue max, 
+            string? message = null, 
+            [CallerArgumentExpression(nameof(value))] string? paramName = null)
+                where TValue : IComparisonOperators<TValue, TValue, bool>
         {
             if (Continue && (value is null || value > max))
                 Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
