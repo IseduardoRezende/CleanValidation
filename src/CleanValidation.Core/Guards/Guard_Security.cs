@@ -9,61 +9,93 @@ namespace CleanValidation.Core.Guards
     public partial class Guard
     {
         public Guard AgainstWeakPassword(
-            string? value,
-            int minLength = 5,
-            int maxLength = 20,
-            PasswordOptions? options = null,
+            string? password,
+            PasswordOptions? options,
             string? message = null,
-            [CallerArgumentExpression(nameof(value))] string? paramName = null)
+            [CallerArgumentExpression(nameof(password))] string? paramName = null)
         {
-            if (!Continue)
-                return this;
-
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-                return this;
-            }
-
-            if ((value.Length < minLength || value.Length > maxLength) && options is null)
-            {
-                Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-                return this;
-            }
-
-            if ((options & PasswordOptions.RequireDigit) != 0 && !value.Any(char.IsDigit))
-                Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            if ((options & PasswordOptions.RequireUpper) != 0 && !value.Any(char.IsUpper))
-                Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            if ((options & PasswordOptions.RequireLower) != 0 && !value.Any(char.IsLower))
-                Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            if ((options & PasswordOptions.RequireSpecial) != 0 && !value.Any(c => !char.IsLetterOrDigit(c)))
-                Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+            if (Continue && !IsValidPassword(password, options))
+                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
         }
 
+        protected static bool IsValidPassword(
+            string? password,
+            PasswordOptions? options)
+        {
+            if (string.IsNullOrWhiteSpace(password) || options is null)
+                return false;
+
+            if (password.Length < options.MinLength || password.Length > options.MaxLength)
+                return false;
+
+            if (options.RequireDigit && !password.Any(char.IsDigit))
+                return false;
+
+            if (options.RequireUpper && !password.Any(char.IsUpper))
+                return false;
+
+            if (options.RequireLower && !password.Any(char.IsLower))
+                return false;
+
+            if (options.RequireSpecial && !password.Any(c => !char.IsLetterOrDigit(c)))
+                return false;
+
+            if (options.DisallowSequences && ContainsSequence(password))
+                return false;
+
+            return true;
+        }
+
+        protected static bool ContainsSequence(string? password)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+                return false;
+
+            for (int i = 0; i < password.Length - 1; i++)
+            {
+                char current = password[i];
+                char next = password[i + 1];
+
+                // Only Chars or Digits
+                if ((char.IsLower(current) && char.IsLower(next)) ||
+                    (char.IsUpper(current) && char.IsUpper(next)) ||
+                    (char.IsDigit(current) && char.IsDigit(next)))
+                {
+                    // Using table ASCII
+                    if (next - current == 1)
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        protected const int MaxEmailAddressLength = 320;
+
         public Guard AgainstInvalidEmailAddress(
-            string? email, 
-            string? message = null, 
+            string? email,
+            string? message = null,
             [CallerArgumentExpression(nameof(email))] string? paramName = null)
         {
-            if (Continue && (email is null || !new EmailAddressAttribute().IsValid(email)))
-                Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
+            if (Continue &&
+                (email is null or { Length: > MaxEmailAddressLength } ||
+                !new EmailAddressAttribute().IsValid(email)))
+            {
+                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+            }
+         
             return this;
-        }        
+        }
 
         public Guard AgainstInvalidPhone(
-            string? phone, 
-            string? message = null, 
+            string? phone,
+            string? message = null,
             [CallerArgumentExpression(nameof(phone))] string? paramName = null)
         {
             if (Continue && (phone is null || !new PhoneAttribute().IsValid(phone)))
-                Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
         }
@@ -72,61 +104,39 @@ namespace CleanValidation.Core.Guards
     public partial class Guard<T>
     {
         new public Guard<T> AgainstWeakPassword(
-            string? value,
-            int minLength = 5,
-            int maxLength = 20,
-            PasswordOptions? options = null,
+            string? password,
+            PasswordOptions? options,
             string? message = null,
-            [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (!Continue)
-                return this;
-
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-                return this;
-            }
-
-            if ((value.Length < minLength || value.Length > maxLength) && options is null)
-            {
-                Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-                return this;
-            }
-
-            if ((options & PasswordOptions.RequireDigit) != 0 && !value.Any(char.IsDigit))
-                Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            if ((options & PasswordOptions.RequireUpper) != 0 && !value.Any(char.IsUpper))
-                Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            if ((options & PasswordOptions.RequireLower) != 0 && !value.Any(char.IsLower))
-                Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-
-            if ((options & PasswordOptions.RequireSpecial) != 0 && !value.Any(c => !char.IsLetterOrDigit(c)))
-                Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+            [CallerArgumentExpression(nameof(password))] string? paramName = null)
+        {          
+            if (Continue && !IsValidPassword(password, options))
+                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
         }
 
         new public Guard<T> AgainstInvalidEmailAddress(
-            string? email, 
-            string? message = null, 
+            string? email,
+            string? message = null,
             [CallerArgumentExpression(nameof(email))] string? paramName = null)
         {
-            if (Continue && (email is null || !new EmailAddressAttribute().IsValid(email)))
-                Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+            if (Continue && 
+               (email is null or { Length: > MaxEmailAddressLength } || 
+               !new EmailAddressAttribute().IsValid(email)))
+            {
+                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+            }
 
             return this;
-        }        
+        }
 
         new public Guard<T> AgainstInvalidPhone(
-            string? phone, 
-            string? message = null, 
+            string? phone,
+            string? message = null,
             [CallerArgumentExpression(nameof(phone))] string? paramName = null)
         {
             if (Continue && (phone is null || !new PhoneAttribute().IsValid(phone)))
-                Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
         }
