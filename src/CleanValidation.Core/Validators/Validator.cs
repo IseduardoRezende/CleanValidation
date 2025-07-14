@@ -25,7 +25,7 @@ namespace CleanValidation.Core.Validators
         /// to "en-US" if not provided.</param>
         /// <returns>A <see cref="IResult"/>
         /// object indicating whether the validation succeeded or failed.</returns>
-        public virtual IResult Validate(T value, string cultureName = "en-US")
+        public virtual IResult Validate(T? value, string cultureName = "en-US")
         {
             return Guard.Create(cultureName).AgainstNull(value).GetResult();
         }
@@ -44,7 +44,7 @@ namespace CleanValidation.Core.Validators
         /// <returns>A task that represents the asynchronous validation operation. The result contains a <see cref="IResult"/>
         /// object indicating whether the validation succeeded or failed.</returns>
         public virtual Task<IResult> ValidateAsync(
-            T value, 
+            T? value, 
             string cultureName = "en-US", 
             CancellationToken cancellationToken = default)
         {
