@@ -16,7 +16,7 @@ namespace CleanValidation.Core.Tests.Guards
 
             Assert.NotNull(result);
             Assert.False(result.Success);
-            Assert.IsType<ErrorResult>(result);
+            Assert.IsType<InvalidResult>(result);
         }
 
         [Fact]

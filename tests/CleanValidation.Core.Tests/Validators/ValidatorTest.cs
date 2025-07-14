@@ -14,7 +14,7 @@ namespace CleanValidation.Core.Tests.Validators
         [Fact]
         public async Task ValidateAsync_ValidUser_ReturnsSuccessResult()
         {
-            var user = new User("User1", 20, "First User!");
+            var user = new User(1, "User1", 20);
 
             var result = await _userValidator.ValidateAsync(user);
 
@@ -26,7 +26,7 @@ namespace CleanValidation.Core.Tests.Validators
         [Fact]
         public async Task ValidateAsync_InvalidUserName_ReturnsInvalidResult()
         {
-            var user = new User("", 40, "Empty User Name ?");
+            var user = new User(1, "", 40);
 
             var result = await _userValidator.ValidateAsync(user);
 
@@ -36,15 +36,15 @@ namespace CleanValidation.Core.Tests.Validators
         }
 
         [Fact]
-        public async Task ValidateAsync_NullUser_ReturnsErrorResult()
+        public async Task ValidateAsync_NullUser_ReturnsInvalidResult()
         {
             User? user = null;
 
-            var result = await _userValidator.ValidateAsync(user!);
+            var result = await _userValidator.ValidateAsync(user);
 
             Assert.NotNull(result);
             Assert.False(result.Success);
-            Assert.IsType<ErrorResult>(result);
+            Assert.IsType<InvalidResult>(result);
         }
     }
 }

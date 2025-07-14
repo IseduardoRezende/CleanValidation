@@ -20,7 +20,7 @@ namespace CleanValidation.Core.Tests.GuardThrows
         [Fact]
         public void AgainstNull_ValidUser_ThrowsNothing()
         {
-            var user = new User("Parker", 77, "Gentleman");
+            var user = new User(1, "Parker", 77);
 
             GuardThrow guardThrow = GuardThrow.Create()
                 .AgainstNull(user)
