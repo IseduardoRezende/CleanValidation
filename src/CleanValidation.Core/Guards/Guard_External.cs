@@ -51,24 +51,24 @@ namespace CleanValidation.Core.Guards
             string? ipAddress,
             IpAddressOptions options = IpAddressOptions.None)
         {
-            if (!IPAddress.TryParse(ipAddress, out IPAddress? ip))
+            if (!IPAddress.TryParse(ipAddress, out IPAddress? outIpAddress))
                 return false;
 
             if ((options & IpAddressOptions.DisallowLeadingZerosInIpv4) != 0 &&
-                ip.AddressFamily == AddressFamily.InterNetwork &&
+                outIpAddress.AddressFamily == AddressFamily.InterNetwork &&
                 !StrictIpv4Regex().IsMatch(ipAddress))
             {
                 return false;
             }
 
             if ((options & IpAddressOptions.DisallowIpv6) != 0 &&
-                ip.AddressFamily == AddressFamily.InterNetworkV6)
+                outIpAddress.AddressFamily == AddressFamily.InterNetworkV6)
             {
                 return false;
             }
 
             if ((options & IpAddressOptions.DisallowLoopback) != 0 &&
-                IPAddress.IsLoopback(ip))
+                IPAddress.IsLoopback(outIpAddress))
             {
                 return false;
             }

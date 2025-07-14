@@ -25,7 +25,7 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && value is null)
-                Result = ErrorResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
         }
@@ -228,7 +228,7 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && value is null)
-                Result = ErrorResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
 
             return this;
         }
