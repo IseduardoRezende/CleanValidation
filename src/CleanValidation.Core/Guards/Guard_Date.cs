@@ -13,7 +13,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(date))] string? paramName = null)
         {
             if (Continue && (date is null || date.Value > compareDate))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateInFuture), paramName, CultureName), message));
 
             return this;
         }
@@ -25,7 +26,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(date))] string? paramName = null)
         {
             if (Continue && (date is null || date.Value < compareDate))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateInPast), paramName, CultureName), message));
 
             return this;
         }        
@@ -37,7 +39,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(time))] string? paramName = null)
         {
             if (Continue && (time is null || time.Value > compareTime))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTimeInFuture), paramName, CultureName), message));
 
             return this;
         }
@@ -49,7 +52,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(time))] string? paramName = null)
         {
             if (Continue && (time is null || time.Value < compareTime))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTimeInPast), paramName, CultureName), message));
 
             return this;
         }        
@@ -61,7 +65,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(dateTime))] string? paramName = null)
         {
             if (Continue && (dateTime is null || dateTime.Value > compareDateTime))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateTimeInFuture), paramName, CultureName), message));
 
             return this;
         }
@@ -73,7 +78,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(dateTime))] string? paramName = null)
         {
             if (Continue && (dateTime is null || dateTime.Value < compareDateTime))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateTimeInPast), paramName, CultureName), message));
 
             return this;
         }        
@@ -88,7 +94,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(date))] string? paramName = null)
         {
             if (Continue && (date is null || date.Value > compareDate))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateInFuture), paramName, CultureName), message));
 
             return this;
         }
@@ -100,7 +107,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(date))] string? paramName = null)
         {
             if (Continue && (date is null || date.Value < compareDate))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateInPast), paramName, CultureName), message));
 
             return this;
         }      
@@ -112,7 +120,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(time))] string? paramName = null)
         {
             if (Continue && (time is null || time.Value > compareTime))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTimeInFuture), paramName, CultureName), message));
 
             return this;
         }
@@ -124,7 +133,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(time))] string? paramName = null)
         {
             if (Continue && (time is null || time.Value < compareTime))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTimeInPast), paramName, CultureName), message));
 
             return this;
         }        
@@ -136,7 +146,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(dateTime))] string? paramName = null)
         {
             if (Continue && (dateTime is null || dateTime.Value > compareDateTime))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateTimeInFuture), paramName, CultureName), message));
 
             return this;
         }
@@ -148,7 +159,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(dateTime))] string? paramName = null)
         {
             if (Continue && (dateTime is null || dateTime.Value < compareDateTime))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateTimeInPast), paramName, CultureName), message));
 
             return this;
         }        
