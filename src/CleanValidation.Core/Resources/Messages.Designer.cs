@@ -133,11 +133,47 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is contained in the list..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value contains html..
+        /// </summary>
+        internal static string AgainstHtml {
+            get {
+                return ResourceManager.GetString("AgainstHtml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is contained..
         /// </summary>
         internal static string AgainstIn {
             get {
                 return ResourceManager.GetString("AgainstIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The ip address is invalid..
+        /// </summary>
+        internal static string AgainstInvalidIpAddress {
+            get {
+                return ResourceManager.GetString("AgainstInvalidIpAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The json is invalid..
+        /// </summary>
+        internal static string AgainstInvalidJson {
+            get {
+                return ResourceManager.GetString("AgainstInvalidJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The URI is invalid..
+        /// </summary>
+        internal static string AgainstInvalidUri {
+            get {
+                return ResourceManager.GetString("AgainstInvalidUri", resourceCulture);
             }
         }
         
@@ -151,7 +187,7 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is not contained in the list..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is not contained..
         /// </summary>
         internal static string AgainstNotIn {
             get {
@@ -210,6 +246,15 @@ namespace CleanValidation.Core.Resources {
         internal static string AgainstTrue {
             get {
                 return ResourceManager.GetString("AgainstTrue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The regex does not match..
+        /// </summary>
+        internal static string AgainstUnmatchRegex {
+            get {
+                return ResourceManager.GetString("AgainstUnmatchRegex", resourceCulture);
             }
         }
         

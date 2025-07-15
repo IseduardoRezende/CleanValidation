@@ -141,14 +141,26 @@
   <data name="AgainstFalse" xml:space="preserve">
     <value>The condition is false.</value>
   </data>
+  <data name="AgainstHtml" xml:space="preserve">
+    <value>The value contains html.</value>
+  </data>
   <data name="AgainstIn" xml:space="preserve">
-    <value>The value is contained in the list.</value>
+    <value>The value is contained.</value>
+  </data>
+  <data name="AgainstInvalidIpAddress" xml:space="preserve">
+    <value>The ip address is invalid.</value>
+  </data>
+  <data name="AgainstInvalidJson" xml:space="preserve">
+    <value>The json is invalid.</value>
+  </data>
+  <data name="AgainstInvalidUri" xml:space="preserve">
+    <value>The URI is invalid.</value>
   </data>
   <data name="AgainstNotEqual" xml:space="preserve">
     <value>The values are different.</value>
   </data>
   <data name="AgainstNotIn" xml:space="preserve">
-    <value>The value is not contained in the list.</value>
+    <value>The value is not contained.</value>
   </data>
   <data name="AgainstNull" xml:space="preserve">
     <value>The value is null.</value>
@@ -167,6 +179,9 @@
   </data>
   <data name="AgainstTrue" xml:space="preserve">
     <value>The condition is true.</value>
+  </data>
+  <data name="AgainstUnmatchRegex" xml:space="preserve">
+    <value>The regex does not match.</value>
   </data>
   <data name="AgainstWhiteSpace" xml:space="preserve">
     <value>The value is null or white space.</value>
