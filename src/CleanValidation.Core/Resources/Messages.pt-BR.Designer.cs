@@ -22,14 +22,14 @@ namespace CleanValidation.Core.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Messages {
+    internal class Messages___Cópia {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Messages() {
+        internal Messages___Cópia() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace CleanValidation.Core.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CleanValidation.Core.Resources.Messages", typeof(Messages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CleanValidation.Core.Resources.Messages - Cópia", typeof(Messages___Cópia).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,11 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The condition is true..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid Parameter..
         /// </summary>
-        internal static string AgainstTrue {
+        internal static string ErrorUtils_InvalidParameter {
             get {
-                return ResourceManager.GetString("AgainstTrue", resourceCulture);
+                return ResourceManager.GetString("ErrorUtils_InvalidParameter", resourceCulture);
             }
         }
     }
