@@ -17,19 +17,21 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(uri))] string? paramName = null)
         {
-            if (!Continue)
-                return this;
-
-            if (!Uri.IsWellFormedUriString(uri, kind) || !Uri.TryCreate(uri, kind, out Uri? outUri))
-            {
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-                return this;
-            }
-
-            if (outUri.Scheme != Uri.UriSchemeHttp && outUri.Scheme != Uri.UriSchemeHttps)
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+            if (Continue && !IsValidUri(uri, kind))
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidUri), paramName, CultureName), message));
 
             return this;
+        }
+
+        protected static bool IsValidUri(
+            string? uri,
+            UriKind kind = UriKind.Absolute)
+        {
+            if (!Uri.IsWellFormedUriString(uri, kind) || !Uri.TryCreate(uri, kind, out Uri? outUri))
+                return false;
+
+            return outUri.Scheme == Uri.UriSchemeHttp || outUri.Scheme == Uri.UriSchemeHttps;
         }
 
         [GeneratedRegex(@"^((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.|$)){4}$")]
@@ -42,7 +44,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(ipAddress))] string? paramName = null)
         {
             if (Continue && !IsValidIpAddress(ipAddress, options))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidIpAddress), paramName, CultureName), message));
 
             return this;
         }
@@ -81,15 +84,20 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (!Continue)
-                return this;
-
-            string? html = WebUtility.HtmlEncode(value);
-
-            if (string.IsNullOrWhiteSpace(html) || !html.Equals(value))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+            if (Continue && ContainsHtml(value))
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstHtml), paramName, CultureName), message));
 
             return this;
+        }
+
+        protected static bool ContainsHtml(string? value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return false;
+
+            string html = WebUtility.HtmlEncode(value);
+            return !html.Equals(value);
         }
 
         public Guard AgainstUnmatchRegex(
@@ -100,7 +108,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && (value is null || pattern is null || !Regex.IsMatch(value, pattern, options)))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstUnmatchRegex), paramName, CultureName), message));
 
             return this;
         }
@@ -112,7 +121,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(json))] string? paramName = null)
         {
             if (Continue && !IsValidJson<T>(json, options))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidJson), paramName, CultureName), message));
 
             return this;
         }
@@ -142,17 +152,9 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(uri))] string? paramName = null)
         {
-            if (!Continue)
-                return this;
-
-            if (!Uri.IsWellFormedUriString(uri, kind) || !Uri.TryCreate(uri, kind, out Uri? outUri))
-            {
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
-                return this;
-            }
-
-            if (outUri.Scheme != Uri.UriSchemeHttp && outUri.Scheme != Uri.UriSchemeHttps)
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+            if (Continue && !IsValidUri(uri, kind))
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidUri), paramName, CultureName), message));
 
             return this;
         }
@@ -164,7 +166,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(ipAddress))] string? paramName = null)
         {
             if (Continue && !IsValidIpAddress(ipAddress, options))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidIpAddress), paramName, CultureName), message));
 
             return this;
         }
@@ -174,13 +177,9 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (!Continue)
-                return this;
-
-            string? html = WebUtility.HtmlEncode(value);
-
-            if (string.IsNullOrWhiteSpace(html) || !html.Equals(value))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+            if (Continue && ContainsHtml(value))
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstHtml), paramName, CultureName), message));
 
             return this;
         }
@@ -193,7 +192,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && (value is null || pattern is null || !Regex.IsMatch(value, pattern, options)))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstUnmatchRegex), paramName, CultureName), message));
 
             return this;
         }
@@ -205,7 +205,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(json))] string? paramName = null)
         {
             if (Continue && !IsValidJson<TValue>(json, options))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidJson), paramName, CultureName), message));
 
             return this;
         }
