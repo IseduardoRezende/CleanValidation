@@ -29,38 +29,25 @@ namespace CleanValidation.Core.Errors
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="Error"/> class with localized "Invalid Operation." message.
+        /// Retrieves an <see cref="Error"/> object based on a specified resource key.
         /// </summary>
-        /// <param name="cultureName">The name of the culture to use for message.</param>
-        /// <returns></returns>
-        public static Error InvalidOperation(string cultureName)
+        /// <remarks>This method retrieves a localized error message from the specified resource file
+        /// using the provided key and culture. If the key is not found in the resource file, the returned <see
+        /// cref="Error"/> object will contain a <see langword="null"/> message.</remarks>
+        /// <param name="key">The key used to look up the error message in the resource file. Cannot be null or empty.</param>
+        /// <param name="field">The name of the field associated with the error, or <see langword="null"/> if no field is specified.</param>
+        /// <param name="cultureName">The culture name used to localize the error message. Defaults to "en-US" if not specified.</param>
+        /// <param name="resourceBaseName">The base name of the resource file to use for the lookup. Defaults to the application's default resource
+        /// base name.</param>
+        /// <returns>An <see cref="Error"/> object containing the localized error message and the associated field.</returns>
+        public static Error GetByKey(
+            string key,
+            string? field,
+            string cultureName = "en-US",
+            string resourceBaseName = CleanResourceManager.DefaultBaseName)
         {
-            return new Error(ResourceManager.GetString("ErrorUtils_InvalidOperation", cultureName), field: null);
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="Error"/> class with localized "Invalid Paramater." message.
-        /// </summary>
-        /// <param name="cultureName">The name of the culture to use for message.</param>
-        /// <param name="field">The name of the invalid field.</param>
-        /// <returns></returns>
-        public static Error InvalidParameter(string cultureName, string? field) 
-        { 
-            return new Error(ResourceManager.GetString("ErrorUtils_InvalidParameter", cultureName), field);
-        }
-
-        /// <summary>
-        /// Creates new instances of the <see cref="Error"/> class with localized "Invalid Paramater." messages.
-        /// </summary>
-        /// <param name="cultureName">The name of the culture to use for message.</param>
-        /// <param name="fields">The name of the invalid fields.</param>
-        /// <returns></returns>
-        public static IEnumerable<Error> InvalidParameters(string cultureName, params IEnumerable<string> fields)
-        {
-            foreach (string? field in fields)
-            {
-                yield return InvalidParameter(cultureName, field);
-            }
+            return new Error(message: CleanResourceManager.Create(resourceBaseName)
+                .GetString(key, cultureName), field);
         }
     }
 }
