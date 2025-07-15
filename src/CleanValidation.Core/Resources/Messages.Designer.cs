@@ -97,11 +97,92 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is default..
+        /// </summary>
+        internal static string AgainstDefault {
+            get {
+                return ResourceManager.GetString("AgainstDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is empty..
+        /// </summary>
+        internal static string AgainstEmpty {
+            get {
+                return ResourceManager.GetString("AgainstEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The values are equal..
+        /// </summary>
+        internal static string AgainstEqual {
+            get {
+                return ResourceManager.GetString("AgainstEqual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The condition is false..
         /// </summary>
         internal static string AgainstFalse {
             get {
                 return ResourceManager.GetString("AgainstFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is contained in the list..
+        /// </summary>
+        internal static string AgainstIn {
+            get {
+                return ResourceManager.GetString("AgainstIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The values are different..
+        /// </summary>
+        internal static string AgainstNotEqual {
+            get {
+                return ResourceManager.GetString("AgainstNotEqual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is not contained in the list..
+        /// </summary>
+        internal static string AgainstNotIn {
+            get {
+                return ResourceManager.GetString("AgainstNotIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is null..
+        /// </summary>
+        internal static string AgainstNull {
+            get {
+                return ResourceManager.GetString("AgainstNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is out of the range..
+        /// </summary>
+        internal static string AgainstOutOfRange {
+            get {
+                return ResourceManager.GetString("AgainstOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is in the range..
+        /// </summary>
+        internal static string AgainstRange {
+            get {
+                return ResourceManager.GetString("AgainstRange", resourceCulture);
             }
         }
         
@@ -129,6 +210,15 @@ namespace CleanValidation.Core.Resources {
         internal static string AgainstTrue {
             get {
                 return ResourceManager.GetString("AgainstTrue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is null or white space..
+        /// </summary>
+        internal static string AgainstWhiteSpace {
+            get {
+                return ResourceManager.GetString("AgainstWhiteSpace", resourceCulture);
             }
         }
     }

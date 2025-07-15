@@ -129,8 +129,35 @@
   <data name="AgainstDateTimeInPast" xml:space="preserve">
     <value>A data/hora está no passado.</value>
   </data>
+  <data name="AgainstDefault" xml:space="preserve">
+    <value>O valor é padrão.</value>
+  </data>
+  <data name="AgainstEmpty" xml:space="preserve">
+    <value>O valor é vazio.</value>
+  </data>
+  <data name="AgainstEqual" xml:space="preserve">
+    <value>Os valores são iguais.</value>
+  </data>
   <data name="AgainstFalse" xml:space="preserve">
     <value>A condição é falsa.</value>
+  </data>
+  <data name="AgainstIn" xml:space="preserve">
+    <value>O valor está contido na lista.</value>
+  </data>
+  <data name="AgainstNotEqual" xml:space="preserve">
+    <value>Os valores são diferentes.</value>
+  </data>
+  <data name="AgainstNotIn" xml:space="preserve">
+    <value>O valor não está contido na lista.</value>
+  </data>
+  <data name="AgainstNull" xml:space="preserve">
+    <value>O valor é nulo.</value>
+  </data>
+  <data name="AgainstOutOfRange" xml:space="preserve">
+    <value>O valor está fora dos limites.</value>
+  </data>
+  <data name="AgainstRange" xml:space="preserve">
+    <value>O valor está dentro dos limites.</value>
   </data>
   <data name="AgainstTimeInFuture" xml:space="preserve">
     <value>O horário está no futuro.</value>
@@ -140,5 +167,8 @@
   </data>
   <data name="AgainstTrue" xml:space="preserve">
     <value>A condição é verdadeira.</value>
+  </data>
+  <data name="AgainstWhiteSpace" xml:space="preserve">
+    <value>O valor é nulo ou espaço em branco.</value>
   </data>
 </root>
