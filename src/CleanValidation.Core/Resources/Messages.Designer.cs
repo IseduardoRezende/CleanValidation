@@ -61,6 +61,15 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The condition is false..
+        /// </summary>
+        internal static string AgainstFalse {
+            get {
+                return ResourceManager.GetString("AgainstFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The condition is true..
         /// </summary>
         internal static string AgainstTrue {
