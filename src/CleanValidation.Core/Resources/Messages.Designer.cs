@@ -61,11 +61,65 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The date is in the future..
+        /// </summary>
+        internal static string AgainstDateInFuture {
+            get {
+                return ResourceManager.GetString("AgainstDateInFuture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The date is in the past..
+        /// </summary>
+        internal static string AgainstDateInPast {
+            get {
+                return ResourceManager.GetString("AgainstDateInPast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The date/time is in the future..
+        /// </summary>
+        internal static string AgainstDateTimeInFuture {
+            get {
+                return ResourceManager.GetString("AgainstDateTimeInFuture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The date/time is in the past..
+        /// </summary>
+        internal static string AgainstDateTimeInPast {
+            get {
+                return ResourceManager.GetString("AgainstDateTimeInPast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The condition is false..
         /// </summary>
         internal static string AgainstFalse {
             get {
                 return ResourceManager.GetString("AgainstFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The time is in the future..
+        /// </summary>
+        internal static string AgainstTimeInFuture {
+            get {
+                return ResourceManager.GetString("AgainstTimeInFuture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The time is in the past..
+        /// </summary>
+        internal static string AgainstTimeInPast {
+            get {
+                return ResourceManager.GetString("AgainstTimeInPast", resourceCulture);
             }
         }
         

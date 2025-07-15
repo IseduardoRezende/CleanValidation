@@ -117,8 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AgainstDateInFuture" xml:space="preserve">
+    <value>A data está no futuro.</value>
+  </data>
+  <data name="AgainstDateInPast" xml:space="preserve">
+    <value>A data está no passado.</value>
+  </data>
+  <data name="AgainstDateTimeInFuture" xml:space="preserve">
+    <value>A data/hora está no futuro.</value>
+  </data>
+  <data name="AgainstDateTimeInPast" xml:space="preserve">
+    <value>A data/hora está no passado.</value>
+  </data>
   <data name="AgainstFalse" xml:space="preserve">
     <value>A condição é falsa.</value>
+  </data>
+  <data name="AgainstTimeInFuture" xml:space="preserve">
+    <value>O horário está no futuro.</value>
+  </data>
+  <data name="AgainstTimeInPast" xml:space="preserve">
+    <value>O horário está no passado.</value>
   </data>
   <data name="AgainstTrue" xml:space="preserve">
     <value>A condição é verdadeira.</value>
