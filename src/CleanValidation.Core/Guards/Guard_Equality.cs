@@ -25,7 +25,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && value is null)
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNull), paramName, CultureName), message));
 
             return this;
         }
@@ -37,7 +38,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && ((value is null && comparison is null) || (value?.Equals(comparison) ?? false)))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstEqual), paramName, CultureName), message));
 
             return this;
         }
@@ -49,7 +51,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && (value is not null || comparison is not null) && (!value?.Equals(comparison) ?? true))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotEqual), paramName, CultureName), message));
 
             return this;
         }
@@ -60,7 +63,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(value))] string? paramName = null) where TStruct : struct
         {
             if (Continue && value.Equals(default(TStruct)))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDefault), paramName, CultureName), message));
 
             return this;
         }
@@ -71,7 +75,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
             if (Continue && (values is null || !values.Any()))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstEmpty), paramName, CultureName), message));
 
             return this;
         }
@@ -82,7 +87,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && string.IsNullOrWhiteSpace(value))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstWhiteSpace), paramName, CultureName), message));
 
             return this;
         }
@@ -95,7 +101,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && (values is null || values.Contains(value, comparer)))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstIn), paramName, CultureName), message));
 
             return this;
         }
@@ -108,7 +115,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && (values is null || !values.Contains(value, comparer)))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotIn), paramName, CultureName), message));
 
             return this;
         }
@@ -122,99 +130,107 @@ namespace CleanValidation.Core.Guards
                 where T : IComparisonOperators<T, T, bool>
         {
             if (Continue && (value is null || value < min || value > max))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, CultureName), message));
 
             return this;
         }
 
         public Guard AgainstOutOfRange(
-            DateOnly? date, 
-            DateOnly min, 
-            DateOnly max, 
-            string? message = null, 
+            DateOnly? date,
+            DateOnly min,
+            DateOnly max,
+            string? message = null,
             [CallerArgumentExpression(nameof(date))] string? paramName = null)
         {
             if (Continue && (date is null || date.Value < min || date.Value > max))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, CultureName), message));
 
             return this;
         }
 
         public Guard AgainstOutOfRange(
-            TimeOnly? time, 
-            TimeOnly min, 
-            TimeOnly max, 
-            string? message = null, 
+            TimeOnly? time,
+            TimeOnly min,
+            TimeOnly max,
+            string? message = null,
             [CallerArgumentExpression(nameof(time))] string? paramName = null)
         {
             if (Continue && (time is null || time.Value < min || time.Value > max))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, CultureName), message));
 
             return this;
         }
 
         public Guard AgainstOutOfRange(
-            DateTime? dateTime, 
-            DateTime min, 
-            DateTime max, 
-            string? message = null, 
+            DateTime? dateTime,
+            DateTime min,
+            DateTime max,
+            string? message = null,
             [CallerArgumentExpression(nameof(dateTime))] string? paramName = null)
         {
             if (Continue && (dateTime is null || dateTime.Value < min || dateTime.Value > max))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, CultureName), message));
 
             return this;
         }
 
         public Guard AgainstRange<T>(
-            T? value, 
-            T min, 
-            T max, 
-            string? message = null, 
+            T? value,
+            T min,
+            T max,
+            string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
                 where T : IComparisonOperators<T, T, bool>
         {
             if (Continue && (value is null || (value >= min && value <= max)))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, CultureName), message));
 
             return this;
         }
 
         public Guard AgainstRange(
-            DateOnly? date, 
-            DateOnly min, 
-            DateOnly max, 
-            string? message = null, 
+            DateOnly? date,
+            DateOnly min,
+            DateOnly max,
+            string? message = null,
             [CallerArgumentExpression(nameof(date))] string? paramName = null)
         {
             if (Continue && (date is null || (date.Value >= min && date.Value <= max)))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, CultureName), message));
 
             return this;
         }
 
         public Guard AgainstRange(
-            TimeOnly? time, 
-            TimeOnly min, 
-            TimeOnly max, 
-            string? message = null, 
+            TimeOnly? time,
+            TimeOnly min,
+            TimeOnly max,
+            string? message = null,
             [CallerArgumentExpression(nameof(time))] string? paramName = null)
         {
             if (Continue && (time is null || (time.Value >= min && time.Value <= max)))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, CultureName), message));
 
             return this;
         }
 
         public Guard AgainstRange(
-            DateTime? dateTime, 
-            DateTime min, 
-            DateTime max, 
-            string? message = null, 
+            DateTime? dateTime,
+            DateTime min,
+            DateTime max,
+            string? message = null,
             [CallerArgumentExpression(nameof(dateTime))] string? paramName = null)
         {
             if (Continue && (dateTime is null || (dateTime.Value >= min && dateTime.Value <= max)))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, CultureName), message));
 
             return this;
         }
@@ -223,202 +239,218 @@ namespace CleanValidation.Core.Guards
     public partial class Guard<T>
     {
         new public Guard<T> AgainstNull(
-            object? value, 
-            string? message = null, 
+            object? value,
+            string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && value is null)
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNull), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstEqual<TValue>(
-            TValue? value, 
-            TValue? comparison, 
-            string? message = null, 
+            TValue? value,
+            TValue? comparison,
+            string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && ((value is null && comparison is null) || (value?.Equals(comparison) ?? false)))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstEqual), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstNotEqual<TValue>(
-            TValue? value, 
-            TValue? comparison, 
-            string? message = null, 
+            TValue? value,
+            TValue? comparison,
+            string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && (value is not null || comparison is not null) && (!value?.Equals(comparison) ?? true))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotEqual), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstDefault<TStruct>(
-            TStruct value, 
-            string? message = null, 
+            TStruct value,
+            string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
                 where TStruct : struct
         {
             if (Continue && value.Equals(default(TStruct)))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDefault), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstEmpty<TValue>(
-            IEnumerable<TValue>? values, 
-            string? message = null, 
+            IEnumerable<TValue>? values,
+            string? message = null,
             [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
             if (Continue && (values is null || !values.Any()))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstEmpty), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstWhiteSpace(
-            string? value, 
-            string? message = null, 
+            string? value,
+            string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && string.IsNullOrWhiteSpace(value))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstWhiteSpace), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstIn<TValue>(
-            TValue? value, 
+            TValue? value,
             IEnumerable<TValue> values,
             IEqualityComparer<TValue?>? comparer = null,
-            string? message = null, 
+            string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && (values is null || values.Contains(value, comparer)))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstIn), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstNotIn<TValue>(
-            TValue? value, 
+            TValue? value,
             IEnumerable<TValue> values,
             IEqualityComparer<TValue?>? comparer = null,
-            string? message = null, 
+            string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (Continue && (values is null || !values.Contains(value, comparer)))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotIn), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstOutOfRange<TValue>(
-            TValue? value, 
-            TValue min, 
-            TValue max, 
-            string? message = null, 
+            TValue? value,
+            TValue min,
+            TValue max,
+            string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
                 where TValue : IComparisonOperators<TValue, TValue, bool>
         {
             if (Continue && (value is null || value < min || value > max))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstOutOfRange(
-            DateOnly? date, 
-            DateOnly min, 
-            DateOnly max, 
-            string? message = null, 
+            DateOnly? date,
+            DateOnly min,
+            DateOnly max,
+            string? message = null,
             [CallerArgumentExpression(nameof(date))] string? paramName = null)
         {
             if (Continue && (date is null || date.Value < min || date.Value > max))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstOutOfRange(
-            TimeOnly? time, 
-            TimeOnly min, 
-            TimeOnly max, 
-            string? message = null, 
+            TimeOnly? time,
+            TimeOnly min,
+            TimeOnly max,
+            string? message = null,
             [CallerArgumentExpression(nameof(time))] string? paramName = null)
         {
             if (Continue && (time is null || time.Value < min || time.Value > max))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstOutOfRange(
-            DateTime? dateTime, 
-            DateTime min, 
-            DateTime max, 
-            string? message = null, 
+            DateTime? dateTime,
+            DateTime min,
+            DateTime max,
+            string? message = null,
             [CallerArgumentExpression(nameof(dateTime))] string? paramName = null)
         {
             if (Continue && (dateTime is null || dateTime.Value < min || dateTime.Value > max))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstRange<TValue>(
-            TValue? value, 
-            TValue min, 
-            TValue max, 
-            string? message = null, 
+            TValue? value,
+            TValue min,
+            TValue max,
+            string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
                 where TValue : IComparisonOperators<TValue, TValue, bool>
         {
             if (Continue && (value is null || (value >= min && value <= max)))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstRange(
-            DateOnly? date, 
-            DateOnly min, 
-            DateOnly max, 
-            string? message = null, 
+            DateOnly? date,
+            DateOnly min,
+            DateOnly max,
+            string? message = null,
             [CallerArgumentExpression(nameof(date))] string? paramName = null)
         {
             if (Continue && (date is null || (date.Value >= min && date.Value <= max)))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstRange(
-            TimeOnly? time, 
-            TimeOnly min, 
-            TimeOnly max, 
-            string? message = null, 
+            TimeOnly? time,
+            TimeOnly min,
+            TimeOnly max,
+            string? message = null,
             [CallerArgumentExpression(nameof(time))] string? paramName = null)
         {
             if (Continue && (time is null || (time.Value >= min && time.Value <= max)))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, CultureName), message));
 
             return this;
         }
 
         new public Guard<T> AgainstRange(
-            DateTime? dateTime, 
-            DateTime min, 
-            DateTime max, 
-            string? message = null, 
+            DateTime? dateTime,
+            DateTime min,
+            DateTime max,
+            string? message = null,
             [CallerArgumentExpression(nameof(dateTime))] string? paramName = null)
         {
             if (Continue && (dateTime is null || (dateTime.Value >= min && dateTime.Value <= max)))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, CultureName), message));
 
             return this;
         }
