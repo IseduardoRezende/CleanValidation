@@ -144,6 +144,9 @@
   <data name="AgainstEqual" xml:space="preserve">
     <value>The values are equal.</value>
   </data>
+  <data name="AgainstExactLength" xml:space="preserve">
+    <value>The value size is equal to {0}.</value>
+  </data>
   <data name="AgainstFalse" xml:space="preserve">
     <value>The condition is false.</value>
   </data>
@@ -171,6 +174,12 @@
   <data name="AgainstInvalidUri" xml:space="preserve">
     <value>The URI is invalid.</value>
   </data>
+  <data name="AgainstMaxLength" xml:space="preserve">
+    <value>The value size must be at most {0}.</value>
+  </data>
+  <data name="AgainstMinLength" xml:space="preserve">
+    <value>The value size must be at least {0}.</value>
+  </data>
   <data name="AgainstNotAssignableFrom" xml:space="preserve">
     <value>The value is not assignable from type: {0}.</value>
   </data>
@@ -179,6 +188,9 @@
   </data>
   <data name="AgainstNotEqual" xml:space="preserve">
     <value>The values are different.</value>
+  </data>
+  <data name="AgainstNotExactLength" xml:space="preserve">
+    <value>The value size is different from {0}.</value>
   </data>
   <data name="AgainstNotIn" xml:space="preserve">
     <value>The value is not contained.</value>

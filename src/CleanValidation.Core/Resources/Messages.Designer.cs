@@ -142,6 +142,15 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value size is equal to {0}..
+        /// </summary>
+        internal static string AgainstExactLength {
+            get {
+                return ResourceManager.GetString("AgainstExactLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The condition is false..
         /// </summary>
         internal static string AgainstFalse {
@@ -223,6 +232,24 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value size must be at most {0}..
+        /// </summary>
+        internal static string AgainstMaxLength {
+            get {
+                return ResourceManager.GetString("AgainstMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value size must be at least {0}..
+        /// </summary>
+        internal static string AgainstMinLength {
+            get {
+                return ResourceManager.GetString("AgainstMinLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The value is not assignable from type: {0}..
         /// </summary>
         internal static string AgainstNotAssignableFrom {
@@ -246,6 +273,15 @@ namespace CleanValidation.Core.Resources {
         internal static string AgainstNotEqual {
             get {
                 return ResourceManager.GetString("AgainstNotEqual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value size is different from {0}..
+        /// </summary>
+        internal static string AgainstNotExactLength {
+            get {
+                return ResourceManager.GetString("AgainstNotExactLength", resourceCulture);
             }
         }
         
