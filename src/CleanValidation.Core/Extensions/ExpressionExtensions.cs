@@ -13,11 +13,6 @@ namespace CleanValidation.Core.Extensions
             if (memberExpression.Member is not PropertyInfo propInfo)
                 return string.Empty;
 
-            Type? reflectedType = propInfo.ReflectedType;
-
-            if (reflectedType is null || !reflectedType.IsAssignableFrom(typeof(T)))
-                return string.Empty;
-
             return propInfo.Name;
         }
 
