@@ -128,7 +128,7 @@ namespace CleanValidation.Core.Tests.Guards
         }
 
         [Fact]
-        public void AgainstHtml_NullValue_ReturnsInvalidResult()
+        public void AgainstHtml_NullValue_ReturnsSuccessResult()
         {
             string? value = null;
 
@@ -137,8 +137,8 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
-            Assert.IsType<InvalidResult>(result);
+            Assert.True(result.Success);
+            Assert.IsType<SuccessResult>(result);
         }
 
         [Fact]
