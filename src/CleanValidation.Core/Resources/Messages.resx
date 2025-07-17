@@ -150,6 +150,9 @@
   <data name="AgainstFalse" xml:space="preserve">
     <value>The condition is false.</value>
   </data>
+  <data name="AgainstGreaterThan" xml:space="preserve">
+    <value>The value is greater than {0}.</value>
+  </data>
   <data name="AgainstHtml" xml:space="preserve">
     <value>The value contains html.</value>
   </data>
@@ -173,6 +176,9 @@
   </data>
   <data name="AgainstInvalidUri" xml:space="preserve">
     <value>The URI is invalid.</value>
+  </data>
+  <data name="AgainstLessThan" xml:space="preserve">
+    <value>The value is less than {0}.</value>
   </data>
   <data name="AgainstMaxLength" xml:space="preserve">
     <value>The value size must be at most {0}.</value>

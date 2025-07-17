@@ -160,6 +160,15 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is greater than {0}..
+        /// </summary>
+        internal static string AgainstGreaterThan {
+            get {
+                return ResourceManager.GetString("AgainstGreaterThan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The value contains html..
         /// </summary>
         internal static string AgainstHtml {
@@ -228,6 +237,15 @@ namespace CleanValidation.Core.Resources {
         internal static string AgainstInvalidUri {
             get {
                 return ResourceManager.GetString("AgainstInvalidUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is less than {0}..
+        /// </summary>
+        internal static string AgainstLessThan {
+            get {
+                return ResourceManager.GetString("AgainstLessThan", resourceCulture);
             }
         }
         
