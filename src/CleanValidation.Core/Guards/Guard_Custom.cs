@@ -1,6 +1,8 @@
-﻿using CleanValidation.Core.Errors;
+﻿using System.Linq.Expressions;
+using CleanValidation.Core.Errors;
 using CleanValidation.Core.Results;
 using System.Runtime.CompilerServices;
+using CleanValidation.Core.Extensions;
 
 namespace CleanValidation.Core.Guards
 {
@@ -11,7 +13,10 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(condition))] string? paramName = null)
         {
-            if (Continue && condition is true or null)
+            if (!Continue || condition is null)
+                return this;
+
+            if (condition is true)
                 Result = InvalidResult.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
 
@@ -24,7 +29,10 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && (value is null || func.Invoke(value)))
+            if (!Continue || value is null || func is null)
+                return this;
+
+            if (func.Invoke(value))
                 Result = InvalidResult.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
 
@@ -37,7 +45,10 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && (value is null || await func.Invoke(value)))
+            if (!Continue || value is null || func is null)
+                return this;
+
+            if (await func.Invoke(value))
                 Result = InvalidResult.Create(
                      ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
 
@@ -49,7 +60,10 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(condition))] string? paramName = null)
         {
-            if (Continue && condition is false or null)
+            if (!Continue || condition is null)
+                return this;
+
+            if (condition is false)
                 Result = InvalidResult.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
 
@@ -62,10 +76,13 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && (value is null || !func.Invoke(value)))
+            if (!Continue || value is null || func is null)
+                return this;
+
+            if (!func.Invoke(value))
                 Result = InvalidResult.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
-            
+
             return this;
         }
 
@@ -75,7 +92,10 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && (value is null || !await func.Invoke(value)))
+            if (!Continue || value is null || func is null)
+                return this;
+
+            if (!await func.Invoke(value))
                 Result = InvalidResult.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
 
@@ -90,9 +110,27 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(condition))] string? paramName = null)
         {
-            if (Continue && condition is true or null)
+            if (!Continue || condition is null)
+                return this;
+
+            if (condition is true)
                 Result = InvalidResult<T>.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
+
+            return this;
+        }
+
+        public Guard<T> AgainstTrue<TProperty>(
+            Expression<Func<T, TProperty?>> property,
+            bool? condition,
+            string? message = null)
+        {
+            if (!Continue || property is null || condition is null)
+                return this;
+
+            if (condition is true)
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -103,9 +141,27 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && (value is null || func.Invoke(value)))
+            if (!Continue || value is null || func is null)
+                return this;
+
+            if (func.Invoke(value))
                 Result = InvalidResult<T>.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
+
+            return this;
+        }
+
+        public Guard<T> AgainstTrue<TProperty>(
+            Expression<Func<T, TProperty?>> property,
+            Func<TProperty?, bool> func,
+            string? message = null)
+        {
+            if (!Continue || property is null || func is null)
+                return this;
+
+            if (func.Invoke(property.GetValue(Result.Value)))
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -116,9 +172,27 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && (value is null || await func.Invoke(value)))
+            if (!Continue || value is null || func is null)
+                return this;
+
+            if (await func.Invoke(value))
                 Result = InvalidResult<T>.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
+
+            return this;
+        }
+
+        public async Task<Guard<T>> AgainstTrueAsync<TProperty>(
+            Expression<Func<T, TProperty?>> property,
+            Func<TProperty?, Task<bool>> func,
+            string? message = null)
+        {
+            if (!Continue || property is null || func is null)
+                return this;
+
+            if (await func.Invoke(property.GetValue(Result.Value)))
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -128,9 +202,27 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(condition))] string? paramName = null)
         {
-            if (Continue && condition is false or null)
+            if (!Continue || condition is null)
+                return this;
+
+            if (condition is false)
                 Result = InvalidResult<T>.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
+
+            return this;
+        }
+
+        public Guard<T> AgainstFalse<TProperty>(
+            Expression<Func<T, TProperty?>> property,
+            bool? condition,
+            string? message = null)
+        {
+            if (!Continue || property is null || condition is null)
+                return this;
+
+            if (condition is false)
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -141,9 +233,27 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && (value is null || !func.Invoke(value)))
+            if (!Continue || value is null || func is null)
+                return this;
+
+            if (!func.Invoke(value))
                 Result = InvalidResult<T>.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
+
+            return this;
+        }
+
+        public Guard<T> AgainstFalse<TProperty>(
+           Expression<Func<T, TProperty?>> property,
+           Func<TProperty?, bool> func,
+           string? message = null)
+        {
+            if (!Continue || property is null || func is null)
+                return this;
+
+            if (!func.Invoke(property.GetValue(Result.Value)))
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -154,9 +264,27 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
-            if (Continue && (value is null || !await func.Invoke(value)))
+            if (!Continue || value is null || func is null)
+                return this;
+
+            if (!await func.Invoke(value))
                 Result = InvalidResult<T>.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
+
+            return this;
+        }
+
+        public async Task<Guard<T>> AgainstFalseAsync<TProperty>(
+            Expression<Func<T, TProperty?>> property,
+            Func<TProperty?, Task<bool>> func,
+            string? message = null)
+        {
+            if (!Continue || property is null || func is null)
+                return this;
+
+            if (!await func.Invoke(property.GetValue(Result.Value)))
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
