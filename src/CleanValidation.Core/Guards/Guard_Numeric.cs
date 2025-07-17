@@ -15,7 +15,9 @@ namespace CleanValidation.Core.Guards
                 where T : IComparisonOperators<T, T, bool>
         {
             if (Continue && (value is null || value < min))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstLessThan), paramName, [min],
+                    CultureName), message));
 
             return this;
         }
@@ -28,7 +30,9 @@ namespace CleanValidation.Core.Guards
                 where T : IComparisonOperators<T, T, bool>
         {
             if (Continue && (value is null || value > max))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstGreaterThan), paramName, [max],
+                    CultureName), message));
 
             return this;
         }                      
@@ -44,7 +48,9 @@ namespace CleanValidation.Core.Guards
                 where TValue : IComparisonOperators<TValue, TValue, bool>
         {
             if (Continue && (value is null || value < min))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstLessThan), paramName, [min],
+                    CultureName), message));
 
             return this;
         }
@@ -57,7 +63,9 @@ namespace CleanValidation.Core.Guards
                 where TValue : IComparisonOperators<TValue, TValue, bool>
         {
             if (Continue && (value is null || value > max))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstGreaterThan), paramName, [max],
+                    CultureName), message));
 
             return this;
         }                      
