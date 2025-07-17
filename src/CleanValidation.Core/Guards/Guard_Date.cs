@@ -127,7 +127,6 @@ namespace CleanValidation.Core.Guards
             Expression<Func<T, TProperty?>> property,
             DateOnly compareDate,
             string? message = null)
-                where TProperty : struct
         {
             if (!Continue || property is null)
                 return this;
@@ -161,7 +160,6 @@ namespace CleanValidation.Core.Guards
             Expression<Func<T, TProperty?>> property,
             DateOnly compareDate,
             string? message = null)
-                where TProperty : struct
         {
             if (!Continue || property is null)
                 return this;
@@ -195,7 +193,6 @@ namespace CleanValidation.Core.Guards
             Expression<Func<T, TProperty?>> property,
             TimeOnly compareTime,
             string? message = null)
-                where TProperty : struct
         {
             if (!Continue || property is null)
                 return this;
@@ -229,7 +226,6 @@ namespace CleanValidation.Core.Guards
             Expression<Func<T, TProperty?>> property,
             TimeOnly compareTime,
             string? message = null)
-                where TProperty : struct
         {
             if (!Continue || property is null)
                 return this;
@@ -263,7 +259,6 @@ namespace CleanValidation.Core.Guards
             Expression<Func<T, TProperty?>> property,
             DateTime compareDateTime,
             string? message = null)
-                where TProperty : struct
         {
             if (!Continue || property is null)
                 return this;
@@ -297,7 +292,6 @@ namespace CleanValidation.Core.Guards
             Expression<Func<T, TProperty?>> property,
             DateTime compareDateTime,
             string? message = null)
-                where TProperty : struct
         {
             if (!Continue || property is null)
                 return this;
