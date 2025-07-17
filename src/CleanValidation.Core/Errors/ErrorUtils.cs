@@ -1,4 +1,6 @@
-﻿using CleanValidation.Core.Resources;
+﻿using System.Reflection;
+using CleanValidation.Core.Resources;
+using CleanValidation.Core.Extensions;
 
 namespace CleanValidation.Core.Errors
 {
@@ -34,20 +36,29 @@ namespace CleanValidation.Core.Errors
         /// <remarks>This method retrieves a localized error message from the specified resource file
         /// using the provided key and culture. If the key is not found in the resource file, the returned <see
         /// cref="Error"/> object will contain a <see cref="string.Empty"/> message.</remarks>
-        /// <param name="messageKey">The key used to look up the error message in the resource file. Cannot be null or empty.</param>
-        /// <param name="field">The name of the field associated with the error, or <see langword="null"/> if no field is specified.</param>
+        /// <param name="key">The key used to look up the error message in the resource file. Cannot be null or empty.</param>
         /// <param name="cultureName">The culture name used to localize the error message. Defaults to "en-US" if not specified.</param>
+        /// <param name="field">The name of the field associated with the error, or <see langword="null"/> if no field is specified.</param>
+        /// <param name="args">The arguments for the message error.</param>
         /// <param name="resourceBaseName">The base name of the resource file to use for the lookup. Defaults to the application's default resource
         /// base name.</param>
+        /// <param name="resourceBaseAssembly">The base assembly of the resource file to use for the lookup. Defaults to the application's default resource
+        /// assembly.</param>
         /// <returns>An <see cref="Error"/> object containing the localized error message and the associated field.</returns>
         public static Error GetByKey(
-            string messageKey,
-            string? field,
+            string key,
             string cultureName = "en-US",
-            string resourceBaseName = CleanResourceManager.DefaultBaseName)
+            string? field = null,
+            string[]? args = null,
+            string? resourceBaseName = CleanResourceManager.DefaultBaseName,
+            Assembly? resourceBaseAssembly = null)
         {
-            return new Error(CleanResourceManager.Create(resourceBaseName)
-                .GetString(messageKey, cultureName), field);
+            CleanResourceManager resourceManager = CleanResourceManager.Create(resourceBaseName, resourceBaseAssembly);
+
+            string message = resourceManager.GetString(key, cultureName);
+            message = message.Format(args);
+
+            return new Error(message, field);
         }
     }
 }
