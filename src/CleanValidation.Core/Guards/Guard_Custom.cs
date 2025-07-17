@@ -123,6 +123,7 @@ namespace CleanValidation.Core.Guards
         public Guard<T> AgainstTrue<TProperty>(
             Expression<Func<T, TProperty?>> property,
             string? message = null)
+                 where TProperty : struct
         {
             if (!Continue || property is null)
                 return this;
@@ -137,7 +138,8 @@ namespace CleanValidation.Core.Guards
         public Guard<T> AgainstTrue<TProperty>(
             Expression<Func<T, TProperty?>> property,
             bool? condition,
-            string? message = null)                
+            string? message = null)
+                 where TProperty : struct
         {
             if (!Continue || property is null || condition is null)
                 return this;
@@ -169,6 +171,7 @@ namespace CleanValidation.Core.Guards
             Expression<Func<T, TProperty?>> property,
             Func<TProperty?, bool> func,
             string? message = null)
+                where TProperty : struct
         {
             if (!Continue || property is null || func is null)
                 return this;
@@ -200,6 +203,7 @@ namespace CleanValidation.Core.Guards
             Expression<Func<T, TProperty?>> property,
             Func<TProperty?, Task<bool>> func,
             string? message = null)
+                where TProperty : struct
         {
             if (!Continue || property is null || func is null)
                 return this;
@@ -228,7 +232,8 @@ namespace CleanValidation.Core.Guards
 
         public Guard<T> AgainstFalse<TProperty>(
             Expression<Func<T, TProperty?>> property,
-            string? message = null)                
+            string? message = null)
+                where TProperty : struct
         {
             if (!Continue || property is null)
                 return this;
@@ -244,6 +249,7 @@ namespace CleanValidation.Core.Guards
             Expression<Func<T, TProperty?>> property,
             bool? condition,
             string? message = null)
+                where TProperty : struct
         {
             if (!Continue || property is null || condition is null)
                 return this;
@@ -275,6 +281,7 @@ namespace CleanValidation.Core.Guards
            Expression<Func<T, TProperty?>> property,
            Func<TProperty?, bool> func,
            string? message = null)
+                where TProperty : struct
         {
             if (!Continue || property is null || func is null)
                 return this;
@@ -306,6 +313,7 @@ namespace CleanValidation.Core.Guards
             Expression<Func<T, TProperty?>> property,
             Func<TProperty?, Task<bool>> func,
             string? message = null)
+                where TProperty : struct
         {
             if (!Continue || property is null || func is null)
                 return this;
