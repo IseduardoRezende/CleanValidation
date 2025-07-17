@@ -9,16 +9,19 @@ namespace CleanValidation.Core.Resources
     {
         public const string DefaultBaseName = "CleanValidation.Core.Resources.Messages";
 
-        private CleanResourceManager(string baseName)
+        private CleanResourceManager(string baseName, Assembly baseAssembly)
         {
             BaseName = baseName;
+            BaseAssembly = baseAssembly;
         }
 
         public string BaseName { get; }
 
-        public static CleanResourceManager Create(string? baseName = DefaultBaseName)
+        public Assembly BaseAssembly { get; }
+
+        public static CleanResourceManager Create(string? baseName = DefaultBaseName, Assembly? baseAssembly = null)
         {
-            return new(baseName ?? DefaultBaseName);
+            return new(baseName ?? DefaultBaseName, baseAssembly ?? Assembly.GetExecutingAssembly());
         }
 
         /// <summary>
@@ -36,7 +39,7 @@ namespace CleanValidation.Core.Resources
         {
             try
             {
-                ResourceManager resourceManager = new(BaseName, Assembly.GetExecutingAssembly());
+                ResourceManager resourceManager = new(BaseName, BaseAssembly);
                 CultureInfo? culture = CultureInfo.GetCultureInfo(cultureName);
                 return resourceManager.GetString(key, culture) ?? string.Empty;
             }
