@@ -15,7 +15,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(password))] string? paramName = null)
         {
             if (Continue && !IsValidPassword(password, options))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstWeakPassword), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -83,7 +84,8 @@ namespace CleanValidation.Core.Guards
                 (email is null or { Length: > MaxEmailAddressLength } ||
                 !new EmailAddressAttribute().IsValid(email)))
             {
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidEmailAddress), paramName, cultureName: CultureName), message));
             }
          
             return this;
@@ -95,7 +97,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(phone))] string? paramName = null)
         {
             if (Continue && (phone is null || !new PhoneAttribute().IsValid(phone)))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidPhone), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -110,7 +113,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(password))] string? paramName = null)
         {          
             if (Continue && !IsValidPassword(password, options))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstWeakPassword), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -124,7 +128,8 @@ namespace CleanValidation.Core.Guards
                (email is null or { Length: > MaxEmailAddressLength } || 
                !new EmailAddressAttribute().IsValid(email)))
             {
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidEmailAddress), paramName, cultureName: CultureName), message));
             }
 
             return this;
@@ -136,7 +141,8 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(phone))] string? paramName = null)
         {
             if (Continue && (phone is null || !new PhoneAttribute().IsValid(phone)))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidPhone), paramName, cultureName: CultureName), message));
 
             return this;
         }
