@@ -122,8 +122,22 @@ namespace CleanValidation.Core.Guards
 
         public Guard<T> AgainstTrue<TProperty>(
             Expression<Func<T, TProperty?>> property,
-            bool? condition,
             string? message = null)
+        {
+            if (!Continue || property is null)
+                return this;
+
+            if (property.GetValue(Result.Value) is true)
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), property.GetName(), cultureName: CultureName), message));
+
+            return this;
+        }
+
+        public Guard<T> AgainstTrue<TProperty>(
+            Expression<Func<T, TProperty?>> property,
+            bool? condition,
+            string? message = null)                
         {
             if (!Continue || property is null || condition is null)
                 return this;
@@ -208,6 +222,20 @@ namespace CleanValidation.Core.Guards
             if (condition is false)
                 Result = InvalidResult<T>.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
+
+            return this;
+        }
+
+        public Guard<T> AgainstFalse<TProperty>(
+            Expression<Func<T, TProperty?>> property,
+            string? message = null)                
+        {
+            if (!Continue || property is null)
+                return this;
+
+            if (property.GetValue(Result.Value) is false)
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
