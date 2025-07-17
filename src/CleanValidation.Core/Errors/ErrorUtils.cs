@@ -47,7 +47,7 @@ namespace CleanValidation.Core.Errors
         /// <returns>An <see cref="Error"/> object containing the localized error message and the associated field.</returns>
         public static Error GetByKey(
             string key,
-            string? field = null,
+            string? field,
             object[]? args = null,
             string cultureName = "en-US",
             string? resourceBaseName = CleanResourceManager.DefaultBaseName,
