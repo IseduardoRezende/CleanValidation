@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AgainstAssignableFrom" xml:space="preserve">
+    <value>The value is assignable from type: {0}.</value>
+  </data>
+  <data name="AgainstAssignableTo" xml:space="preserve">
+    <value>The value is assignable to type: {0}.</value>
+  </data>
   <data name="AgainstDateInFuture" xml:space="preserve">
     <value>The date is in the future.</value>
   </data>
@@ -147,6 +153,9 @@
   <data name="AgainstIn" xml:space="preserve">
     <value>The value is contained.</value>
   </data>
+  <data name="AgainstInvalidEnum" xml:space="preserve">
+    <value>The enum value is invalid.</value>
+  </data>
   <data name="AgainstInvalidIpAddress" xml:space="preserve">
     <value>The ip address is invalid.</value>
   </data>
@@ -156,11 +165,20 @@
   <data name="AgainstInvalidUri" xml:space="preserve">
     <value>The URI is invalid.</value>
   </data>
+  <data name="AgainstNotAssignableFrom" xml:space="preserve">
+    <value>The value is not assignable from type: {0}.</value>
+  </data>
+  <data name="AgainstNotAssignableTo" xml:space="preserve">
+    <value>The value is not assignable to type: {0}.</value>
+  </data>
   <data name="AgainstNotEqual" xml:space="preserve">
     <value>The values are different.</value>
   </data>
   <data name="AgainstNotIn" xml:space="preserve">
     <value>The value is not contained.</value>
+  </data>
+  <data name="AgainstNotTypeOf" xml:space="preserve">
+    <value>The value is not a type of {0}.</value>
   </data>
   <data name="AgainstNull" xml:space="preserve">
     <value>The value is null.</value>
@@ -179,6 +197,9 @@
   </data>
   <data name="AgainstTrue" xml:space="preserve">
     <value>The condition is true.</value>
+  </data>
+  <data name="AgainstTypeOf" xml:space="preserve">
+    <value>The value is a type of {0}.</value>
   </data>
   <data name="AgainstUnmatchRegex" xml:space="preserve">
     <value>The regex does not match.</value>

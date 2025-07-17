@@ -61,6 +61,24 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is assignable from type: {0}..
+        /// </summary>
+        internal static string AgainstAssignableFrom {
+            get {
+                return ResourceManager.GetString("AgainstAssignableFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is assignable to type: {0}..
+        /// </summary>
+        internal static string AgainstAssignableTo {
+            get {
+                return ResourceManager.GetString("AgainstAssignableTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The date is in the future..
         /// </summary>
         internal static string AgainstDateInFuture {
@@ -151,6 +169,15 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The enum value is invalid..
+        /// </summary>
+        internal static string AgainstInvalidEnum {
+            get {
+                return ResourceManager.GetString("AgainstInvalidEnum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The ip address is invalid..
         /// </summary>
         internal static string AgainstInvalidIpAddress {
@@ -178,6 +205,24 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is not assignable from type: {0}..
+        /// </summary>
+        internal static string AgainstNotAssignableFrom {
+            get {
+                return ResourceManager.GetString("AgainstNotAssignableFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is not assignable to type: {0}..
+        /// </summary>
+        internal static string AgainstNotAssignableTo {
+            get {
+                return ResourceManager.GetString("AgainstNotAssignableTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The values are different..
         /// </summary>
         internal static string AgainstNotEqual {
@@ -192,6 +237,15 @@ namespace CleanValidation.Core.Resources {
         internal static string AgainstNotIn {
             get {
                 return ResourceManager.GetString("AgainstNotIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is not a type of {0}..
+        /// </summary>
+        internal static string AgainstNotTypeOf {
+            get {
+                return ResourceManager.GetString("AgainstNotTypeOf", resourceCulture);
             }
         }
         
@@ -246,6 +300,15 @@ namespace CleanValidation.Core.Resources {
         internal static string AgainstTrue {
             get {
                 return ResourceManager.GetString("AgainstTrue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is a type of {0}..
+        /// </summary>
+        internal static string AgainstTypeOf {
+            get {
+                return ResourceManager.GetString("AgainstTypeOf", resourceCulture);
             }
         }
         

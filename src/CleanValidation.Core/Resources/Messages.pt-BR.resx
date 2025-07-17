@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AgainstAssignableFrom" xml:space="preserve">
+    <value>O valor é atribuível do tipo: {0}.</value>
+  </data>
+  <data name="AgainstAssignableTo" xml:space="preserve">
+    <value>O valor é atribuível ao tipo: {0}.</value>
+  </data>
   <data name="AgainstDateInFuture" xml:space="preserve">
     <value>A data está no futuro.</value>
   </data>
@@ -147,6 +153,9 @@
   <data name="AgainstIn" xml:space="preserve">
     <value>O valor está contido.</value>
   </data>
+  <data name="AgainstInvalidEnum" xml:space="preserve">
+    <value>O valor do enum é inválido.</value>
+  </data>
   <data name="AgainstInvalidIpAddress" xml:space="preserve">
     <value>O endereço ip é inválido.</value>
   </data>
@@ -156,11 +165,20 @@
   <data name="AgainstInvalidUri" xml:space="preserve">
     <value>A URI é inválida.</value>
   </data>
+  <data name="AgainstNotAssignableFrom" xml:space="preserve">
+    <value>O valor não é atribuível do tipo: {0}.</value>
+  </data>
+  <data name="AgainstNotAssignableTo" xml:space="preserve">
+    <value>O valor não é atribuível ao tipo: {0}.</value>
+  </data>
   <data name="AgainstNotEqual" xml:space="preserve">
     <value>Os valores são diferentes.</value>
   </data>
   <data name="AgainstNotIn" xml:space="preserve">
     <value>O valor não está contido.</value>
+  </data>
+  <data name="AgainstNotTypeOf" xml:space="preserve">
+    <value>O valor não é do tipo {0}.</value>
   </data>
   <data name="AgainstNull" xml:space="preserve">
     <value>O valor é nulo.</value>
@@ -179,6 +197,9 @@
   </data>
   <data name="AgainstTrue" xml:space="preserve">
     <value>A condição é verdadeira.</value>
+  </data>
+  <data name="AgainstTypeOf" xml:space="preserve">
+    <value>O valor é do tipo {0}.</value>
   </data>
   <data name="AgainstUnmatchRegex" xml:space="preserve">
     <value>A regex não corresponde.</value>
