@@ -169,6 +169,15 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The email address is invalid..
+        /// </summary>
+        internal static string AgainstInvalidEmailAddress {
+            get {
+                return ResourceManager.GetString("AgainstInvalidEmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The enum value is invalid..
         /// </summary>
         internal static string AgainstInvalidEnum {
@@ -192,6 +201,15 @@ namespace CleanValidation.Core.Resources {
         internal static string AgainstInvalidJson {
             get {
                 return ResourceManager.GetString("AgainstInvalidJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The phone is invalid..
+        /// </summary>
+        internal static string AgainstInvalidPhone {
+            get {
+                return ResourceManager.GetString("AgainstInvalidPhone", resourceCulture);
             }
         }
         
@@ -318,6 +336,15 @@ namespace CleanValidation.Core.Resources {
         internal static string AgainstUnmatchRegex {
             get {
                 return ResourceManager.GetString("AgainstUnmatchRegex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The password is considered weak..
+        /// </summary>
+        internal static string AgainstWeakPassword {
+            get {
+                return ResourceManager.GetString("AgainstWeakPassword", resourceCulture);
             }
         }
         

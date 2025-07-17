@@ -153,6 +153,9 @@
   <data name="AgainstIn" xml:space="preserve">
     <value>The value is contained.</value>
   </data>
+  <data name="AgainstInvalidEmailAddress" xml:space="preserve">
+    <value>The email address is invalid.</value>
+  </data>
   <data name="AgainstInvalidEnum" xml:space="preserve">
     <value>The enum value is invalid.</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="AgainstInvalidJson" xml:space="preserve">
     <value>The json is invalid.</value>
+  </data>
+  <data name="AgainstInvalidPhone" xml:space="preserve">
+    <value>The phone is invalid.</value>
   </data>
   <data name="AgainstInvalidUri" xml:space="preserve">
     <value>The URI is invalid.</value>
@@ -203,6 +209,9 @@
   </data>
   <data name="AgainstUnmatchRegex" xml:space="preserve">
     <value>The regex does not match.</value>
+  </data>
+  <data name="AgainstWeakPassword" xml:space="preserve">
+    <value>The password is considered weak.</value>
   </data>
   <data name="AgainstWhiteSpace" xml:space="preserve">
     <value>The value is null or white space.</value>
