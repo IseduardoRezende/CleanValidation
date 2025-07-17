@@ -13,7 +13,9 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
             if (Continue && (values is null || values.Count() < minLength))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstMinLength), paramName, [minLength],
+                    CultureName), message));
 
             return this;
         }
@@ -25,7 +27,9 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
             if (Continue && (values is null || values.Count() > maxLength))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstMaxLength), paramName, [maxLength],
+                    CultureName), message));
 
             return this;
         }
@@ -37,7 +41,9 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
             if (Continue && (values is null || !values.Count().Equals(exactLength)))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotExactLength), paramName, [exactLength],
+                    CultureName), message));
 
             return this;
         }
@@ -49,7 +55,9 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
             if (Continue && (values is null || values.Count().Equals(exactLength)))
-                Result = InvalidResult.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstExactLength), paramName, [exactLength],
+                    CultureName), message));
 
             return this;
         }
@@ -64,7 +72,9 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
             if (Continue && (values is null || values.Count() < minLength))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstMinLength), paramName, [minLength],
+                    CultureName), message));
 
             return this;
         }
@@ -76,7 +86,9 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
             if (Continue && (values is null || values.Count() > maxLength))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstMaxLength), paramName, [maxLength],
+                    CultureName), message));
 
             return this;
         }
@@ -88,7 +100,9 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
             if (Continue && (values is null || !values.Count().Equals(exactLength)))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotExactLength), paramName, [exactLength],
+                    CultureName), message));
 
             return this;
         }
@@ -100,7 +114,9 @@ namespace CleanValidation.Core.Guards
             [CallerArgumentExpression(nameof(values))] string? paramName = null)
         {
             if (Continue && (values is null || values.Count().Equals(exactLength)))
-                Result = InvalidResult<T>.Create(ErrorUtils.InvalidParameter(CultureName, paramName));
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstExactLength), paramName, [exactLength],
+                    CultureName), message));
 
             return this;
         }
