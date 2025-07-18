@@ -179,15 +179,15 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstInvalidUri<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+        public Guard<T> AgainstInvalidUri(
+            Expression<Func<T, string?>> property,
             UriKind kind = UriKind.Absolute,
             string? message = null)
         {
             if (!Continue || property is null)
                 return this;
 
-            string? uri = property.GetValue(Result.Value).To<string?>();
+            string? uri = property.GetValue(Result.Value);
 
             if (!IsValidUri(uri, kind))
                 Result = InvalidResult<T>.Create(
@@ -212,15 +212,15 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstInvalidIpAddress<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+        public Guard<T> AgainstInvalidIpAddress(
+            Expression<Func<T, string?>> property,
             IpAddressOptions options = IpAddressOptions.None,
             string? message = null)
         {
             if (!Continue || property is null)
                 return this;
 
-            string? ipAddress = property.GetValue(Result.Value).To<string?>();
+            string? ipAddress = property.GetValue(Result.Value);
 
             if (!IsValidIpAddress(ipAddress, options))
                 Result = InvalidResult<T>.Create(
@@ -244,14 +244,14 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstHtml<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+        public Guard<T> AgainstHtml(
+            Expression<Func<T, string?>> property,
             string? message = null)
         {
             if (!Continue || property is null)
                 return this;
 
-            string? value = property.GetValue(Result.Value).To<string?>();
+            string? value = property.GetValue(Result.Value);
 
             if (ContainsHtml(value))
                 Result = InvalidResult<T>.Create(
@@ -277,8 +277,8 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstUnmatchRegex<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+        public Guard<T> AgainstUnmatchRegex(
+            Expression<Func<T, string?>> property,
             string pattern,
             RegexOptions options = RegexOptions.None,
             string? message = null)
@@ -286,7 +286,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || pattern is null)
                 return this;
 
-            string? value = property.GetValue(Result.Value).To<string?>();
+            string? value = property.GetValue(Result.Value);
 
             if (value is null)
                 return this;
