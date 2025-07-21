@@ -15,7 +15,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -31,7 +31,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<DateOnly> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<DateOnly>>(result);
         }
 
@@ -45,7 +45,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -59,7 +59,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult>(result);
         }
 
@@ -75,7 +75,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<DateOnly> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<DateOnly>>(result);
         }
 
@@ -91,7 +91,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<DateOnly> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult<DateOnly>>(result);
         }
 
@@ -105,7 +105,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -121,7 +121,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<DateOnly> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<DateOnly>>(result);
         }
 
@@ -135,7 +135,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -149,7 +149,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult>(result);
         }
 
@@ -165,7 +165,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<DateOnly> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<DateOnly>>(result);
         }
 
@@ -181,7 +181,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<DateOnly> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult<DateOnly>>(result);
         }
 
@@ -195,7 +195,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -211,7 +211,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<TimeOnly> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<TimeOnly>>(result);
         }
 
@@ -226,7 +226,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -241,7 +241,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult>(result);
         }
 
@@ -258,7 +258,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<TimeOnly> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<TimeOnly>>(result);
         }
 
@@ -275,7 +275,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<TimeOnly> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult<TimeOnly>>(result);
         }
 
@@ -289,7 +289,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -305,7 +305,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<TimeOnly> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<TimeOnly>>(result);
         }
 
@@ -320,7 +320,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -335,7 +335,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult>(result);
         }
 
@@ -352,7 +352,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<TimeOnly> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<TimeOnly>>(result);
         }
 
@@ -369,7 +369,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<TimeOnly> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult<TimeOnly>>(result);
         }
 
@@ -383,7 +383,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -399,7 +399,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<DateTime> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<DateTime>>(result);
         }
 
@@ -414,7 +414,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -429,7 +429,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult>(result);
         }
 
@@ -446,7 +446,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<DateTime> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<DateTime>>(result);
         }
 
@@ -463,7 +463,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<DateTime> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult<DateTime>>(result);
         }
 
@@ -477,7 +477,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -493,7 +493,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<DateTime> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<DateTime>>(result);
         }
 
@@ -508,7 +508,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -523,7 +523,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult>(result);
         }
 
@@ -540,7 +540,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<DateTime> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<DateTime>>(result);
         }
 
@@ -557,7 +557,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<DateTime> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult<DateTime>>(result);
         }
     }

@@ -15,7 +15,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -29,7 +29,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<bool> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<bool>>(result);
         }
 
@@ -41,7 +41,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -53,7 +53,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult>(result);
         }
 
@@ -66,7 +66,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -79,7 +79,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult>(result);
         }
 
@@ -94,7 +94,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -109,7 +109,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult>(result);
         }
 
@@ -121,7 +121,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<int> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<int>>(result);
         }
 
@@ -133,7 +133,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<int> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult<int>>(result);
         }
 
@@ -146,7 +146,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<int> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<int>>(result);
         }
 
@@ -159,7 +159,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<int> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult<int>>(result);
         }
 
@@ -174,7 +174,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<string> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<string>>(result);
         }
 
@@ -189,7 +189,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<string> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult<string>>(result);
         }
 
@@ -203,7 +203,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -217,7 +217,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<bool> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<bool>>(result);
         }
 
@@ -229,7 +229,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -241,7 +241,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult>(result);
         }
 
@@ -254,7 +254,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -267,7 +267,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult>(result);
         }
 
@@ -282,7 +282,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -297,7 +297,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult>(result);
         }
 
@@ -309,7 +309,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<int> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<int>>(result);
         }
 
@@ -321,7 +321,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<int> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult<int>>(result);
         }
 
@@ -334,7 +334,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<int> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<int>>(result);
         }
 
@@ -347,7 +347,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<int> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult<int>>(result);
         }
 
@@ -362,7 +362,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<string> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult<string>>(result);
         }
 
@@ -377,7 +377,7 @@ namespace CleanValidation.Core.Tests.Guards
             IResult<string> result = guard.GetResult();
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult<string>>(result);
         }
     }

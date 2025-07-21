@@ -19,7 +19,7 @@ namespace CleanValidation.Core.Tests.Validators
             var result = await _userValidator.ValidateAsync(user);
 
             Assert.NotNull(result);
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
             Assert.IsType<SuccessResult>(result);
         }
 
@@ -31,7 +31,7 @@ namespace CleanValidation.Core.Tests.Validators
             var result = await _userValidator.ValidateAsync(user);
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
 
@@ -43,7 +43,7 @@ namespace CleanValidation.Core.Tests.Validators
             var result = await _userValidator.ValidateAsync(user);
 
             Assert.NotNull(result);
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.IsType<InvalidResult>(result);
         }
     }

@@ -10,7 +10,7 @@ namespace CleanValidation.Core.Tests.Results
         {
             var result = SuccessResult.Create();
 
-            Assert.True(result.Success);
+            Assert.True(result.IsValid);
         }
 
         [Fact]
@@ -19,7 +19,7 @@ namespace CleanValidation.Core.Tests.Results
             var errorMessage = "Error Message";
             var result = ErrorResult.Create(new Error(errorMessage, field: null));
 
-            Assert.False(result.Success);
+            Assert.False(result.IsValid);
             Assert.Equal(errorMessage, result.Errors.First().Message);
         }
     }
