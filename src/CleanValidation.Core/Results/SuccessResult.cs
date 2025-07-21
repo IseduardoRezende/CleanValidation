@@ -16,7 +16,7 @@
         /// <summary>
         /// Boolean indicating the operation status.
         /// </summary>
-        public bool Success { get { return true; } }
+        public bool IsValid { get { return true; } }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SuccessResult"/> class.

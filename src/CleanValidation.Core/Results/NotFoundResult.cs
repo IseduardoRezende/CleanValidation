@@ -33,7 +33,7 @@ namespace CleanValidation.Core.Results
         /// <summary>
         /// Boolean indicating the operation status.
         /// </summary>
-        public bool Success { get { return false; } }
+        public bool IsValid { get { return false; } }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NotFoundResult"/> class.
