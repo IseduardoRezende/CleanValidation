@@ -104,7 +104,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
     }
-    
+
     public partial class Guard<T>
     {
         new public Guard<T> AgainstDateInFuture(
@@ -124,14 +124,14 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstDateInFuture<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, DateOnly?>> property,
             DateOnly compareDate,
             string? message = null)
         {
             if (!Continue || property is null)
                 return this;
 
-            DateOnly? date = property.GetValue(Result.Value).To<DateOnly>();
+            DateOnly? date = property.GetValue(Result.Value);
 
             if (date is not null && date > compareDate)
                 Result = InvalidResult<T>.Create(
@@ -157,14 +157,14 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstDateInPast<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, DateOnly?>> property,
             DateOnly compareDate,
             string? message = null)
         {
             if (!Continue || property is null)
                 return this;
 
-            DateOnly? date = property.GetValue(Result.Value).To<DateOnly>();
+            DateOnly? date = property.GetValue(Result.Value);
 
             if (date is not null && date < compareDate)
                 Result = InvalidResult<T>.Create(
@@ -190,14 +190,14 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstTimeInFuture<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, TimeOnly?>> property,
             TimeOnly compareTime,
             string? message = null)
         {
             if (!Continue || property is null)
                 return this;
 
-            TimeOnly? time = property.GetValue(Result.Value).To<TimeOnly>();
+            TimeOnly? time = property.GetValue(Result.Value);
 
             if (time is not null && time > compareTime)
                 Result = InvalidResult<T>.Create(
@@ -223,14 +223,14 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstTimeInPast<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, TimeOnly?>> property,
             TimeOnly compareTime,
             string? message = null)
         {
             if (!Continue || property is null)
                 return this;
 
-            TimeOnly? time = property.GetValue(Result.Value).To<TimeOnly>();
+            TimeOnly? time = property.GetValue(Result.Value);
 
             if (time is not null && time < compareTime)
                 Result = InvalidResult<T>.Create(
@@ -256,14 +256,14 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstDateTimeInFuture<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, DateTime?>> property,
             DateTime compareDateTime,
             string? message = null)
         {
             if (!Continue || property is null)
                 return this;
 
-            DateTime? dateTime = property.GetValue(Result.Value).To<DateTime>();
+            DateTime? dateTime = property.GetValue(Result.Value);
 
             if (dateTime is not null && dateTime > compareDateTime)
                 Result = InvalidResult<T>.Create(
@@ -289,14 +289,14 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstDateTimeInPast<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, DateTime?>> property,
             DateTime compareDateTime,
             string? message = null)
         {
             if (!Continue || property is null)
                 return this;
 
-            DateTime? dateTime = property.GetValue(Result.Value).To<DateTime>();
+            DateTime? dateTime = property.GetValue(Result.Value);
 
             if (dateTime is not null && dateTime < compareDateTime)
                 Result = InvalidResult<T>.Create(
