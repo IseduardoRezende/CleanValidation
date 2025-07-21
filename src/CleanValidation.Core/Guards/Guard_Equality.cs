@@ -462,7 +462,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstWhiteSpace<TProperty>(
+        public Guard<T> AgainstWhiteSpace(
             Expression<Func<T, string?>> property,
             string? message = null)
         {
@@ -601,7 +601,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstOutOfRange<TProperty>(
+        public Guard<T> AgainstOutOfRange(
             Expression<Func<T, DateOnly?>> property,
             DateOnly? min,
             DateOnly? max,
@@ -639,7 +639,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstOutOfRange<TProperty>(
+        public Guard<T> AgainstOutOfRange(
             Expression<Func<T, TimeOnly?>> property,
             TimeOnly? min,
             TimeOnly? max,
@@ -677,7 +677,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstOutOfRange<TProperty>(
+        public Guard<T> AgainstOutOfRange(
             Expression<Func<T, DateTime?>> property,
             DateTime? min,
             DateTime? max,
@@ -755,7 +755,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstRange<TProperty>(
+        public Guard<T> AgainstRange(
             Expression<Func<T, DateOnly?>> property,
             DateOnly? min,
             DateOnly? max,
@@ -793,7 +793,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstRange<TProperty>(
+        public Guard<T> AgainstRange(
             Expression<Func<T, TimeOnly?>> property,
             TimeOnly? min,
             TimeOnly? max,
@@ -831,7 +831,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstRange<TProperty>(
+        public Guard<T> AgainstRange(
             Expression<Func<T, DateTime?>> property,
             DateTime? min,
             DateTime? max,

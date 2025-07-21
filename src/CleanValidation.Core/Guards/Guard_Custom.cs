@@ -226,7 +226,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstFalse<TProperty>(
+        public Guard<T> AgainstFalse(
             Expression<Func<T, bool?>> property,
             string? message = null)
         {

@@ -123,7 +123,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstDateInFuture<TProperty>(
+        public Guard<T> AgainstDateInFuture(
             Expression<Func<T, DateOnly?>> property,
             DateOnly compareDate,
             string? message = null)
@@ -156,7 +156,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstDateInPast<TProperty>(
+        public Guard<T> AgainstDateInPast(
             Expression<Func<T, DateOnly?>> property,
             DateOnly compareDate,
             string? message = null)
@@ -189,7 +189,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstTimeInFuture<TProperty>(
+        public Guard<T> AgainstTimeInFuture(
             Expression<Func<T, TimeOnly?>> property,
             TimeOnly compareTime,
             string? message = null)
@@ -222,7 +222,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstTimeInPast<TProperty>(
+        public Guard<T> AgainstTimeInPast(
             Expression<Func<T, TimeOnly?>> property,
             TimeOnly compareTime,
             string? message = null)
@@ -255,7 +255,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstDateTimeInFuture<TProperty>(
+        public Guard<T> AgainstDateTimeInFuture(
             Expression<Func<T, DateTime?>> property,
             DateTime compareDateTime,
             string? message = null)
@@ -288,7 +288,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstDateTimeInPast<TProperty>(
+        public Guard<T> AgainstDateTimeInPast(
             Expression<Func<T, DateTime?>> property,
             DateTime compareDateTime,
             string? message = null)
