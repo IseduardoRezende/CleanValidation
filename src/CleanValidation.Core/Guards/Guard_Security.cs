@@ -1,6 +1,8 @@
-﻿using CleanValidation.Core.Errors;
+﻿using System.Linq.Expressions;
+using CleanValidation.Core.Errors;
 using CleanValidation.Core.Results;
 using CleanValidation.Core.Options;
+using CleanValidation.Core.Extensions;
 using System.Runtime.CompilerServices;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,7 +16,10 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(password))] string? paramName = null)
         {
-            if (Continue && !IsValidPassword(password, options))
+            if (!Continue)
+                return this;
+
+            if (!IsValidPassword(password, options))
                 Result = InvalidResult.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstWeakPassword), paramName, cultureName: CultureName), message));
 
@@ -49,15 +54,15 @@ namespace CleanValidation.Core.Guards
             return true;
         }
 
-        protected static bool ContainsSequence(string? password)
+        protected static bool ContainsSequence(string? value)
         {
-            if (string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(value))
                 return false;
 
-            for (int i = 0; i < password.Length - 1; i++)
+            for (int i = 0; i < value.Length - 1; i++)
             {
-                char current = password[i];
-                char next = password[i + 1];
+                char current = value[i];
+                char next = value[i + 1];
 
                 // Only Chars or Digits
                 if ((char.IsLower(current) && char.IsLower(next)) ||
@@ -80,15 +85,20 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(email))] string? paramName = null)
         {
-            if (Continue &&
-                (email is null or { Length: > MaxEmailAddressLength } ||
-                !new EmailAddressAttribute().IsValid(email)))
-            {
+            if (!Continue)
+                return this;
+
+            if (!IsValidEmailAddress(email))
                 Result = InvalidResult.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidEmailAddress), paramName, cultureName: CultureName), message));
-            }
-         
+
             return this;
+        }
+
+        protected static bool IsValidEmailAddress(string? email)
+        {
+            return email is { Length: <= MaxEmailAddressLength } &&
+                   new EmailAddressAttribute().IsValid(email);
         }
 
         public Guard AgainstInvalidPhone(
@@ -96,11 +106,20 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(phone))] string? paramName = null)
         {
-            if (Continue && (phone is null || !new PhoneAttribute().IsValid(phone)))
+            if (!Continue)
+                return this;
+
+            if (!IsValidPhone(phone))
                 Result = InvalidResult.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidPhone), paramName, cultureName: CultureName), message));
 
             return this;
+
+        }
+
+        protected static bool IsValidPhone(string? phone)
+        {
+            return phone is not null && new PhoneAttribute().IsValid(phone);
         }
     }
 
@@ -111,10 +130,30 @@ namespace CleanValidation.Core.Guards
             PasswordOptions? options,
             string? message = null,
             [CallerArgumentExpression(nameof(password))] string? paramName = null)
-        {          
-            if (Continue && !IsValidPassword(password, options))
+        {
+            if (!Continue)
+                return this;
+
+            if (!IsValidPassword(password, options))
                 Result = InvalidResult<T>.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstWeakPassword), paramName, cultureName: CultureName), message));
+
+            return this;
+        }
+
+        public Guard<T> AgainstWeakPassword(
+            Expression<Func<T, string?>> property,
+            PasswordOptions? options,
+            string? message = null)
+        {
+            if (!Continue || property is null)
+                return this;
+
+            string? password = property.GetValue(Result.Value);
+
+            if (!IsValidPassword(password, options))
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstWeakPassword), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -124,13 +163,28 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(email))] string? paramName = null)
         {
-            if (Continue && 
-               (email is null or { Length: > MaxEmailAddressLength } || 
-               !new EmailAddressAttribute().IsValid(email)))
-            {
+            if (!Continue)
+                return this;
+
+            if (!IsValidEmailAddress(email))
                 Result = InvalidResult<T>.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidEmailAddress), paramName, cultureName: CultureName), message));
-            }
+
+            return this;
+        }
+
+        public Guard<T> AgainstInvalidEmailAddress(
+            Expression<Func<T, string?>> property,
+            string? message = null)
+        {
+            if (!Continue || property is null)
+                return this;
+
+            string? email = property.GetValue(Result.Value);
+
+            if (!IsValidEmailAddress(email))
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidEmailAddress), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -140,9 +194,28 @@ namespace CleanValidation.Core.Guards
             string? message = null,
             [CallerArgumentExpression(nameof(phone))] string? paramName = null)
         {
-            if (Continue && (phone is null || !new PhoneAttribute().IsValid(phone)))
+            if (!Continue)
+                return this;
+
+            if (!IsValidPhone(phone))
                 Result = InvalidResult<T>.Create(
                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidPhone), paramName, cultureName: CultureName), message));
+
+            return this;
+        }
+
+        public Guard<T> AgainstInvalidPhone(
+            Expression<Func<T, string?>> property,
+            string? message = null)
+        {
+            if (!Continue || property is null)
+                return this;
+
+            string? phone = property.GetValue(Result.Value);
+
+            if (!IsValidPhone(phone))
+                Result = InvalidResult<T>.Create(
+                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidPhone), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
