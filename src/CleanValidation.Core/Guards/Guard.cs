@@ -38,7 +38,7 @@ namespace CleanValidation.Core.Guards
         /// <summary>
         /// Determines wheter chaining validation may continue.
         /// </summary>
-        protected bool Continue { get { return Result.Success; } }
+        protected bool Continue { get { return Result.IsValid; } }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Guard"/> class with <see cref="Result"/> property 
@@ -58,7 +58,7 @@ namespace CleanValidation.Core.Guards
         public IResult GetResult()
         {
             return Result;
-        }                          
+        }
     }
 
     /// <summary>
@@ -93,6 +93,18 @@ namespace CleanValidation.Core.Guards
         /// Initializes a new instance of the <see cref="Guard{T}"/> class with <see cref="Result"/> property 
         /// being <see cref="SuccessResult{T}"/>.
         /// </summary>
+        /// <param name="value">The value that will be validated.</param>
+        /// <param name="cultureName">The name of the culture to use for message.</param>
+        /// <returns>The <see cref="Guard{T}"/> instance, allowing for method chaining.</returns>
+        public static Guard<T> Create(T? value, string cultureName = "en-US")
+        {
+            return new Guard<T>(result: SuccessResult<T>.Create(value), cultureName);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Guard{T}"/> class with <see cref="Result"/> property 
+        /// being <see cref="SuccessResult{T}"/>.
+        /// </summary>
         /// <param name="cultureName">The name of the culture to use for message.</param>
         /// <returns>The <see cref="Guard{T}"/> instance, allowing for method chaining.</returns>
         new public static Guard<T> Create(string cultureName = "en-US")
@@ -107,6 +119,6 @@ namespace CleanValidation.Core.Guards
         new public IResult<T> GetResult()
         {
             return Result;
-        }        
+        }
     }
 }
