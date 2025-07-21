@@ -120,8 +120,8 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard<T> AgainstTrue<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+        public Guard<T> AgainstTrue(
+            Expression<Func<T, bool?>> property,
             string? message = null)
         {
             if (!Continue || property is null)
@@ -227,7 +227,7 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstFalse<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, bool?>> property,
             string? message = null)
         {
             if (!Continue || property is null)
