@@ -13,7 +13,7 @@
         /// <summary>
         /// Boolean indicating the operation status.
         /// </summary>
-        public bool Success { get; }
+        public bool IsValid { get; }
     }
 
     /// <summary>
