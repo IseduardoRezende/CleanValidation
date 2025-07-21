@@ -432,13 +432,13 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstEmpty<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, IEnumerable<TProperty?>?>> property,
             string? message = null)
         {
             if (!Continue || property is null)
                 return this;
 
-            IEnumerable<TProperty?>? values = property.GetValue(Result.Value).To<IEnumerable<TProperty?>?>();
+            IEnumerable<TProperty?>? values = property.GetValue(Result.Value);
 
             if (values is null || !values.Any())
                 Result = InvalidResult<T>.Create(
@@ -463,13 +463,13 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstWhiteSpace<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, string?>> property,
             string? message = null)
         {
             if (!Continue || property is null)
                 return this;
 
-            string? value = property.GetValue(Result.Value).To<string?>();
+            string? value = property.GetValue(Result.Value);
 
             if (string.IsNullOrWhiteSpace(value))
                 Result = InvalidResult<T>.Create(
@@ -602,7 +602,7 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstOutOfRange<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, DateOnly?>> property,
             DateOnly? min,
             DateOnly? max,
             string? message = null)
@@ -610,7 +610,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null || max is null)
                 return this;
 
-            DateOnly? date = property.GetValue(Result.Value).To<DateOnly?>();
+            DateOnly? date = property.GetValue(Result.Value);
 
             if (date is null)
                 return this;
@@ -640,7 +640,7 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstOutOfRange<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, TimeOnly?>> property,
             TimeOnly? min,
             TimeOnly? max,
             string? message = null)
@@ -648,7 +648,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null || max is null)
                 return this;
 
-            TimeOnly? time = property.GetValue(Result.Value).To<TimeOnly?>();
+            TimeOnly? time = property.GetValue(Result.Value);
 
             if (time is null)
                 return this;
@@ -678,7 +678,7 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstOutOfRange<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, DateTime?>> property,
             DateTime? min,
             DateTime? max,
             string? message = null)
@@ -686,7 +686,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null || max is null)
                 return this;
 
-            DateTime? dateTime = property.GetValue(Result.Value).To<DateTime?>();
+            DateTime? dateTime = property.GetValue(Result.Value);
 
             if (dateTime is null)
                 return this;
@@ -756,7 +756,7 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstRange<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, DateOnly?>> property,
             DateOnly? min,
             DateOnly? max,
             string? message = null)
@@ -764,7 +764,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null || max is null)
                 return this;
 
-            DateOnly? date = property.GetValue(Result.Value).To<DateOnly?>();
+            DateOnly? date = property.GetValue(Result.Value);
 
             if (date is null)
                 return this;
@@ -794,7 +794,7 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstRange<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, TimeOnly?>> property,
             TimeOnly? min,
             TimeOnly? max,
             string? message = null)
@@ -802,7 +802,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null || max is null)
                 return this;
 
-            TimeOnly? time = property.GetValue(Result.Value).To<TimeOnly?>();
+            TimeOnly? time = property.GetValue(Result.Value);
 
             if (time is null)
                 return this;
@@ -832,7 +832,7 @@ namespace CleanValidation.Core.Guards
         }
 
         public Guard<T> AgainstRange<TProperty>(
-            Expression<Func<T, TProperty?>> property,
+            Expression<Func<T, DateTime?>> property,
             DateTime? min,
             DateTime? max,
             string? message = null)
@@ -840,7 +840,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null || max is null)
                 return this;
 
-            DateTime? dateTime = property.GetValue(Result.Value).To<DateTime?>();
+            DateTime? dateTime = property.GetValue(Result.Value);
 
             if (dateTime is null)
                 return this;
