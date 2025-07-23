@@ -303,6 +303,18 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
+        public Guard<T> AgainstNull(string? message = null)
+        {
+            if (!Continue)
+                return this;
+
+            if (Value is null)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNull), typeof(T).Name, cultureName: CultureName), message));
+
+            return this;
+        }
+
         public Guard<T> AgainstNull<TProperty>(
             Expression<Func<T, TProperty?>> property,
             string? message = null)
