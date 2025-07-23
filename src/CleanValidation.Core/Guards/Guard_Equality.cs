@@ -216,7 +216,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        public Guard AgainstRange<T>(
+        public Guard AgainstInRange<T>(
             T? value,
             T? min,
             T? max,
@@ -229,12 +229,12 @@ namespace CleanValidation.Core.Guards
 
             if (value >= min && value <= max)
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
 
-        public Guard AgainstRange(
+        public Guard AgainstInRange(
             DateOnly? date,
             DateOnly? min,
             DateOnly? max,
@@ -246,12 +246,12 @@ namespace CleanValidation.Core.Guards
 
             if (date >= min && date <= max)
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
 
-        public Guard AgainstRange(
+        public Guard AgainstInRange(
             TimeOnly? time,
             TimeOnly? min,
             TimeOnly? max,
@@ -263,12 +263,12 @@ namespace CleanValidation.Core.Guards
 
             if (time >= min && time <= max)
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
 
-        public Guard AgainstRange(
+        public Guard AgainstInRange(
             DateTime? dateTime,
             DateTime? min,
             DateTime? max,
@@ -280,7 +280,7 @@ namespace CleanValidation.Core.Guards
 
             if (dateTime >= min && dateTime <= max)
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -709,7 +709,7 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
-        new public Guard<T> AgainstRange<TValue>(
+        new public Guard<T> AgainstInRange<TValue>(
             TValue? value,
             TValue? min,
             TValue? max,
@@ -722,12 +722,12 @@ namespace CleanValidation.Core.Guards
 
             if (value >= min && value <= max)
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
 
-        public Guard<T> AgainstRange<TProperty>(
+        public Guard<T> AgainstInRange<TProperty>(
             Expression<Func<T, TProperty?>> property,
             TProperty? min,
             TProperty? max,
@@ -744,12 +744,12 @@ namespace CleanValidation.Core.Guards
 
             if (value >= min && value <= max)
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstRange), property.GetName(), cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInRange), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
 
-        new public Guard<T> AgainstRange(
+        new public Guard<T> AgainstInRange(
             DateOnly? date,
             DateOnly? min,
             DateOnly? max,
@@ -761,12 +761,12 @@ namespace CleanValidation.Core.Guards
 
             if (date >= min && date <= max)
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
 
-        public Guard<T> AgainstRange(
+        public Guard<T> AgainstInRange(
             Expression<Func<T, DateOnly?>> property,
             DateOnly? min,
             DateOnly? max,
@@ -782,12 +782,12 @@ namespace CleanValidation.Core.Guards
 
             if (date >= min && date <= max)
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstRange), property.GetName(), cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInRange), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
 
-        new public Guard<T> AgainstRange(
+        new public Guard<T> AgainstInRange(
             TimeOnly? time,
             TimeOnly? min,
             TimeOnly? max,
@@ -799,12 +799,12 @@ namespace CleanValidation.Core.Guards
 
             if (time >= min && time <= max)
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
 
-        public Guard<T> AgainstRange(
+        public Guard<T> AgainstInRange(
             Expression<Func<T, TimeOnly?>> property,
             TimeOnly? min,
             TimeOnly? max,
@@ -820,12 +820,12 @@ namespace CleanValidation.Core.Guards
 
             if (time >= min && time <= max)
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstRange), property.GetName(), cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInRange), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
 
-        new public Guard<T> AgainstRange(
+        new public Guard<T> AgainstInRange(
             DateTime? dateTime,
             DateTime? min,
             DateTime? max,
@@ -837,12 +837,12 @@ namespace CleanValidation.Core.Guards
 
             if (dateTime >= min && dateTime <= max)
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
 
-        public Guard<T> AgainstRange(
+        public Guard<T> AgainstInRange(
             Expression<Func<T, DateTime?>> property,
             DateTime? min,
             DateTime? max,
@@ -858,7 +858,7 @@ namespace CleanValidation.Core.Guards
 
             if (dateTime >= min && dateTime <= max)
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstRange), property.GetName(), cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInRange), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
