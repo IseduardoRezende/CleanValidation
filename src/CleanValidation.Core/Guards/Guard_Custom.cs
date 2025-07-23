@@ -179,6 +179,20 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
+        public Guard<T> AgainstTrue(
+            Func<T?, bool> func,
+            string? message = null)
+        {
+            if (!Continue || func is null)
+                return this;
+
+            if (func.Invoke(Value))
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTrue), typeof(T).Name, cultureName: CultureName), message));
+
+            return this;
+        }
+
         new public async Task<Guard<T>> AgainstTrueAsync<TValue>(
             TValue? value,
             Func<TValue, Task<bool>> func,
@@ -206,6 +220,20 @@ namespace CleanValidation.Core.Guards
             if (await func.Invoke(property.GetValue(Value)))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstTrue), property.GetName(), cultureName: CultureName), message));
+
+            return this;
+        }
+
+        public async Task<Guard<T>> AgainstTrueAsync(
+            Func<T?, Task<bool>> func,
+            string? message = null)
+        {
+            if (!Continue || func is null)
+                return this;
+
+            if (await func.Invoke(Value))
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTrueAsync), typeof(T).Name, cultureName: CultureName), message));
 
             return this;
         }
@@ -285,6 +313,20 @@ namespace CleanValidation.Core.Guards
             return this;
         }
 
+        public Guard<T> AgainstFalse(
+            Func<T?, bool> func,
+            string? message = null)
+        {
+            if (!Continue || func is null)
+                return this;
+
+            if (!func.Invoke(Value))
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstFalse), typeof(T).Name, cultureName: CultureName), message));
+
+            return this;
+        }
+
         new public async Task<Guard<T>> AgainstFalseAsync<TValue>(
             TValue? value,
             Func<TValue, Task<bool>> func,
@@ -312,6 +354,20 @@ namespace CleanValidation.Core.Guards
             if (!await func.Invoke(property.GetValue(Value)))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstFalse), property.GetName(), cultureName: CultureName), message));
+
+            return this;
+        }
+
+        public async Task<Guard<T>> AgainstFalseAsync(
+            Func<T?, Task<bool>> func,
+            string? message = null)
+        {
+            if (!Continue || func is null)
+                return this;
+
+            if (!await func.Invoke(Value))
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstFalseAsync), typeof(T).Name, cultureName: CultureName), message));
 
             return this;
         }
