@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using CleanValidation.Core.Errors;
-using CleanValidation.Core.Results;
 using CleanValidation.Core.Options;
 using CleanValidation.Core.Extensions;
 using System.Runtime.CompilerServices;
@@ -20,8 +19,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!IsValidPassword(password, options))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstWeakPassword), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstWeakPassword), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -89,8 +88,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!IsValidEmailAddress(email))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidEmailAddress), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstInvalidEmailAddress), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -110,8 +109,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!IsValidPhone(phone))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidPhone), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstInvalidPhone), paramName, cultureName: CultureName), message));
 
             return this;
 
@@ -135,8 +134,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!IsValidPassword(password, options))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstWeakPassword), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstWeakPassword), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -149,11 +148,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            string? password = property.GetValue(Result.Value);
+            string? password = property.GetValue(Value);
 
             if (!IsValidPassword(password, options))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstWeakPassword), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstWeakPassword), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -167,8 +166,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!IsValidEmailAddress(email))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidEmailAddress), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstInvalidEmailAddress), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -180,11 +179,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            string? email = property.GetValue(Result.Value);
+            string? email = property.GetValue(Value);
 
             if (!IsValidEmailAddress(email))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidEmailAddress), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstInvalidEmailAddress), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -198,8 +197,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!IsValidPhone(phone))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidPhone), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstInvalidPhone), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -211,11 +210,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            string? phone = property.GetValue(Result.Value);
+            string? phone = property.GetValue(Value);
 
             if (!IsValidPhone(phone))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidPhone), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstInvalidPhone), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
