@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
+using CleanValidation.Core.Errors;
 using CleanValidation.Core.Options;
-using CleanValidation.Core.Results;
 using CleanValidation.Core.Extensions;
 using System.Runtime.CompilerServices;
 
@@ -18,7 +18,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (ContentTypeOptions.ContainsType(fileData, contentTypes))
-                Result = InvalidResult.Create([]);
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                   .GetByKey(nameof(AgainstInvalidContentTypes), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -33,7 +34,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!ContentTypeOptions.ContainsType(fileData, contentType))
-                Result = InvalidResult.Create([]);
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotExactContentType), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -51,7 +53,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (ContentTypeOptions.ContainsType(fileData, contentTypes))
-                Result = InvalidResult<T>.Create([]);
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                     .GetByKey(nameof(AgainstInvalidContentTypes), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -64,13 +67,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || contentTypes is null)
                 return this;
 
-            IEnumerable<byte>? fileData = property.GetValue(Result.Value);
+            IEnumerable<byte>? fileData = property.GetValue(Value);
 
             if (fileData is null)
                 return this;
 
             if (ContentTypeOptions.ContainsType(fileData, contentTypes))
-                Result = InvalidResult<T>.Create([]);
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                     .GetByKey(nameof(AgainstInvalidContentTypes), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -85,7 +89,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!ContentTypeOptions.ContainsType(fileData, contentType))
-                Result = InvalidResult<T>.Create([]);
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                     .GetByKey(nameof(AgainstNotExactContentType), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -98,13 +103,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            IEnumerable<byte>? fileData = property.GetValue(Result.Value);
+            IEnumerable<byte>? fileData = property.GetValue(Value);
 
             if (fileData is null)
                 return this;
 
             if (!ContentTypeOptions.ContainsType(fileData, contentType))
-                Result = InvalidResult<T>.Create([]);
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                     .GetByKey(nameof(AgainstNotExactContentType), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
