@@ -159,6 +159,9 @@
   <data name="AgainstIn" xml:space="preserve">
     <value>O valor está contido.</value>
   </data>
+  <data name="AgainstInvalidContentTypes" xml:space="preserve">
+    <value>O tipo do conteúdo é inválido.</value>
+  </data>
   <data name="AgainstInvalidEmailAddress" xml:space="preserve">
     <value>O endereço de email é inválido.</value>
   </data>
@@ -194,6 +197,9 @@
   </data>
   <data name="AgainstNotEqual" xml:space="preserve">
     <value>Os valores são diferentes.</value>
+  </data>
+  <data name="AgainstNotExactContentType" xml:space="preserve">
+    <value>O tipo do conteúdo não corresponde.</value>
   </data>
   <data name="AgainstNotExactLength" xml:space="preserve">
     <value>O tamanho do valor é diferente de {0}.</value>

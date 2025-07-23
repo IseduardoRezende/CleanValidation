@@ -187,6 +187,15 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The content type is invalid..
+        /// </summary>
+        internal static string AgainstInvalidContentTypes {
+            get {
+                return ResourceManager.GetString("AgainstInvalidContentTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The email address is invalid..
         /// </summary>
         internal static string AgainstInvalidEmailAddress {
@@ -291,6 +300,15 @@ namespace CleanValidation.Core.Resources {
         internal static string AgainstNotEqual {
             get {
                 return ResourceManager.GetString("AgainstNotEqual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The content type does not match..
+        /// </summary>
+        internal static string AgainstNotExactContentType {
+            get {
+                return ResourceManager.GetString("AgainstNotExactContentType", resourceCulture);
             }
         }
         
