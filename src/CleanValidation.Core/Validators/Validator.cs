@@ -32,7 +32,7 @@ namespace CleanValidation.Core.Validators
             ValidationOptions option = ValidationOptions.ContinueOnFailure,
             string cultureName = "en-US")
         {
-            return Guard<T>.Create(value, option, cultureName).AgainstNull(value).GetResult();
+            return Guard<T>.Create(value, option, cultureName).AgainstNull().GetResult();
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using CleanValidation.Core.Guards;
+using CleanValidation.Core.Options;
 using CleanValidation.Core.Results;
 using CleanValidation.Core.Validators;
 
@@ -14,14 +15,19 @@ namespace CleanValidation.Core.Tests
 
     public class UserValidator : Validator<User>
     {
-        public override IResult Validate(User? value, string cultureName = "en-US") =>
-            Guard.Create(cultureName)
-            .AgainstNull(value)
-            .AgainstWhiteSpace(value.Name)
-            .AgainstLessThan(value.Id, min: 1)
-            .AgainstMinLength(value.Name, minLength: 3)
-            .AgainstMaxLength(value.Name, maxLength: 50)
-            .AgainstOutOfRange(value.Age, min: 18, max: 110)
+        public override IResult<User> Validate(
+            User? user,
+            ValidationOptions option = ValidationOptions.ContinueOnFailure,
+            string cultureName = "en-US")
+        {
+            return Guard<User>.Create(user, option, cultureName)
+            .AgainstNull()
+            .AgainstWhiteSpace(u => u.Name)
+            .AgainstLessThan(u => u.Id, min: 1)
+            .AgainstMinLength(u => u.Name, minLength: 3)
+            .AgainstMaxLength(u => u.Name, maxLength: 50)
+            .AgainstOutOfRange(u => u.Age, min: 18, max: 110)
             .GetResult();
+        }
     }
 }
