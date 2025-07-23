@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using CleanValidation.Core.Errors;
-using CleanValidation.Core.Results;
 using CleanValidation.Core.Extensions;
 using System.Runtime.CompilerServices;
 
@@ -17,9 +16,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || date is null)
                 return this;
 
-            if (date.Value > compareDate)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateInFuture), paramName, cultureName: CultureName), message));
+            if (date > compareDate)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDateInFuture), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -33,9 +32,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || date is null)
                 return this;
 
-            if (date.Value < compareDate)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateInPast), paramName, cultureName: CultureName), message));
+            if (date < compareDate)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDateInPast), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -49,9 +48,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || time is null)
                 return this;
 
-            if (time.Value > compareTime)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTimeInFuture), paramName, cultureName: CultureName), message));
+            if (time > compareTime)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTimeInFuture), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -65,9 +64,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || time is null)
                 return this;
 
-            if (time.Value < compareTime)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTimeInPast), paramName, cultureName: CultureName), message));
+            if (time < compareTime)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTimeInPast), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -81,9 +80,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || dateTime is null)
                 return this;
 
-            if (dateTime.Value > compareDateTime)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateTimeInFuture), paramName, cultureName: CultureName), message));
+            if (dateTime > compareDateTime)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDateTimeInFuture), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -97,9 +96,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || dateTime is null)
                 return this;
 
-            if (dateTime.Value < compareDateTime)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateTimeInPast), paramName, cultureName: CultureName), message));
+            if (dateTime < compareDateTime)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDateTimeInPast), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -116,9 +115,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || date is null)
                 return this;
 
-            if (date.Value > compareDate)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateInFuture), paramName, cultureName: CultureName), message));
+            if (date > compareDate)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDateInFuture), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -131,11 +130,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            DateOnly? date = property.GetValue(Result.Value);
+            DateOnly? date = property.GetValue(Value);
 
             if (date is not null && date > compareDate)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateInFuture), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDateInFuture), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -149,9 +148,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || date is null)
                 return this;
 
-            if (date.Value < compareDate)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateInPast), paramName, cultureName: CultureName), message));
+            if (date < compareDate)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDateInPast), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -164,11 +163,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            DateOnly? date = property.GetValue(Result.Value);
+            DateOnly? date = property.GetValue(Value);
 
             if (date is not null && date < compareDate)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateInPast), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDateInPast), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -182,9 +181,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || time is null)
                 return this;
 
-            if (time.Value > compareTime)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTimeInFuture), paramName, cultureName: CultureName), message));
+            if (time > compareTime)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTimeInFuture), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -197,11 +196,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            TimeOnly? time = property.GetValue(Result.Value);
+            TimeOnly? time = property.GetValue(Value);
 
             if (time is not null && time > compareTime)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTimeInFuture), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTimeInFuture), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -215,9 +214,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || time is null)
                 return this;
 
-            if (time.Value < compareTime)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTimeInPast), paramName, cultureName: CultureName), message));
+            if (time < compareTime)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTimeInPast), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -230,11 +229,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            TimeOnly? time = property.GetValue(Result.Value);
+            TimeOnly? time = property.GetValue(Value);
 
             if (time is not null && time < compareTime)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTimeInPast), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTimeInPast), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -248,9 +247,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || dateTime is null)
                 return this;
 
-            if (dateTime.Value > compareDateTime)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateTimeInFuture), paramName, cultureName: CultureName), message));
+            if (dateTime > compareDateTime)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDateTimeInFuture), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -263,11 +262,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            DateTime? dateTime = property.GetValue(Result.Value);
+            DateTime? dateTime = property.GetValue(Value);
 
             if (dateTime is not null && dateTime > compareDateTime)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateTimeInFuture), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDateTimeInFuture), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -281,9 +280,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || dateTime is null)
                 return this;
 
-            if (dateTime.Value < compareDateTime)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateTimeInPast), paramName, cultureName: CultureName), message));
+            if (dateTime < compareDateTime)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDateTimeInPast), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -296,11 +295,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            DateTime? dateTime = property.GetValue(Result.Value);
+            DateTime? dateTime = property.GetValue(Value);
 
             if (dateTime is not null && dateTime < compareDateTime)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDateTimeInPast), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDateTimeInPast), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
