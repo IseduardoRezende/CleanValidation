@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using CleanValidation.Core.Errors;
-using CleanValidation.Core.Results;
 using CleanValidation.Core.Extensions;
 using System.Runtime.CompilerServices;
 
@@ -18,9 +17,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (values.Count() < minLength)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstMinLength), paramName, [minLength],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstMinLength), paramName, [minLength], CultureName), message));
 
             return this;
         }
@@ -35,9 +33,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (values.Count() > maxLength)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstMaxLength), paramName, [maxLength],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstMaxLength), paramName, [maxLength], CultureName), message));
 
             return this;
         }
@@ -52,9 +49,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!values.Count().Equals(exactLength))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotExactLength), paramName, [exactLength],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotExactLength), paramName, [exactLength], CultureName), message));
 
             return this;
         }
@@ -69,9 +65,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (values.Count().Equals(exactLength))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstExactLength), paramName, [exactLength],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstExactLength), paramName, [exactLength], CultureName), message));
 
             return this;
         }
@@ -89,9 +84,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (values.Count() < minLength)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstMinLength), paramName, [minLength],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstMinLength), paramName, [minLength], CultureName), message));
 
             return this;
         }
@@ -104,15 +98,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            IEnumerable<TProperty?>? values = property.GetValue(Result.Value);
+            IEnumerable<TProperty?>? values = property.GetValue(Value);
 
             if (values is null)
                 return this;
 
             if (values.Count() < minLength)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstMinLength), property.GetName(), [minLength],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstMinLength), property.GetName(), [minLength], CultureName), message));
 
             return this;
         }
@@ -127,9 +120,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (values.Count() > maxLength)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstMaxLength), paramName, [maxLength],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstMaxLength), paramName, [maxLength], CultureName), message));
 
             return this;
         }
@@ -142,15 +134,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            IEnumerable<TProperty?>? values = property.GetValue(Result.Value);
+            IEnumerable<TProperty?>? values = property.GetValue(Value);
 
             if (values is null)
                 return this;
 
             if (values.Count() > maxLength)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstMaxLength), property.GetName(), [maxLength],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstMaxLength), property.GetName(), [maxLength], CultureName), message));
 
             return this;
         }
@@ -165,9 +156,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!values.Count().Equals(exactLength))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotExactLength), paramName, [exactLength],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotExactLength), paramName, [exactLength], CultureName), message));
 
             return this;
         }
@@ -180,15 +170,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            IEnumerable<TProperty?>? values = property.GetValue(Result.Value);
+            IEnumerable<TProperty?>? values = property.GetValue(Value);
 
             if (values is null)
                 return this;
 
             if (!values.Count().Equals(exactLength))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotExactLength), property.GetName(), [exactLength],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotExactLength), property.GetName(), [exactLength], CultureName), message));
 
             return this;
         }
@@ -203,9 +192,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (values.Count().Equals(exactLength))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstExactLength), paramName, [exactLength],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstExactLength), paramName, [exactLength], CultureName), message));
 
             return this;
         }
@@ -218,15 +206,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            IEnumerable<TProperty?>? values = property.GetValue(Result.Value);
+            IEnumerable<TProperty?>? values = property.GetValue(Value);
 
             if (values is null)
                 return this;
 
             if (values.Count().Equals(exactLength))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstExactLength), property.GetName(), [exactLength],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstExactLength), property.GetName(), [exactLength], CultureName), message));
 
             return this;
         }
