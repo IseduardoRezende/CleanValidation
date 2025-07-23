@@ -1,7 +1,6 @@
 ﻿using System.Numerics;
 using System.Linq.Expressions;
 using CleanValidation.Core.Errors;
-using CleanValidation.Core.Results;
 using CleanValidation.Core.Extensions;
 using System.Runtime.CompilerServices;
 
@@ -30,8 +29,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value is null)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNull), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNull), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -46,8 +45,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if ((value is null && comparison is null) || (value?.Equals(comparison) ?? false))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstEqual), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstEqual), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -62,8 +61,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if ((value is not null || comparison is not null) && (!value?.Equals(comparison) ?? true))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotEqual), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotEqual), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -78,8 +77,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value.Equals(default(TStruct)))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDefault), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDefault), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -93,8 +92,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (values is null || !values.Any())
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstEmpty), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstEmpty), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -108,8 +107,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (string.IsNullOrWhiteSpace(value))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstWhiteSpace), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstWhiteSpace), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -125,8 +124,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (values.Contains(value, comparer))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstIn), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstIn), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -142,8 +141,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!values.Contains(value, comparer))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotIn), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotIn), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -160,8 +159,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value < min || value > max)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -177,8 +176,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (date < min || date > max)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -194,8 +193,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (time < min || time > max)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -211,8 +210,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (dateTime < min || dateTime > max)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -229,8 +228,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value >= min && value <= max)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -246,8 +245,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (date >= min && date <= max)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -263,8 +262,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (time >= min && time <= max)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -280,8 +279,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (dateTime >= min && dateTime <= max)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -298,8 +297,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value is null)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNull), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNull), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -311,9 +310,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            if (property.GetValue(Result.Value) is null)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNull), property.GetName(), cultureName: CultureName), message));
+            if (property.GetValue(Value) is null)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNull), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -328,8 +327,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if ((value is null && comparison is null) || (value?.Equals(comparison) ?? false))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstEqual), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstEqual), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -342,11 +341,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            TProperty? value = property.GetValue(Result.Value);
+            TProperty? value = property.GetValue(Value);
 
             if ((value is null && comparison is null) || (value?.Equals(comparison) ?? false))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstEqual), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstEqual), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -361,8 +360,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if ((value is not null || comparison is not null) && (!value?.Equals(comparison) ?? true))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotEqual), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotEqual), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -375,11 +374,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            TProperty? value = property.GetValue(Result.Value);
+            TProperty? value = property.GetValue(Value);
 
             if ((value is not null || comparison is not null) && (!value?.Equals(comparison) ?? true))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotEqual), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotEqual), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -394,8 +393,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value.Equals(default(TStruct)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDefault), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDefault), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -407,11 +406,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            TProperty? value = property.GetValue(Result.Value);
+            TProperty? value = property.GetValue(Value);
 
             if (value?.Equals(default(TProperty)) ?? true)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstDefault), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstDefault), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -425,8 +424,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (values is null || !values.Any())
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstEmpty), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstEmpty), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -438,11 +437,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            IEnumerable<TProperty?>? values = property.GetValue(Result.Value);
+            IEnumerable<TProperty?>? values = property.GetValue(Value);
 
             if (values is null || !values.Any())
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstEmpty), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstEmpty), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -456,8 +455,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (string.IsNullOrWhiteSpace(value))
-                Result = InvalidResult<T>.Create(
-                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstWhiteSpace), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstWhiteSpace), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -469,11 +468,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            string? value = property.GetValue(Result.Value);
+            string? value = property.GetValue(Value);
 
             if (string.IsNullOrWhiteSpace(value))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstWhiteSpace), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstWhiteSpace), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -489,8 +488,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (values.Contains(value, comparer))
-                Result = InvalidResult<T>.Create(
-                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstIn), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstIn), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -504,9 +503,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || values is null)
                 return this;
 
-            if (values.Contains(property.GetValue(Result.Value), comparer))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstIn), property.GetName(), cultureName: CultureName), message));
+            if (values.Contains(property.GetValue(Value), comparer))
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstIn), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -522,8 +521,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!values.Contains(value, comparer))
-                Result = InvalidResult<T>.Create(
-                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotIn), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotIn), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -537,9 +536,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || values is null)
                 return this;
 
-            if (!values.Contains(property.GetValue(Result.Value), comparer))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotIn), property.GetName(), cultureName: CultureName), message));
+            if (!values.Contains(property.GetValue(Value), comparer))
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotIn), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -556,8 +555,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value < min || value > max)
-                Result = InvalidResult<T>.Create(
-                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -572,14 +571,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null || max is null)
                 return this;
 
-            TProperty? value = property.GetValue(Result.Value);
+            TProperty? value = property.GetValue(Value);
 
             if (value is null)
                 return this;
 
             if (value < min || value > max)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstOutOfRange), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -595,8 +594,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (date < min || date > max)
-                Result = InvalidResult<T>.Create(
-                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -610,14 +609,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null || max is null)
                 return this;
 
-            DateOnly? date = property.GetValue(Result.Value);
+            DateOnly? date = property.GetValue(Value);
 
             if (date is null)
                 return this;
 
             if (date < min || date > max)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstOutOfRange), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -633,8 +632,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (time < min || time > max)
-                Result = InvalidResult<T>.Create(
-                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -648,14 +647,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null || max is null)
                 return this;
 
-            TimeOnly? time = property.GetValue(Result.Value);
+            TimeOnly? time = property.GetValue(Value);
 
             if (time is null)
                 return this;
 
             if (time < min || time > max)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstOutOfRange), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -671,8 +670,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (dateTime < min || dateTime > max)
-                Result = InvalidResult<T>.Create(
-                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstOutOfRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -686,14 +685,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null || max is null)
                 return this;
 
-            DateTime? dateTime = property.GetValue(Result.Value);
+            DateTime? dateTime = property.GetValue(Value);
 
             if (dateTime is null)
                 return this;
 
             if (dateTime < min || dateTime > max)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstOutOfRange), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstOutOfRange), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -710,8 +709,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value >= min && value <= max)
-                Result = InvalidResult<T>.Create(
-                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -726,14 +725,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null || max is null)
                 return this;
 
-            TProperty? value = property.GetValue(Result.Value);
+            TProperty? value = property.GetValue(Value);
 
             if (value is null)
                 return this;
 
             if (value >= min && value <= max)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstRange), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -749,8 +748,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (date >= min && date <= max)
-                Result = InvalidResult<T>.Create(
-                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -764,14 +763,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null || max is null)
                 return this;
 
-            DateOnly? date = property.GetValue(Result.Value);
+            DateOnly? date = property.GetValue(Value);
 
             if (date is null)
                 return this;
 
             if (date >= min && date <= max)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstRange), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -787,8 +786,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (time >= min && time <= max)
-                Result = InvalidResult<T>.Create(
-                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -802,14 +801,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null || max is null)
                 return this;
 
-            TimeOnly? time = property.GetValue(Result.Value);
+            TimeOnly? time = property.GetValue(Value);
 
             if (time is null)
                 return this;
 
             if (time >= min && time <= max)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstRange), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -825,8 +824,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (dateTime >= min && dateTime <= max)
-                Result = InvalidResult<T>.Create(
-                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstRange), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -840,14 +839,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null || max is null)
                 return this;
 
-            DateTime? dateTime = property.GetValue(Result.Value);
+            DateTime? dateTime = property.GetValue(Value);
 
             if (dateTime is null)
                 return this;
 
             if (dateTime >= min && dateTime <= max)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstRange), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstRange), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
