@@ -18,12 +18,12 @@ namespace CleanValidation.Core.Extensions
 
         public static TProperty? GetValue<T, TProperty>(
             this Expression<Func<T, TProperty?>> propertyExpression,
-            T? value)
+            T? instance)
         {
-            if (propertyExpression is null || value is null)
+            if (propertyExpression is null || instance is null)
                 return default;
 
-            return propertyExpression.Compile().Invoke(value);
+            return propertyExpression.Compile().Invoke(instance);
         }
     }
 }
