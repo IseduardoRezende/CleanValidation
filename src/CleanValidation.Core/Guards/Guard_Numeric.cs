@@ -1,7 +1,6 @@
 ﻿using System.Numerics;
 using System.Linq.Expressions;
 using CleanValidation.Core.Errors;
-using CleanValidation.Core.Results;
 using System.Runtime.CompilerServices;
 using CleanValidation.Core.Extensions;
 
@@ -20,9 +19,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value < min)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstLessThan), paramName, [min],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstLessThan), paramName, [min], CultureName), message));
 
             return this;
         }
@@ -38,9 +36,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value > max)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstGreaterThan), paramName, [max],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstGreaterThan), paramName, [max], CultureName), message));
 
             return this;
         }
@@ -59,9 +56,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value < min)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstLessThan), paramName, [min],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstLessThan), paramName, [min], CultureName), message));
 
             return this;
         }
@@ -75,15 +71,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || min is null)
                 return this;
 
-            TProperty? value = property.GetValue(Result.Value);
+            TProperty? value = property.GetValue(Value);
 
             if (value is null)
                 return this;
 
             if (value < min)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstLessThan), property.GetName(), [min],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstLessThan), property.GetName(), [min], CultureName), message));
 
             return this;
         }
@@ -99,9 +94,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value > max)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstGreaterThan), paramName, [max],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstGreaterThan), paramName, [max], CultureName), message));
 
             return this;
         }
@@ -115,15 +109,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || max is null)
                 return this;
 
-            TProperty? value = property.GetValue(Result.Value);
+            TProperty? value = property.GetValue(Value);
 
             if (value is null)
                 return this;
 
             if (value > max)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstGreaterThan), property.GetName(), [max],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstGreaterThan), property.GetName(), [max], CultureName), message));
 
             return this;
         }
