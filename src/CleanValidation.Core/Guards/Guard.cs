@@ -1,4 +1,6 @@
-﻿using CleanValidation.Core.Results;
+﻿using CleanValidation.Core.Errors;
+using CleanValidation.Core.Options;
+using CleanValidation.Core.Results;
 
 namespace CleanValidation.Core.Guards
 {
@@ -9,7 +11,7 @@ namespace CleanValidation.Core.Guards
     /// The <see cref="Guard"/> class is designed to facilitate input validation in a fluent
     /// manner. It allows chaining multiple validation methods, such as <see cref="AgainstWhiteSpace(string?,
     /// string?, string?)"/> and <see cref="AgainstNull(object?, string?, string?)"/>, while maintaining a result that indicates whether
-    /// validation succeeded. If validation fails, the <see cref="IResult"/> property is updated with an error
+    /// validation succeeded. If validation fails, the <see cref="GetResult"/> method is updated with an invalid
     /// result.
     /// </remarks>
     public partial class Guard
@@ -17,47 +19,71 @@ namespace CleanValidation.Core.Guards
         /// <summary>
         /// Initializes a new instance of the <see cref="Guard"/> class.
         /// </summary>
-        /// <param name="result">The initial result.</param>
+        /// <param name="validationOption">The validation option used to configure the behavior of validation operations.</param>
         /// <param name="cultureName">The name of the culture to use for message.</param>
-        protected Guard(IResult result, string cultureName)
+        protected Guard(ValidationOptions validationOption, string cultureName)
         {
-            Result = result;
+            ValidationOption = validationOption;
             CultureName = cultureName;
+
+            ErrorBag = new ErrorBag();
         }
 
         /// <summary>
-        /// The result associated with the validations
+        /// Represents the collection of errors encountered during the validations.
         /// </summary>
-        protected IResult Result { get; set; }
+        protected ErrorBag ErrorBag { get; }
 
         /// <summary>
         /// The name of the culture to use for message.
         /// </summary>
-        public string CultureName { get; }
+        protected string CultureName { get; }
 
         /// <summary>
         /// Determines wheter chaining validation may continue.
         /// </summary>
-        protected bool Continue { get { return Result.IsValid; } }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Guard"/> class with <see cref="Result"/> property 
-        /// being <see cref="SuccessResult"/>.
-        /// </summary>
-        /// <param name="cultureName">The name of the culture to use for message.</param>
-        /// <returns>The <see cref="Guard"/> instance, allowing for method chaining.</returns>
-        public static Guard Create(string cultureName = "en-US")
+        protected bool Continue
         {
-            return new Guard(result: SuccessResult.Create(), cultureName);
+            get
+            {
+                return ValidationOption is ValidationOptions.ContinueOnFailure || ErrorBag.Count is 0;
+            }
         }
 
         /// <summary>
-        /// Gets the <see cref="Result"/> property.
+        /// Gets the validation option used to configure the behavior of validation operations.
         /// </summary>
-        /// <returns>The result of chaining validations.</returns>
+        protected ValidationOptions ValidationOption { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Guard"/> class.
+        /// </summary>
+        /// <param name="validationOption">
+        /// The validation option used to configure the behavior of validation operations.
+        /// The default value is <see cref="ValidationOptions.ContinueOnFailure"/>.
+        /// </param>
+        /// <param name="cultureName">The name of the culture to use for message.</param>
+        /// <returns>The <see cref="Guard"/> instance, allowing for method chaining.</returns>
+        public static Guard Create(
+            ValidationOptions validationOption = ValidationOptions.ContinueOnFailure,
+            string cultureName = "en-US")
+        {
+            return new Guard(validationOption, cultureName);
+        }
+
+        /// <summary>
+        /// Retrieves the result of an operation, indicating success or failure.
+        /// </summary>
+        /// <remarks>If there are errors, the method returns an invalid result containing the error
+        /// details. Otherwise, it returns a success result. Use this method to determine the outcome of the
+        /// operation.</remarks>
+        /// <returns>An <see cref="IResult"/> representing the outcome of the operation.  Returns an <see cref="InvalidResult"/>
+        /// if errors are present, or a <see cref="SuccessResult"/> if the operation succeeded.</returns>
         public IResult GetResult()
         {
-            return Result;
+            return ErrorBag.Count is not 0
+                ? InvalidResult.Create(ErrorBag.Errors)
+                : SuccessResult.Create();
         }
     }
 
@@ -68,7 +94,7 @@ namespace CleanValidation.Core.Guards
     /// The <see cref="Guard{T}"/> class is designed to facilitate input validation in a fluent
     /// manner. It allows chaining multiple validation methods, such as <see cref="AgainstWhiteSpace(string,
     /// string?, string?)"/> and <see cref="AgainstNull(object?, string?, string?)"/>, while maintaining a result that indicates whether
-    /// validation succeeded. If validation fails, the <see cref="Result"/> property is updated with an error
+    /// validation succeeded. If validation fails, the <see cref="GetResult"/> method is updated with an invalid
     /// result.
     /// </remarks>
     /// <typeparam name="T">The type associated with the validation result.</typeparam>
@@ -77,48 +103,67 @@ namespace CleanValidation.Core.Guards
         /// <summary>
         /// Initializes a new instance of the <see cref="Guard{T}"/> class.
         /// </summary>
-        /// <param name="result">The initial result.</param>
+        /// <param name="value">The value to validate.</param>
+        /// <param name="validationOption">The validation option used to configure the behavior of validation operations.</param>
         /// <param name="cultureName">The name of the culture to use for message.</param>
-        protected Guard(IResult<T> result, string cultureName) : base(result, cultureName)
+        protected Guard(T? value, ValidationOptions validationOption, string cultureName)
+            : base(validationOption, cultureName)
         {
-            Result = result;
+            Value = value;
         }
 
         /// <summary>
-        /// The result associated with the validations
+        /// The value to validate.
         /// </summary>
-        new protected IResult<T> Result { get; set; }
+        protected T? Value { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Guard{T}"/> class with <see cref="Result"/> property 
-        /// being <see cref="SuccessResult{T}"/>.
+        /// Initializes a new instance of the <see cref="Guard{T}"/> class.
         /// </summary>
-        /// <param name="value">The value that will be validated.</param>
-        /// <param name="cultureName">The name of the culture to use for message.</param>
-        /// <returns>The <see cref="Guard{T}"/> instance, allowing for method chaining.</returns>
-        public static Guard<T> Create(T? value, string cultureName = "en-US")
-        {
-            return new Guard<T>(result: SuccessResult<T>.Create(value), cultureName);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Guard{T}"/> class with <see cref="Result"/> property 
-        /// being <see cref="SuccessResult{T}"/>.
-        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <param name="validationOption">
+        /// The validation option used to configure the behavior of validation operations.
+        /// The default value is <see cref="ValidationOptions.ContinueOnFailure"/>.
+        /// </param>
         /// <param name="cultureName">The name of the culture to use for message.</param>
         /// <returns>The <see cref="Guard{T}"/> instance, allowing for method chaining.</returns>
-        new public static Guard<T> Create(string cultureName = "en-US")
+        public static Guard<T> Create(
+            T? value,
+            ValidationOptions validationOption = ValidationOptions.ContinueOnFailure,
+            string cultureName = "en-US")
         {
-            return new Guard<T>(result: SuccessResult<T>.Create(default), cultureName);
+            return new Guard<T>(value, validationOption, cultureName);
         }
 
         /// <summary>
-        /// Gets the <see cref="Result"/> property.
+        /// Initializes a new instance of the <see cref="Guard{T}"/> class.
         /// </summary>
-        /// <returns>The result of chaining validations.</returns>
+        /// <param name="validationOption">
+        /// The validation option used to configure the behavior of validation operations.
+        /// The default value is <see cref="ValidationOptions.ContinueOnFailure"/>.
+        /// </param>
+        /// <param name="cultureName">The name of the culture to use for message.</param>
+        /// <returns>The <see cref="Guard{T}"/> instance, allowing for method chaining.</returns>
+        new public static Guard<T> Create(
+            ValidationOptions validationOption = ValidationOptions.ContinueOnFailure,
+            string cultureName = "en-US")
+        {
+            return new Guard<T>(default, validationOption, cultureName);
+        }
+
+        /// <summary>
+        /// Retrieves the result of an operation, indicating success or failure.
+        /// </summary>
+        /// <remarks>If there are errors, the method returns an invalid result containing the error
+        /// details. Otherwise, it returns a success result. Use this method to determine the outcome of the
+        /// operation.</remarks>
+        /// <returns>An <see cref="IResult{T}"/> representing the outcome of the operation.  Returns an <see cref="InvalidResult{T}"/>
+        /// if errors are present, or a <see cref="SuccessResult{T}"/> if the operation succeeded.</returns>
         new public IResult<T> GetResult()
         {
-            return Result;
+            return ErrorBag.Count is not 0
+                 ? InvalidResult<T>.Create(ErrorBag.Errors)
+                 : SuccessResult<T>.Create(Value);
         }
     }
 }
