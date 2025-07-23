@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using CleanValidation.Core.Errors;
-using CleanValidation.Core.Results;
 using System.Runtime.CompilerServices;
 using CleanValidation.Core.Extensions;
 
@@ -17,8 +16,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (condition is true)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -33,8 +32,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (func.Invoke(value))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -49,8 +48,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (await func.Invoke(value))
-                Result = InvalidResult.Create(
-                     ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -64,8 +63,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (condition is false)
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -80,8 +79,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!func.Invoke(value))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -96,8 +95,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!await func.Invoke(value))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -114,8 +113,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (condition is true)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -127,9 +126,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            if (property.GetValue(Result.Value) is true)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), property.GetName(), cultureName: CultureName), message));
+            if (property.GetValue(Value) is true)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTrue), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -143,8 +142,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (condition is true)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTrue), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -159,8 +158,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (func.Invoke(value))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -173,9 +172,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || func is null)
                 return this;
 
-            if (func.Invoke(property.GetValue(Result.Value)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), property.GetName(), cultureName: CultureName), message));
+            if (func.Invoke(property.GetValue(Value)))
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTrue), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -190,8 +189,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (await func.Invoke(value))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -204,9 +203,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || func is null)
                 return this;
 
-            if (await func.Invoke(property.GetValue(Result.Value)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTrue), property.GetName(), cultureName: CultureName), message));
+            if (await func.Invoke(property.GetValue(Value)))
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTrue), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -220,8 +219,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (condition is false)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -233,9 +232,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            if (property.GetValue(Result.Value) is false)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), property.GetName(), cultureName: CultureName), message));
+            if (property.GetValue(Value) is false)
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstFalse), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -249,8 +248,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (condition is false)
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstFalse), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -265,8 +264,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!func.Invoke(value))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -279,9 +278,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || func is null)
                 return this;
 
-            if (!func.Invoke(property.GetValue(Result.Value)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), property.GetName(), cultureName: CultureName), message));
+            if (!func.Invoke(property.GetValue(Value)))
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstFalse), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
@@ -296,8 +295,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!await func.Invoke(value))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -310,9 +309,9 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null || func is null)
                 return this;
 
-            if (!await func.Invoke(property.GetValue(Result.Value)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstFalse), property.GetName(), cultureName: CultureName), message));
+            if (!await func.Invoke(property.GetValue(Value)))
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstFalse), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
