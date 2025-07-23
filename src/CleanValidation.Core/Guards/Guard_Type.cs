@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using CleanValidation.Core.Errors;
-using CleanValidation.Core.Results;
 using CleanValidation.Core.Extensions;
 using System.Runtime.CompilerServices;
 
@@ -17,9 +16,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!value.GetType().IsAssignableTo(typeof(TBase)))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotAssignableTo), paramName, [typeof(TBase).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotAssignableTo), paramName, [typeof(TBase).Name], CultureName), message));
 
             return this;
         }
@@ -33,9 +31,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!value.GetType().IsAssignableFrom(typeof(TBase)))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotAssignableFrom), paramName, [typeof(TBase).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotAssignableFrom), paramName, [typeof(TBase).Name], CultureName), message));
 
             return this;
         }
@@ -49,9 +46,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!value.GetType().Equals(typeof(TExpected)))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotTypeOf), paramName, [typeof(TExpected).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotTypeOf), paramName, [typeof(TExpected).Name], CultureName), message));
 
             return this;
         }
@@ -65,9 +61,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value.GetType().IsAssignableTo(typeof(TBase)))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstAssignableTo), paramName, [typeof(TBase).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstAssignableTo), paramName, [typeof(TBase).Name], CultureName), message));
 
             return this;
         }
@@ -81,9 +76,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value.GetType().IsAssignableFrom(typeof(TBase)))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstAssignableFrom), paramName, [typeof(TBase).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstAssignableFrom), paramName, [typeof(TBase).Name], CultureName), message));
 
             return this;
         }
@@ -97,9 +91,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value.GetType().Equals(typeof(TExpected)))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTypeOf), paramName, [typeof(TExpected).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTypeOf), paramName, [typeof(TExpected).Name], CultureName), message));
 
             return this;
         }
@@ -114,8 +107,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!Enum.IsDefined(typeof(TEnum), value))
-                Result = InvalidResult.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidEnum), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstInvalidEnum), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -132,9 +125,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!value.GetType().IsAssignableTo(typeof(TBase)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotAssignableTo), paramName, [typeof(TBase).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotAssignableTo), paramName, [typeof(TBase).Name], CultureName), message));
 
             return this;
         }
@@ -146,15 +138,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            object? value = property.GetValue(Result.Value);
+            object? value = property.GetValue(Value);
 
             if (value is null)
                 return this;
 
             if (!value.GetType().IsAssignableTo(typeof(TBase)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotAssignableTo), property.GetName(), [typeof(TBase).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotAssignableTo), property.GetName(), [typeof(TBase).Name], CultureName), message));
 
             return this;
         }
@@ -168,9 +159,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!value.GetType().IsAssignableFrom(typeof(TBase)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotAssignableFrom), paramName, [typeof(TBase).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotAssignableFrom), paramName, [typeof(TBase).Name], CultureName), message));
 
             return this;
         }
@@ -182,15 +172,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            object? value = property.GetValue(Result.Value);
+            object? value = property.GetValue(Value);
 
             if (value is null)
                 return this;
 
             if (!value.GetType().IsAssignableFrom(typeof(TBase)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotAssignableFrom), property.GetName(), [typeof(TBase).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotAssignableFrom), property.GetName(), [typeof(TBase).Name], CultureName), message));
 
             return this;
         }
@@ -204,9 +193,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!value.GetType().Equals(typeof(TExpected)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotTypeOf), paramName, [typeof(TExpected).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotTypeOf), paramName, [typeof(TExpected).Name], CultureName), message));
 
             return this;
         }
@@ -218,15 +206,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            object? value = property.GetValue(Result.Value);
+            object? value = property.GetValue(Value);
 
             if (value is null)
                 return this;
 
             if (!value.GetType().Equals(typeof(TExpected)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstNotTypeOf), property.GetName(), [typeof(TExpected).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstNotTypeOf), property.GetName(), [typeof(TExpected).Name], CultureName), message));
 
             return this;
         }
@@ -240,9 +227,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value.GetType().IsAssignableTo(typeof(TBase)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstAssignableTo), paramName, [typeof(TBase).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstAssignableTo), paramName, [typeof(TBase).Name], CultureName), message));
 
             return this;
         }
@@ -254,15 +240,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            object? value = property.GetValue(Result.Value);
+            object? value = property.GetValue(Value);
 
             if (value is null)
                 return this;
 
             if (value.GetType().IsAssignableTo(typeof(TBase)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstAssignableTo), property.GetName(), [typeof(TBase).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstAssignableTo), property.GetName(), [typeof(TBase).Name], CultureName), message));
 
             return this;
         }
@@ -276,9 +261,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value.GetType().IsAssignableFrom(typeof(TBase)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstAssignableFrom), paramName, [typeof(TBase).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstAssignableFrom), paramName, [typeof(TBase).Name], CultureName), message));
 
             return this;
         }
@@ -290,15 +274,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            object? value = property.GetValue(Result.Value);
+            object? value = property.GetValue(Value);
 
             if (value is null)
                 return this;
 
             if (value.GetType().IsAssignableFrom(typeof(TBase)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstAssignableFrom), property.GetName(), [typeof(TBase).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstAssignableFrom), property.GetName(), [typeof(TBase).Name], CultureName), message));
 
             return this;
         }
@@ -312,9 +295,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (value.GetType().Equals(typeof(TExpected)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTypeOf), paramName, [typeof(TExpected).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTypeOf), paramName, [typeof(TExpected).Name], CultureName), message));
 
             return this;
         }
@@ -326,15 +308,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            object? value = property.GetValue(Result.Value);
+            object? value = property.GetValue(Value);
 
             if (value is null)
                 return this;
 
             if (value.GetType().Equals(typeof(TExpected)))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstTypeOf), property.GetName(), [typeof(TExpected).Name],
-                    CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstTypeOf), property.GetName(), [typeof(TExpected).Name], CultureName), message));
 
             return this;
         }
@@ -349,8 +330,8 @@ namespace CleanValidation.Core.Guards
                 return this;
 
             if (!Enum.IsDefined(typeof(TEnum), value))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidEnum), paramName, cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstInvalidEnum), paramName, cultureName: CultureName), message));
 
             return this;
         }
@@ -363,14 +344,14 @@ namespace CleanValidation.Core.Guards
             if (!Continue || property is null)
                 return this;
 
-            object? value = property.GetValue(Result.Value);
+            object? value = property.GetValue(Value);
 
             if (value is null)
                 return this;
 
             if (!Enum.IsDefined(typeof(TEnum), value))
-                Result = InvalidResult<T>.Create(
-                    ErrorUtils.Custom(ErrorUtils.GetByKey(nameof(AgainstInvalidEnum), property.GetName(), cultureName: CultureName), message));
+                ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
+                    .GetByKey(nameof(AgainstInvalidEnum), property.GetName(), cultureName: CultureName), message));
 
             return this;
         }
