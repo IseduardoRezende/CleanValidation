@@ -216,7 +216,7 @@
   <data name="AgainstOutOfRange" xml:space="preserve">
     <value>O valor está fora dos limites.</value>
   </data>
-  <data name="AgainstRange" xml:space="preserve">
+  <data name="AgainstInRange" xml:space="preserve">
     <value>O valor está dentro dos limites.</value>
   </data>
   <data name="AgainstTimeInFuture" xml:space="preserve">

@@ -187,6 +187,15 @@ namespace CleanValidation.Core.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is in the range..
+        /// </summary>
+        internal static string AgainstInRange {
+            get {
+                return ResourceManager.GetString("AgainstInRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The content type is invalid..
         /// </summary>
         internal static string AgainstInvalidContentTypes {
@@ -354,15 +363,6 @@ namespace CleanValidation.Core.Resources {
         internal static string AgainstOutOfRange {
             get {
                 return ResourceManager.GetString("AgainstOutOfRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The value is in the range..
-        /// </summary>
-        internal static string AgainstRange {
-            get {
-                return ResourceManager.GetString("AgainstRange", resourceCulture);
             }
         }
         
