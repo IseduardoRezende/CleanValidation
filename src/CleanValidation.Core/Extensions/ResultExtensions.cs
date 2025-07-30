@@ -1,4 +1,5 @@
 ﻿using CleanValidation.Core.Results;
+using CleanValidation.Core.Exceptions;
 
 namespace CleanValidation.Core.Extensions
 {
@@ -28,7 +29,7 @@ namespace CleanValidation.Core.Extensions
                 ErrorResult error => ErrorResult<T>.Create(error.Errors),
                 ProblemResult problem => ProblemResult<T>.Create(problem.Errors),
                 InvalidResult invalid => InvalidResult<T>.Create(invalid.Errors),
-                _ => throw new InvalidOperationException()
+                _ => throw new CleanValidationException("Invalid Operation.")
             };
         }
     }
