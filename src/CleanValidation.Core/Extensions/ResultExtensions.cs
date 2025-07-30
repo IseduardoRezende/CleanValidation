@@ -1,4 +1,5 @@
-﻿using CleanValidation.Core.Results;
+﻿using CleanValidation.Core.Errors;
+using CleanValidation.Core.Results;
 using CleanValidation.Core.Exceptions;
 
 namespace CleanValidation.Core.Extensions
@@ -31,6 +32,36 @@ namespace CleanValidation.Core.Extensions
                 InvalidResult invalid => InvalidResult<T>.Create(invalid.Errors),
                 _ => throw new CleanValidationException("Invalid Operation.")
             };
+        }
+
+        public static SuccessResult<T> ToSuccessResult<T>(this T? value)
+        {
+            return SuccessResult<T>.Create(value);
+        }
+
+        public static NotFoundResult<T> ToNotFoundResult<T>(this T? value, IEnumerable<Error> errors)
+        {
+            return NotFoundResult<T>.Create(value, errors);
+        }
+
+        public static ConflictResult<T> ToConflictResult<T>(this T? value, IEnumerable<Error> errors)
+        {
+            return ConflictResult<T>.Create(value, errors);
+        }
+
+        public static ErrorResult<T> ToErrorResult<T>(this T? value, IEnumerable<Error> errors)
+        {
+            return ErrorResult<T>.Create(value, errors);
+        }
+
+        public static ProblemResult<T> ToProblemResult<T>(this T? value, IEnumerable<Error> errors)
+        {
+            return ProblemResult<T>.Create(value, errors);
+        }
+
+        public static InvalidResult<T> ToInvalidResult<T>(this T? value, IEnumerable<Error> errors)
+        {
+            return InvalidResult<T>.Create(value, errors);
         }
     }
 }
