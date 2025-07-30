@@ -1,4 +1,5 @@
 ﻿using CleanValidation.Core.Errors;
+using CleanValidation.Core.Exceptions;
 
 namespace CleanValidation.Core.Results
 {
@@ -16,6 +17,8 @@ namespace CleanValidation.Core.Results
         /// <param name="errors">The entry errors.</param>
         protected NotFoundResult(IEnumerable<Error> errors)
         {
+            CleanValidationException.ThrowIfNull(errors);
+
             Errors = errors;
         }
 
@@ -67,8 +70,28 @@ namespace CleanValidation.Core.Results
         /// <summary>
         /// Initializes a new instance of the <see cref="NotFoundResult{T}"/> class.
         /// </summary>
+        /// <param name="value">The value of type <typeparamref name="T"/>.</param>
+        /// <param name="errors">The entry errors.</param>
+        protected NotFoundResult(T? value, IEnumerable<Error> errors) : base(errors)
+        {
+            Value = value;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotFoundResult{T}"/> class.
+        /// </summary>
         /// <param name="errors">The entry errors.</param>
         protected NotFoundResult(IEnumerable<Error> errors) : base(errors) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotFoundResult{T}"/> class.
+        /// </summary>
+        /// <param name="value">The value of type <typeparamref name="T"/>.</param>
+        /// <param name="error">The entry error.</param>
+        protected NotFoundResult(T? value, Error error) : base(error)
+        {
+            Value = value;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NotFoundResult{T}"/> class.
@@ -79,7 +102,18 @@ namespace CleanValidation.Core.Results
         /// <summary>
         /// The value of type <typeparamref name="T"/>.
         /// </summary>
-        public T? Value { get { return default; } }
+        public T? Value { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotFoundResult{T}"/> class.
+        /// </summary>
+        /// <param name="value">The value of type <typeparamref name="T"/>.</param>
+        /// <param name="errors">The entry errors.</param>
+        /// <returns>The <see cref="NotFoundResult{T}"/> instance.</returns>
+        public static NotFoundResult<T> Create(T? value, IEnumerable<Error> errors)
+        {
+            return new NotFoundResult<T>(value, errors);
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NotFoundResult{T}"/> class.
@@ -94,11 +128,22 @@ namespace CleanValidation.Core.Results
         /// <summary>
         /// Initializes a new instance of the <see cref="NotFoundResult{T}"/> class.
         /// </summary>
+        /// <param name="value">The value of type <typeparamref name="T"/>.</param>
+        /// <param name="error">The entry error.</param>
+        /// <returns>The <see cref="NotFoundResult{T}"/> instance.</returns>
+        public static NotFoundResult<T> Create(T? value, Error error)
+        {
+            return new NotFoundResult<T>(value, error);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotFoundResult{T}"/> class.
+        /// </summary>
         /// <param name="error">The entry error.</param>
         /// <returns>The <see cref="NotFoundResult{T}"/> instance.</returns>
         new public static NotFoundResult<T> Create(Error error)
         {
             return new NotFoundResult<T>(error);
-        }       
+        }
     }
 }
