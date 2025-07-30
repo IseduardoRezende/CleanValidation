@@ -3,7 +3,7 @@ using CleanValidation.Core.Errors;
 using CleanValidation.Core.Options;
 using CleanValidation.Core.Extensions;
 using System.Runtime.CompilerServices;
-using System.ComponentModel.DataAnnotations;
+using CleanValidation.Core.Validators.Core;
 
 namespace CleanValidation.Core.Guards
 {
@@ -18,66 +18,12 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            if (!IsValidPassword(password, options))
+            if (!PasswordValidator.IsValid(password, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstWeakPassword), paramName, cultureName: CultureName), message));
 
             return this;
         }
-
-        protected static bool IsValidPassword(
-            string? password,
-            PasswordOptions? options)
-        {
-            if (string.IsNullOrWhiteSpace(password) || options is null)
-                return false;
-
-            if (password.Length < options.MinLength || password.Length > options.MaxLength)
-                return false;
-
-            if (options.RequireDigit && !password.Any(char.IsDigit))
-                return false;
-
-            if (options.RequireUpper && !password.Any(char.IsUpper))
-                return false;
-
-            if (options.RequireLower && !password.Any(char.IsLower))
-                return false;
-
-            if (options.RequireSpecial && !password.Any(c => !char.IsLetterOrDigit(c)))
-                return false;
-
-            if (options.DisallowSequences && ContainsSequence(password))
-                return false;
-
-            return true;
-        }
-
-        protected static bool ContainsSequence(string? value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-                return false;
-
-            for (int i = 0; i < value.Length - 1; i++)
-            {
-                char current = value[i];
-                char next = value[i + 1];
-
-                // Only Chars or Digits
-                if ((char.IsLower(current) && char.IsLower(next)) ||
-                    (char.IsUpper(current) && char.IsUpper(next)) ||
-                    (char.IsDigit(current) && char.IsDigit(next)))
-                {
-                    // Using table ASCII
-                    if (next - current == 1)
-                        return true;
-                }
-            }
-
-            return false;
-        }
-
-        protected const int MaxEmailAddressLength = 320;
 
         public Guard AgainstInvalidEmailAddress(
             string? email,
@@ -87,17 +33,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            if (!IsValidEmailAddress(email))
+            if (!EmailAddressValidator.IsValid(email))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidEmailAddress), paramName, cultureName: CultureName), message));
 
             return this;
-        }
-
-        protected static bool IsValidEmailAddress(string? email)
-        {
-            return email is { Length: <= MaxEmailAddressLength } &&
-                   new EmailAddressAttribute().IsValid(email);
         }
 
         public Guard AgainstInvalidPhone(
@@ -108,17 +48,12 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            if (!IsValidPhone(phone))
+            if (!PhoneValidator.IsValid(phone))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidPhone), paramName, cultureName: CultureName), message));
 
             return this;
 
-        }
-
-        protected static bool IsValidPhone(string? phone)
-        {
-            return phone is not null && new PhoneAttribute().IsValid(phone);
         }
     }
 
@@ -133,7 +68,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            if (!IsValidPassword(password, options))
+            if (!PasswordValidator.IsValid(password, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstWeakPassword), paramName, cultureName: CultureName), message));
 
@@ -150,7 +85,7 @@ namespace CleanValidation.Core.Guards
 
             string? password = property.GetValue(Value);
 
-            if (!IsValidPassword(password, options))
+            if (!PasswordValidator.IsValid(password, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstWeakPassword), property.GetName(), cultureName: CultureName), message));
 
@@ -165,7 +100,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            if (!IsValidEmailAddress(email))
+            if (!EmailAddressValidator.IsValid(email))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidEmailAddress), paramName, cultureName: CultureName), message));
 
@@ -181,7 +116,7 @@ namespace CleanValidation.Core.Guards
 
             string? email = property.GetValue(Value);
 
-            if (!IsValidEmailAddress(email))
+            if (!EmailAddressValidator.IsValid(email))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidEmailAddress), property.GetName(), cultureName: CultureName), message));
 
@@ -196,7 +131,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            if (!IsValidPhone(phone))
+            if (!PhoneValidator.IsValid(phone))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidPhone), paramName, cultureName: CultureName), message));
 
@@ -212,7 +147,7 @@ namespace CleanValidation.Core.Guards
 
             string? phone = property.GetValue(Value);
 
-            if (!IsValidPhone(phone))
+            if (!PhoneValidator.IsValid(phone))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidPhone), property.GetName(), cultureName: CultureName), message));
 
