@@ -1,4 +1,5 @@
 ﻿using CleanValidation.Core.Errors;
+using CleanValidation.Core.Exceptions;
 
 namespace CleanValidation.Core.Results
 {
@@ -16,6 +17,8 @@ namespace CleanValidation.Core.Results
         /// <param name="errors">The entry errors.</param>
         protected ProblemResult(IEnumerable<Error> errors)
         {
+            CleanValidationException.ThrowIfNull(errors);
+
             Errors = errors;
         }
 
@@ -67,8 +70,28 @@ namespace CleanValidation.Core.Results
         /// <summary>
         /// Initializes a new instance of the <see cref="ProblemResult{T}"/> class.
         /// </summary>
+        /// <param name="value">The value of type <typeparamref name="T"/>.</param>
+        /// <param name="errors">The entry errors.</param>
+        protected ProblemResult(T? value, IEnumerable<Error> errors) : base(errors)
+        {
+            Value = value;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProblemResult{T}"/> class.
+        /// </summary>
         /// <param name="errors">The entry errors.</param>
         protected ProblemResult(IEnumerable<Error> errors) : base(errors) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProblemResult{T}"/> class.
+        /// </summary>
+        /// <param name="value">The value of type <typeparamref name="T"/>.</param>
+        /// <param name="error">The entry error.</param>
+        protected ProblemResult(T? value, Error error) : base(error)
+        {
+            Value = value;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProblemResult{T}"/> class.
@@ -79,7 +102,18 @@ namespace CleanValidation.Core.Results
         /// <summary>
         /// The value of type <typeparamref name="T"/>.
         /// </summary>
-        public T? Value { get { return default; } }
+        public T? Value { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProblemResult{T}"/> class.
+        /// </summary>
+        /// <param name="value">The value of type <typeparamref name="T"/>.</param>
+        /// <param name="errors">The entry errors.</param>
+        /// <returns>The <see cref="ProblemResult{T}"/> instance.</returns>
+        public static ProblemResult<T> Create(T? value, IEnumerable<Error> errors)
+        {
+            return new ProblemResult<T>(value, errors);
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProblemResult{T}"/> class.
@@ -89,6 +123,17 @@ namespace CleanValidation.Core.Results
         new public static ProblemResult<T> Create(IEnumerable<Error> errors)
         {
             return new ProblemResult<T>(errors);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProblemResult{T}"/> class.
+        /// </summary>
+        /// <param name="value">The value of type <typeparamref name="T"/>.</param>
+        /// <param name="error">The entry error.</param>
+        /// <returns>The <see cref="ProblemResult{T}"/> instance.</returns>
+        public static ProblemResult<T> Create(T? value, Error error)
+        {
+            return new ProblemResult<T>(value, error);
         }
 
         /// <summary>
