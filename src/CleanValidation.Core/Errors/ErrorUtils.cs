@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using CleanValidation.Core.Resources;
-using CleanValidation.Core.Exceptions;
 using CleanValidation.Core.Extensions;
+using CleanValidation.Core.Exceptions;
 
 namespace CleanValidation.Core.Errors
 {
@@ -23,8 +23,7 @@ namespace CleanValidation.Core.Errors
         /// name="defaultError"/> if no custom message is provided.</returns>
         public static Error Custom(in Error defaultError, string? message)
         {
-            if (defaultError is null)
-                throw new CleanValidationException($"{nameof(defaultError)} can't be null.");
+            CleanValidationException.ThrowIfNull(defaultError);
 
             if (string.IsNullOrWhiteSpace(message))
                 return defaultError;
