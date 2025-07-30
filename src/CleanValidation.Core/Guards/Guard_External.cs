@@ -1,12 +1,11 @@
-﻿using System.Net;
-using System.Text.Json;
-using System.Net.Sockets;
+﻿using System.Text.Json;
 using System.Linq.Expressions;
 using CleanValidation.Core.Errors;
 using CleanValidation.Core.Options;
 using System.Text.RegularExpressions;
 using System.Runtime.CompilerServices;
 using CleanValidation.Core.Extensions;
+using CleanValidation.Core.Validators.Core;
 
 namespace CleanValidation.Core.Guards
 {
@@ -21,25 +20,12 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            if (!IsValidUri(uri, kind))
+            if (!UriValidator.IsValid(uri, kind))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidUri), paramName, cultureName: CultureName), message));
 
             return this;
         }
-
-        protected static bool IsValidUri(
-            string? uri,
-            UriKind kind = UriKind.Absolute)
-        {
-            if (!Uri.IsWellFormedUriString(uri, kind) || !Uri.TryCreate(uri, kind, out Uri? outUri))
-                return false;
-
-            return outUri.Scheme == Uri.UriSchemeHttp || outUri.Scheme == Uri.UriSchemeHttps;
-        }
-
-        [GeneratedRegex(@"^((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.|$)){4}$")]
-        protected static partial Regex StrictIpv4Regex();
 
         public Guard AgainstInvalidIpAddress(
             string? ipAddress,
@@ -50,40 +36,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            if (!IsValidIpAddress(ipAddress, options))
+            if (!IpAddressValidator.IsValid(ipAddress, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidIpAddress), paramName, cultureName: CultureName), message));
 
             return this;
-        }
-
-        protected static bool IsValidIpAddress(
-            string? ipAddress,
-            IpAddressOptions options = IpAddressOptions.None)
-        {
-            if (!IPAddress.TryParse(ipAddress, out IPAddress? outIpAddress))
-                return false;
-
-            if ((options & IpAddressOptions.DisallowLeadingZerosInIpv4) != 0 &&
-                outIpAddress.AddressFamily == AddressFamily.InterNetwork &&
-                !StrictIpv4Regex().IsMatch(ipAddress))
-            {
-                return false;
-            }
-
-            if ((options & IpAddressOptions.DisallowIpv6) != 0 &&
-                outIpAddress.AddressFamily == AddressFamily.InterNetworkV6)
-            {
-                return false;
-            }
-
-            if ((options & IpAddressOptions.DisallowLoopback) != 0 &&
-                IPAddress.IsLoopback(outIpAddress))
-            {
-                return false;
-            }
-
-            return true;
         }
 
         public Guard AgainstHtml(
@@ -94,20 +51,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            if (ContainsHtml(value))
+            if (StringValidator.ContainsHtml(value))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstHtml), paramName, cultureName: CultureName), message));
 
             return this;
-        }
-
-        protected static bool ContainsHtml(string? value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-                return false;
-
-            string html = WebUtility.HtmlEncode(value);
-            return !html.Equals(value);
         }
 
         public Guard AgainstUnmatchRegex(
@@ -136,27 +84,11 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            if (!IsValidJson<T>(json, options))
+            if (!JsonValidator.IsValid<T>(json, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidJson), paramName, cultureName: CultureName), message));
 
             return this;
-        }
-
-        protected static bool IsValidJson<T>(string? json, JsonSerializerOptions? options = null)
-        {
-            if (string.IsNullOrWhiteSpace(json))
-                return false;
-
-            try
-            {
-                _ = JsonSerializer.Deserialize<T>(json, options);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
         }
     }
 
@@ -171,7 +103,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            if (!IsValidUri(uri, kind))
+            if (!UriValidator.IsValid(uri, kind))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidUri), paramName, cultureName: CultureName), message));
 
@@ -188,7 +120,7 @@ namespace CleanValidation.Core.Guards
 
             string? uri = property.GetValue(Value);
 
-            if (!IsValidUri(uri, kind))
+            if (!UriValidator.IsValid(uri, kind))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidUri), property.GetName(), cultureName: CultureName), message));
 
@@ -204,7 +136,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            if (!IsValidIpAddress(ipAddress, options))
+            if (!IpAddressValidator.IsValid(ipAddress, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidIpAddress), paramName, cultureName: CultureName), message));
 
@@ -221,7 +153,7 @@ namespace CleanValidation.Core.Guards
 
             string? ipAddress = property.GetValue(Value);
 
-            if (!IsValidIpAddress(ipAddress, options))
+            if (!IpAddressValidator.IsValid(ipAddress, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidIpAddress), property.GetName(), cultureName: CultureName), message));
 
@@ -236,7 +168,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            if (ContainsHtml(value))
+            if (StringValidator.ContainsHtml(value))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstHtml), paramName, cultureName: CultureName), message));
 
@@ -252,7 +184,7 @@ namespace CleanValidation.Core.Guards
 
             string? value = property.GetValue(Value);
 
-            if (ContainsHtml(value))
+            if (StringValidator.ContainsHtml(value))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstHtml), property.GetName(), cultureName: CultureName), message));
 
@@ -306,7 +238,7 @@ namespace CleanValidation.Core.Guards
             if (!Continue)
                 return this;
 
-            if (!IsValidJson<TValue>(json, options))
+            if (!JsonValidator.IsValid<TValue>(json, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidJson), paramName, cultureName: CultureName), message));
 
@@ -323,7 +255,7 @@ namespace CleanValidation.Core.Guards
 
             string? json = property.GetValue(Value);
 
-            if (!IsValidJson<TValue>(json, options))
+            if (!JsonValidator.IsValid<TValue>(json, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstInvalidJson), property.GetName(), cultureName: CultureName), message));
 
