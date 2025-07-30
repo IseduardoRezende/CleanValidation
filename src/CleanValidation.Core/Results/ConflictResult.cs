@@ -1,4 +1,5 @@
 ﻿using CleanValidation.Core.Errors;
+using CleanValidation.Core.Exceptions;
 
 namespace CleanValidation.Core.Results
 {
@@ -16,6 +17,8 @@ namespace CleanValidation.Core.Results
         /// <param name="errors">The entry errors.</param>
         protected ConflictResult(IEnumerable<Error> errors)
         {
+            CleanValidationException.ThrowIfNull(errors);
+
             Errors = errors;
         }
 
@@ -67,8 +70,28 @@ namespace CleanValidation.Core.Results
         /// <summary>
         /// Initializes a new instance of the <see cref="ConflictResult{T}"/> class.
         /// </summary>
+        /// <param name="value">The value of type <typeparamref name="T"/>.</param>
+        /// <param name="errors">The entry errors.</param>
+        protected ConflictResult(T? value, IEnumerable<Error> errors) : base(errors)
+        {
+            Value = value;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConflictResult{T}"/> class.
+        /// </summary>
         /// <param name="errors">The entry errors.</param>
         protected ConflictResult(IEnumerable<Error> errors) : base(errors) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConflictResult{T}"/> class.
+        /// </summary>
+        /// <param name="value">The value of type <typeparamref name="T"/>.</param>
+        /// <param name="error">The entry error.</param>
+        protected ConflictResult(T? value, Error error) : base(error)
+        {
+            Value = value;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConflictResult{T}"/> class.
@@ -79,7 +102,18 @@ namespace CleanValidation.Core.Results
         /// <summary>
         /// The value of type <typeparamref name="T"/>.
         /// </summary>
-        public T? Value { get { return default; } }
+        public T? Value { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConflictResult{T}"/> class.
+        /// </summary>
+        /// <param name="value">The value of type <typeparamref name="T"/>.</param>
+        /// <param name="errors">The entry errors.</param>
+        /// <returns>The <see cref="ConflictResult{T}"/> instance.</returns>
+        public static ConflictResult<T> Create(T? value, IEnumerable<Error> errors)
+        {
+            return new ConflictResult<T>(value, errors);
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConflictResult{T}"/> class.
@@ -89,6 +123,17 @@ namespace CleanValidation.Core.Results
         new public static ConflictResult<T> Create(IEnumerable<Error> errors)
         {
             return new ConflictResult<T>(errors);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConflictResult{T}"/> class.
+        /// </summary>
+        /// <param name="value">The value of type <typeparamref name="T"/>.</param>
+        /// <param name="error">The entry error.</param>
+        /// <returns>The <see cref="ConflictResult{T}"/> instance.</returns>
+        public static ConflictResult<T> Create(T? value, Error error)
+        {
+            return new ConflictResult<T>(value, error);
         }
 
         /// <summary>
