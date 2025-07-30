@@ -8,8 +8,7 @@ namespace CleanValidation.Core.Errors
 
         public void Add(Error error)
         {
-            if (error is null)
-                throw new CleanValidationException($"{nameof(error)} can't be null.");
+            CleanValidationException.ThrowIfNull(error);
 
             _errors.Add(error);
         }
