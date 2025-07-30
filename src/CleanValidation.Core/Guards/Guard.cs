@@ -162,7 +162,7 @@ namespace CleanValidation.Core.Guards
         new public IResult<T> GetResult()
         {
             return ErrorBag.Count is not 0
-                 ? InvalidResult<T>.Create(ErrorBag.Errors)
+                 ? InvalidResult<T>.Create(Value, ErrorBag.Errors)
                  : SuccessResult<T>.Create(Value);
         }
     }
