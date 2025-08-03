@@ -40,14 +40,15 @@ namespace CleanValidation.Core.Guards
 
         public async Task<Guard> AgainstTrueAsync<T>(
             T? value,
-            Func<T, Task<bool>> func,
+            Func<T, CancellationToken, Task<bool>> func,
+            CancellationToken cancellationToken = default,
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (!Continue || value is null || func is null)
                 return this;
 
-            if (await func.Invoke(value))
+            if (await func.Invoke(value, cancellationToken).ConfigureAwait(false))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
 
@@ -87,14 +88,15 @@ namespace CleanValidation.Core.Guards
 
         public async Task<Guard> AgainstFalseAsync<T>(
             T? value,
-            Func<T, Task<bool>> func,
+            Func<T, CancellationToken, Task<bool>> func,
+            CancellationToken cancellationToken = default,
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (!Continue || value is null || func is null)
                 return this;
 
-            if (!await func.Invoke(value))
+            if (!await func.Invoke(value, cancellationToken).ConfigureAwait(false))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
 
@@ -195,14 +197,15 @@ namespace CleanValidation.Core.Guards
 
         new public async Task<Guard<T>> AgainstTrueAsync<TValue>(
             TValue? value,
-            Func<TValue, Task<bool>> func,
+            Func<TValue, CancellationToken, Task<bool>> func,
+            CancellationToken cancellationToken = default,
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (!Continue || value is null || func is null)
                 return this;
 
-            if (await func.Invoke(value))
+            if (await func.Invoke(value, cancellationToken).ConfigureAwait(false))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstTrue), paramName, cultureName: CultureName), message));
 
@@ -211,13 +214,14 @@ namespace CleanValidation.Core.Guards
 
         public async Task<Guard<T>> AgainstTrueAsync<TProperty>(
             Expression<Func<T, TProperty?>> property,
-            Func<TProperty?, Task<bool>> func,
+            Func<TProperty?, CancellationToken, Task<bool>> func,
+            CancellationToken cancellationToken = default,
             string? message = null)
         {
             if (!Continue || property is null || func is null)
                 return this;
 
-            if (await func.Invoke(property.GetValue(Value)))
+            if (await func.Invoke(property.GetValue(Value), cancellationToken).ConfigureAwait(false))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstTrue), property.GetName(), cultureName: CultureName), message));
 
@@ -225,13 +229,14 @@ namespace CleanValidation.Core.Guards
         }
 
         public async Task<Guard<T>> AgainstTrueAsync(
-            Func<T?, Task<bool>> func,
+            Func<T?, CancellationToken, Task<bool>> func,
+            CancellationToken cancellationToken = default,
             string? message = null)
         {
             if (!Continue || func is null)
                 return this;
 
-            if (await func.Invoke(Value))
+            if (await func.Invoke(Value, cancellationToken).ConfigureAwait(false))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstTrueAsync), typeof(T).Name, cultureName: CultureName), message));
 
@@ -329,14 +334,15 @@ namespace CleanValidation.Core.Guards
 
         new public async Task<Guard<T>> AgainstFalseAsync<TValue>(
             TValue? value,
-            Func<TValue, Task<bool>> func,
+            Func<TValue, CancellationToken, Task<bool>> func,
+            CancellationToken cancellationToken = default,
             string? message = null,
             [CallerArgumentExpression(nameof(value))] string? paramName = null)
         {
             if (!Continue || value is null || func is null)
                 return this;
 
-            if (!await func.Invoke(value))
+            if (!await func.Invoke(value, cancellationToken).ConfigureAwait(false))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstFalse), paramName, cultureName: CultureName), message));
 
@@ -345,13 +351,14 @@ namespace CleanValidation.Core.Guards
 
         public async Task<Guard<T>> AgainstFalseAsync<TProperty>(
             Expression<Func<T, TProperty?>> property,
-            Func<TProperty?, Task<bool>> func,
+            Func<TProperty?, CancellationToken, Task<bool>> func,
+            CancellationToken cancellationToken = default,
             string? message = null)
         {
             if (!Continue || property is null || func is null)
                 return this;
 
-            if (!await func.Invoke(property.GetValue(Value)))
+            if (!await func.Invoke(property.GetValue(Value), cancellationToken).ConfigureAwait(false))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstFalse), property.GetName(), cultureName: CultureName), message));
 
@@ -359,13 +366,14 @@ namespace CleanValidation.Core.Guards
         }
 
         public async Task<Guard<T>> AgainstFalseAsync(
-            Func<T?, Task<bool>> func,
+            Func<T?, CancellationToken, Task<bool>> func,
+            CancellationToken cancellationToken = default,
             string? message = null)
         {
             if (!Continue || func is null)
                 return this;
 
-            if (!await func.Invoke(Value))
+            if (!await func.Invoke(Value, cancellationToken).ConfigureAwait(false))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
                     .GetByKey(nameof(AgainstFalseAsync), typeof(T).Name, cultureName: CultureName), message));
 
