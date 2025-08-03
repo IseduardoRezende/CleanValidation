@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using CleanValidation.Core.Resources;
-using CleanValidation.Core.Extensions;
 using CleanValidation.Core.Exceptions;
 
 namespace CleanValidation.Core.Errors
@@ -56,10 +55,19 @@ namespace CleanValidation.Core.Errors
         {
             CleanResourceManager resourceManager = CleanResourceManager.Create(resourceBaseName, resourceBaseAssembly);
 
-            string message = resourceManager.GetString(key, cultureName);
-            message = message.Format(args);
+            string message = resourceManager.GetString(key, args, cultureName);
 
             return new Error(message, field);
+        }
+
+        public static Error GetByKey(
+            string key,
+            string? field,
+            string cultureName = "en-US",
+            string? resourceBaseName = CleanResourceManager.DefaultBaseName,
+            Assembly? resourceBaseAssembly = null)
+        {
+            return GetByKey(key, field, args: null, cultureName, resourceBaseName, resourceBaseAssembly);
         }
     }
 }
