@@ -28,5 +28,13 @@ namespace CleanValidation.Core.Exceptions
             if (obj is null)
                 throw new CleanValidationException($"{paramName} can't be null.");
         }
+
+        public static void ThrowIfEmpty<T>(
+            IEnumerable<T>? values,
+            [CallerArgumentExpression(nameof(values))] string? paramName = null)
+        {
+            if (values is null || !values.Any())
+                throw new CleanValidationException($"{paramName} can't be null or empty.");
+        }
     }
 }
