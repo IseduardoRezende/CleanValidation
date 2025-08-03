@@ -1,10 +1,10 @@
 ﻿namespace CleanValidation.Core.Options
 {
     /// <summary>
-    /// The validation options available to configure the behavior of 
+    /// The validation option available to configure the behavior of 
     /// <see cref="Guards.Guard"/> validations.
     /// </summary>
-    public enum ValidationOptions
+    public enum ValidationOption
     {
         /// <summary>
         /// Represents whether the <see cref="Guards.Guard"/> validations should continue execution 
