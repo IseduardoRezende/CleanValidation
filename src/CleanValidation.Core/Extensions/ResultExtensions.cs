@@ -39,27 +39,27 @@ namespace CleanValidation.Core.Extensions
             return SuccessResult<T>.Create(value);
         }
 
-        public static NotFoundResult<T> ToNotFoundResult<T>(this T? value, IEnumerable<Error> errors)
+        public static NotFoundResult<T> ToNotFoundResult<T>(this T? value, params IEnumerable<Error> errors)
         {
             return NotFoundResult<T>.Create(value, errors);
         }
 
-        public static ConflictResult<T> ToConflictResult<T>(this T? value, IEnumerable<Error> errors)
+        public static ConflictResult<T> ToConflictResult<T>(this T? value, params IEnumerable<Error> errors)
         {
             return ConflictResult<T>.Create(value, errors);
         }
 
-        public static ErrorResult<T> ToErrorResult<T>(this T? value, IEnumerable<Error> errors)
+        public static ErrorResult<T> ToErrorResult<T>(this T? value, params IEnumerable<Error> errors)
         {
             return ErrorResult<T>.Create(value, errors);
         }
 
-        public static ProblemResult<T> ToProblemResult<T>(this T? value, IEnumerable<Error> errors)
+        public static ProblemResult<T> ToProblemResult<T>(this T? value, params IEnumerable<Error> errors)
         {
             return ProblemResult<T>.Create(value, errors);
         }
 
-        public static InvalidResult<T> ToInvalidResult<T>(this T? value, IEnumerable<Error> errors)
+        public static InvalidResult<T> ToInvalidResult<T>(this T? value, params IEnumerable<Error> errors)
         {
             return InvalidResult<T>.Create(value, errors);
         }
