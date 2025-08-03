@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Globalization;
 using CleanValidation.Core.Exceptions;
+using CleanValidation.Core.Extensions;
 
 namespace CleanValidation.Core.Resources
 {
@@ -24,6 +25,22 @@ namespace CleanValidation.Core.Resources
             return new(baseName ?? DefaultBaseName, baseAssembly ?? Assembly.GetExecutingAssembly());
         }
 
+        public string GetString(string key, object[]? args, string cultureName)
+        {
+            try
+            {
+                ResourceManager resourceManager = new(BaseName, BaseAssembly);
+                CultureInfo? culture = CultureInfo.GetCultureInfo(cultureName);
+
+                string message = resourceManager.GetString(key, culture) ?? string.Empty;
+                return message.Format(args);
+            }
+            catch (Exception ex)
+            {
+                throw new CleanValidationException(ex.Message, ex);
+            }
+        }
+
         /// <summary>
         /// Retrieves a localized string resource based on the specified key and culture name.
         /// </summary>
@@ -37,16 +54,7 @@ namespace CleanValidation.Core.Resources
         /// <exception cref="CleanValidationException">Thrown if an error occurs while retrieving the resource.</exception>
         public string GetString(string key, string cultureName)
         {
-            try
-            {
-                ResourceManager resourceManager = new(BaseName, BaseAssembly);
-                CultureInfo? culture = CultureInfo.GetCultureInfo(cultureName);
-                return resourceManager.GetString(key, culture) ?? string.Empty;
-            }
-            catch (Exception ex)
-            {
-                throw new CleanValidationException(ex.Message, ex);
-            }
+            return GetString(key, args: null, cultureName);
         }
     }
 }
