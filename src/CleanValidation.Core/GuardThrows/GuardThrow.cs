@@ -43,5 +43,10 @@ namespace CleanValidation.Core.GuardThrows
         {
             return new GuardThrow<T>(default, cultureName);
         }
+
+        public T? GetValue()
+        {
+            return Value;
+        }
     }
 }
