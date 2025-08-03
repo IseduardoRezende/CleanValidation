@@ -22,7 +22,7 @@ namespace CleanValidation.Core.Guards
 
             if (!UriValidator.IsValid(uri, kind))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidUri), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidUri), paramName, CultureName), message));
 
             return this;
         }
@@ -38,7 +38,7 @@ namespace CleanValidation.Core.Guards
 
             if (!IpAddressValidator.IsValid(ipAddress, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidIpAddress), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidIpAddress), paramName, CultureName), message));
 
             return this;
         }
@@ -53,7 +53,7 @@ namespace CleanValidation.Core.Guards
 
             if (StringValidator.ContainsHtml(value))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstHtml), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstHtml), paramName, CultureName), message));
 
             return this;
         }
@@ -70,7 +70,7 @@ namespace CleanValidation.Core.Guards
 
             if (!Regex.IsMatch(value, pattern, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstUnmatchRegex), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstUnmatchRegex), paramName, CultureName), message));
 
             return this;
         }
@@ -86,7 +86,7 @@ namespace CleanValidation.Core.Guards
 
             if (!JsonValidator.IsValid<T>(json, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidJson), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidJson), paramName, CultureName), message));
 
             return this;
         }
@@ -105,7 +105,7 @@ namespace CleanValidation.Core.Guards
 
             if (!UriValidator.IsValid(uri, kind))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidUri), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidUri), paramName, CultureName), message));
 
             return this;
         }
@@ -122,7 +122,7 @@ namespace CleanValidation.Core.Guards
 
             if (!UriValidator.IsValid(uri, kind))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidUri), property.GetName(), cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidUri), property.GetName(), CultureName), message));
 
             return this;
         }
@@ -138,7 +138,7 @@ namespace CleanValidation.Core.Guards
 
             if (!IpAddressValidator.IsValid(ipAddress, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidIpAddress), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidIpAddress), paramName, CultureName), message));
 
             return this;
         }
@@ -155,7 +155,7 @@ namespace CleanValidation.Core.Guards
 
             if (!IpAddressValidator.IsValid(ipAddress, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidIpAddress), property.GetName(), cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidIpAddress), property.GetName(), CultureName), message));
 
             return this;
         }
@@ -170,7 +170,7 @@ namespace CleanValidation.Core.Guards
 
             if (StringValidator.ContainsHtml(value))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstHtml), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstHtml), paramName, CultureName), message));
 
             return this;
         }
@@ -186,7 +186,7 @@ namespace CleanValidation.Core.Guards
 
             if (StringValidator.ContainsHtml(value))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstHtml), property.GetName(), cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstHtml), property.GetName(), CultureName), message));
 
             return this;
         }
@@ -203,7 +203,7 @@ namespace CleanValidation.Core.Guards
 
             if (!Regex.IsMatch(value, pattern, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstUnmatchRegex), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstUnmatchRegex), paramName, CultureName), message));
 
             return this;
         }
@@ -224,7 +224,7 @@ namespace CleanValidation.Core.Guards
 
             if (!Regex.IsMatch(value, pattern, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstUnmatchRegex), property.GetName(), cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstUnmatchRegex), property.GetName(), CultureName), message));
 
             return this;
         }
@@ -240,7 +240,7 @@ namespace CleanValidation.Core.Guards
 
             if (!JsonValidator.IsValid<TValue>(json, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidJson), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidJson), paramName, CultureName), message));
 
             return this;
         }
@@ -257,7 +257,7 @@ namespace CleanValidation.Core.Guards
 
             if (!JsonValidator.IsValid<TValue>(json, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidJson), property.GetName(), cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidJson), property.GetName(), CultureName), message));
 
             return this;
         }

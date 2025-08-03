@@ -108,7 +108,7 @@ namespace CleanValidation.Core.Guards
 
             if (!Enum.IsDefined(typeof(TEnum), value))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidEnum), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidEnum), paramName, CultureName), message));
 
             return this;
         }
@@ -331,7 +331,7 @@ namespace CleanValidation.Core.Guards
 
             if (!Enum.IsDefined(typeof(TEnum), value))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidEnum), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidEnum), paramName, CultureName), message));
 
             return this;
         }
@@ -351,7 +351,7 @@ namespace CleanValidation.Core.Guards
 
             if (!Enum.IsDefined(typeof(TEnum), value))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidEnum), property.GetName(), cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidEnum), property.GetName(), CultureName), message));
 
             return this;
         }

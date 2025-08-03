@@ -19,7 +19,7 @@ namespace CleanValidation.Core.Guards
 
             if (ContentTypeOptions.ContainsType(fileData, contentTypes))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                   .GetByKey(nameof(AgainstInvalidContentTypes), paramName, cultureName: CultureName), message));
+                   .GetByKey(nameof(AgainstInvalidContentTypes), paramName, CultureName), message));
 
             return this;
         }
@@ -35,7 +35,7 @@ namespace CleanValidation.Core.Guards
 
             if (!ContentTypeOptions.ContainsType(fileData, contentType))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstNotExactContentType), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstNotExactContentType), paramName, CultureName), message));
 
             return this;
         }
@@ -54,7 +54,7 @@ namespace CleanValidation.Core.Guards
 
             if (ContentTypeOptions.ContainsType(fileData, contentTypes))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                     .GetByKey(nameof(AgainstInvalidContentTypes), paramName, cultureName: CultureName), message));
+                     .GetByKey(nameof(AgainstInvalidContentTypes), paramName, CultureName), message));
 
             return this;
         }
@@ -74,7 +74,7 @@ namespace CleanValidation.Core.Guards
 
             if (ContentTypeOptions.ContainsType(fileData, contentTypes))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                     .GetByKey(nameof(AgainstInvalidContentTypes), property.GetName(), cultureName: CultureName), message));
+                     .GetByKey(nameof(AgainstInvalidContentTypes), property.GetName(), CultureName), message));
 
             return this;
         }
@@ -90,7 +90,7 @@ namespace CleanValidation.Core.Guards
 
             if (!ContentTypeOptions.ContainsType(fileData, contentType))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                     .GetByKey(nameof(AgainstNotExactContentType), paramName, cultureName: CultureName), message));
+                     .GetByKey(nameof(AgainstNotExactContentType), paramName, CultureName), message));
 
             return this;
         }
@@ -110,7 +110,7 @@ namespace CleanValidation.Core.Guards
 
             if (!ContentTypeOptions.ContainsType(fileData, contentType))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                     .GetByKey(nameof(AgainstNotExactContentType), property.GetName(), cultureName: CultureName), message));
+                     .GetByKey(nameof(AgainstNotExactContentType), property.GetName(), CultureName), message));
 
             return this;
         }

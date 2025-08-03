@@ -20,7 +20,7 @@ namespace CleanValidation.Core.Guards
 
             if (!PasswordValidator.IsValid(password, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstWeakPassword), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstWeakPassword), paramName, CultureName), message));
 
             return this;
         }
@@ -35,7 +35,7 @@ namespace CleanValidation.Core.Guards
 
             if (!EmailAddressValidator.IsValid(email))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidEmailAddress), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidEmailAddress), paramName, CultureName), message));
 
             return this;
         }
@@ -50,7 +50,7 @@ namespace CleanValidation.Core.Guards
 
             if (!PhoneValidator.IsValid(phone))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidPhone), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidPhone), paramName, CultureName), message));
 
             return this;
 
@@ -70,7 +70,7 @@ namespace CleanValidation.Core.Guards
 
             if (!PasswordValidator.IsValid(password, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstWeakPassword), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstWeakPassword), paramName, CultureName), message));
 
             return this;
         }
@@ -87,7 +87,7 @@ namespace CleanValidation.Core.Guards
 
             if (!PasswordValidator.IsValid(password, options))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstWeakPassword), property.GetName(), cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstWeakPassword), property.GetName(), CultureName), message));
 
             return this;
         }
@@ -102,7 +102,7 @@ namespace CleanValidation.Core.Guards
 
             if (!EmailAddressValidator.IsValid(email))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidEmailAddress), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidEmailAddress), paramName, CultureName), message));
 
             return this;
         }
@@ -118,7 +118,7 @@ namespace CleanValidation.Core.Guards
 
             if (!EmailAddressValidator.IsValid(email))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidEmailAddress), property.GetName(), cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidEmailAddress), property.GetName(), CultureName), message));
 
             return this;
         }
@@ -133,7 +133,7 @@ namespace CleanValidation.Core.Guards
 
             if (!PhoneValidator.IsValid(phone))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidPhone), paramName, cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidPhone), paramName, CultureName), message));
 
             return this;
         }
@@ -149,7 +149,7 @@ namespace CleanValidation.Core.Guards
 
             if (!PhoneValidator.IsValid(phone))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstInvalidPhone), property.GetName(), cultureName: CultureName), message));
+                    .GetByKey(nameof(AgainstInvalidPhone), property.GetName(), CultureName), message));
 
             return this;
         }
