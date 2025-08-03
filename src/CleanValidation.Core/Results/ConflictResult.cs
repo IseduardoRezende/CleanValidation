@@ -17,7 +17,7 @@ namespace CleanValidation.Core.Results
         /// <param name="errors">The entry errors.</param>
         protected ConflictResult(IEnumerable<Error> errors)
         {
-            CleanValidationException.ThrowIfNull(errors);
+            CleanValidationException.ThrowIfEmpty(errors);
 
             Errors = errors;
         }
