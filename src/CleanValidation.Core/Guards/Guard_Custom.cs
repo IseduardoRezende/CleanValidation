@@ -238,7 +238,7 @@ namespace CleanValidation.Core.Guards
 
             if (await func.Invoke(Value, cancellationToken).ConfigureAwait(false))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstTrueAsync), typeof(T).Name, CultureName), message));
+                    .GetByKey(nameof(AgainstTrue), typeof(T).Name, CultureName), message));
 
             return this;
         }
@@ -375,7 +375,7 @@ namespace CleanValidation.Core.Guards
 
             if (!await func.Invoke(Value, cancellationToken).ConfigureAwait(false))
                 ErrorBag.Add(ErrorUtils.Custom(ErrorUtils
-                    .GetByKey(nameof(AgainstFalseAsync), typeof(T).Name, CultureName), message));
+                    .GetByKey(nameof(AgainstFalse), typeof(T).Name, CultureName), message));
 
             return this;
         }
