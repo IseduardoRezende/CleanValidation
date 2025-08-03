@@ -29,7 +29,7 @@ namespace CleanValidation.Core.Validators
         /// object indicating whether the validation succeeded or failed.</returns>
         public virtual IResult<T> Validate(
             T? value,
-            ValidationOptions option = ValidationOptions.ContinueOnFailure,
+            ValidationOption option = ValidationOption.ContinueOnFailure,
             string cultureName = "en-US")
         {
             return Guard<T>.Create(value, option, cultureName).AgainstNull().GetResult();
@@ -51,7 +51,7 @@ namespace CleanValidation.Core.Validators
         /// object indicating whether the validation succeeded or failed.</returns>
         public virtual Task<IResult<T>> ValidateAsync(
             T? value,
-            ValidationOptions option = ValidationOptions.ContinueOnFailure,
+            ValidationOption option = ValidationOption.ContinueOnFailure,
             string cultureName = "en-US",
             CancellationToken cancellationToken = default)
         {

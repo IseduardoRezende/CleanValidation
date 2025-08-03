@@ -28,7 +28,7 @@ namespace CleanValidation.Core.Validators
         /// object indicating whether the validation succeeded or failed.</returns>
         IResult<T> Validate(
             T? value,
-            ValidationOptions option = ValidationOptions.ContinueOnFailure,
+            ValidationOption option = ValidationOption.ContinueOnFailure,
             string cultureName = "en-US");
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace CleanValidation.Core.Validators
         /// object indicating whether the validation succeeded or failed.</returns>
         Task<IResult<T>> ValidateAsync(
             T? value,
-            ValidationOptions option = ValidationOptions.ContinueOnFailure,
+            ValidationOption option = ValidationOption.ContinueOnFailure,
             string cultureName = "en-US", 
             CancellationToken cancellationToken = default);
     }

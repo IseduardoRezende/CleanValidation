@@ -18,7 +18,7 @@ namespace CleanValidation.Core.Extensions
         /// <returns></returns>
         public static Guard<T> Guard<T>(
             this T? value,
-            ValidationOptions validationOption = ValidationOptions.ContinueOnFailure,
+            ValidationOption validationOption = ValidationOption.ContinueOnFailure,
             string cultureName = "en-US")
         {
             return Guards.Guard<T>.Create(value, validationOption, cultureName);

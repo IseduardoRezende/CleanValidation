@@ -21,7 +21,7 @@ namespace CleanValidation.Core.Guards
         /// </summary>
         /// <param name="validationOption">The validation option used to configure the behavior of validation operations.</param>
         /// <param name="cultureName">The name of the culture to use for message.</param>
-        protected Guard(ValidationOptions validationOption, string cultureName)
+        protected Guard(ValidationOption validationOption, string cultureName)
         {
             ValidationOption = validationOption;
             CultureName = cultureName;
@@ -46,26 +46,26 @@ namespace CleanValidation.Core.Guards
         {
             get
             {
-                return ValidationOption is ValidationOptions.ContinueOnFailure || ErrorBag.Count is 0;
+                return ValidationOption is ValidationOption.ContinueOnFailure || ErrorBag.Count is 0;
             }
         }
 
         /// <summary>
         /// Gets the validation option used to configure the behavior of validation operations.
         /// </summary>
-        protected ValidationOptions ValidationOption { get; }
+        protected ValidationOption ValidationOption { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Guard"/> class.
         /// </summary>
         /// <param name="validationOption">
         /// The validation option used to configure the behavior of validation operations.
-        /// The default value is <see cref="ValidationOptions.ContinueOnFailure"/>.
+        /// The default value is <see cref="ValidationOption.ContinueOnFailure"/>.
         /// </param>
         /// <param name="cultureName">The name of the culture to use for message.</param>
         /// <returns>The <see cref="Guard"/> instance, allowing for method chaining.</returns>
         public static Guard Create(
-            ValidationOptions validationOption = ValidationOptions.ContinueOnFailure,
+            ValidationOption validationOption = ValidationOption.ContinueOnFailure,
             string cultureName = "en-US")
         {
             return new Guard(validationOption, cultureName);
@@ -106,7 +106,7 @@ namespace CleanValidation.Core.Guards
         /// <param name="value">The value to validate.</param>
         /// <param name="validationOption">The validation option used to configure the behavior of validation operations.</param>
         /// <param name="cultureName">The name of the culture to use for message.</param>
-        protected Guard(T? value, ValidationOptions validationOption, string cultureName)
+        protected Guard(T? value, ValidationOption validationOption, string cultureName)
             : base(validationOption, cultureName)
         {
             Value = value;
@@ -123,13 +123,13 @@ namespace CleanValidation.Core.Guards
         /// <param name="value">The value to validate.</param>
         /// <param name="validationOption">
         /// The validation option used to configure the behavior of validation operations.
-        /// The default value is <see cref="ValidationOptions.ContinueOnFailure"/>.
+        /// The default value is <see cref="ValidationOption.ContinueOnFailure"/>.
         /// </param>
         /// <param name="cultureName">The name of the culture to use for message.</param>
         /// <returns>The <see cref="Guard{T}"/> instance, allowing for method chaining.</returns>
         public static Guard<T> Create(
             T? value,
-            ValidationOptions validationOption = ValidationOptions.ContinueOnFailure,
+            ValidationOption validationOption = ValidationOption.ContinueOnFailure,
             string cultureName = "en-US")
         {
             return new Guard<T>(value, validationOption, cultureName);
@@ -140,12 +140,12 @@ namespace CleanValidation.Core.Guards
         /// </summary>
         /// <param name="validationOption">
         /// The validation option used to configure the behavior of validation operations.
-        /// The default value is <see cref="ValidationOptions.ContinueOnFailure"/>.
+        /// The default value is <see cref="ValidationOption.ContinueOnFailure"/>.
         /// </param>
         /// <param name="cultureName">The name of the culture to use for message.</param>
         /// <returns>The <see cref="Guard{T}"/> instance, allowing for method chaining.</returns>
         new public static Guard<T> Create(
-            ValidationOptions validationOption = ValidationOptions.ContinueOnFailure,
+            ValidationOption validationOption = ValidationOption.ContinueOnFailure,
             string cultureName = "en-US")
         {
             return new Guard<T>(default, validationOption, cultureName);

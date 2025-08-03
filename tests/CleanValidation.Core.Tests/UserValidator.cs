@@ -17,7 +17,7 @@ namespace CleanValidation.Core.Tests
     {
         public override IResult<User> Validate(
             User? user,
-            ValidationOptions option = ValidationOptions.ContinueOnFailure,
+            ValidationOption option = ValidationOption.ContinueOnFailure,
             string cultureName = "en-US")
         {
             return Guard<User>.Create(user, option, cultureName)
