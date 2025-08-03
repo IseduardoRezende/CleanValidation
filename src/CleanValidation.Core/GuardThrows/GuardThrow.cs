@@ -1,5 +1,4 @@
 ﻿using CleanValidation.Core.Exceptions;
-using System.Runtime.CompilerServices;
 
 namespace CleanValidation.Core.GuardThrows
 {
@@ -13,66 +12,36 @@ namespace CleanValidation.Core.GuardThrows
     /// </remarks>
     public partial class GuardThrow
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GuardThrow"/> class.
-        /// </summary>
-        protected GuardThrow() { }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GuardThrow"/> class.
-        /// </summary>
-        /// <returns></returns>
-        public static GuardThrow Create()
+        protected GuardThrow(string cultureName = "en-US")
         {
-            return new GuardThrow();
+            CultureName = cultureName;
         }
 
-        /// <summary>
-        /// Adds <paramref name="paramName"/> into the error message.
-        /// </summary>
-        /// <param name="paramName">The paramter name.</param>
-        /// <returns></returns>
-        protected static string AddParamNameMessage(string? paramName)
+        protected string CultureName { get; }
+
+        public static GuardThrow Create(string cultureName = "en-US")
         {
-            return paramName is not null ? $"\nParameter Name: {paramName}" : string.Empty;
+            return new GuardThrow(cultureName);
+        }
+    }
+
+    public partial class GuardThrow<T> : GuardThrow
+    {
+        protected GuardThrow(T? value, string cultureName) : base(cultureName)
+        {
+            Value = value;
         }
 
-        /// <summary>
-        /// Ensures that the specified value is not null or white space.
-        /// </summary> 
-        /// <remarks>
-        /// If <paramref name="value"/> is null or white space, an <see cref="CleanValidationException"/>
-        /// is throwned.
-        /// </remarks>
-        /// <param name="value">The value to validate.</param>
-        /// <param name="message">Optional descriptive message error.</param>
-        /// <param name="paramName">The name of <paramref name="value"/> captured by expression or manually.</param>
-        /// <returns>The current <see cref="GuardThrow"/> instance, allowing for method chaining.</returns>
-        public GuardThrow AgainstWhiteSpace(string value, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-                throw new CleanValidationException($"Argument is null or white space. {AddParamNameMessage(paramName)}");
+        protected T? Value { get; }
 
-            return this;
+        public static GuardThrow<T> Create(T? value, string cultureName = "en-US")
+        {
+            return new GuardThrow<T>(value, cultureName);
         }
 
-        /// <summary>
-        /// Ensures that the specified value is not null.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="value"/> is null, an <see cref="CleanValidationException"/>
-        /// is throwned.
-        /// </remarks>
-        /// <param name="value">The value to validate.</param>
-        /// <param name="message">Optional descriptive message error.</param>
-        /// <param name="paramName">The name of <paramref name="value"/> captured by expression or manually.</param>
-        /// <returns>The current <see cref="GuardThrow"/> instance, allowing for method chaining.</returns>
-        public GuardThrow AgainstNull(object? value, string? message = null, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+        new public static GuardThrow<T> Create(string cultureName = "en-US")
         {
-            if (value is null)
-                throw new CleanValidationException($"Argument is null. {AddParamNameMessage(paramName)}");
-
-            return this;
+            return new GuardThrow<T>(default, cultureName);
         }
     }
 }
