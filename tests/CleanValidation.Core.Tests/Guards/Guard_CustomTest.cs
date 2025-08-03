@@ -89,7 +89,7 @@ namespace CleanValidation.Core.Tests.Guards
             string value = "Hello World";
             
             Guard guard = await Guard.Create()
-                .AgainstTrueAsync(value, async v => await Task.FromResult(v.Contains("World")));
+                .AgainstTrueAsync(value, async (v, ct) => await Task.FromResult(v.Contains("World")));
 
             IResult result = guard.GetResult();
 
@@ -104,7 +104,7 @@ namespace CleanValidation.Core.Tests.Guards
             string value = "Hello World";
 
             Guard guard = await Guard.Create()
-                .AgainstTrueAsync(value, async v => await Task.FromResult(v.Contains("Hey")));
+                .AgainstTrueAsync(value, async (v, ct) => await Task.FromResult(v.Contains("Hey")));
 
             IResult result = guard.GetResult();
 
@@ -169,7 +169,7 @@ namespace CleanValidation.Core.Tests.Guards
             string value = "Hello World";
             
             Guard<string> guard = await Guard<string>.Create()
-                .AgainstTrueAsync(value, async v => await Task.FromResult(v.Contains("World")));
+                .AgainstTrueAsync(value, async (v, ct) => await Task.FromResult(v.Contains("World")));
 
             IResult<string> result = guard.GetResult();
 
@@ -184,7 +184,7 @@ namespace CleanValidation.Core.Tests.Guards
             string value = "Hello World";
 
             Guard<string> guard = await Guard<string>.Create()
-                .AgainstTrueAsync(value, async v => await Task.FromResult(v.Contains("Foo")));
+                .AgainstTrueAsync(value, async (v, ct) => await Task.FromResult(v.Contains("Foo")));
 
             IResult<string> result = guard.GetResult();
 
@@ -277,7 +277,7 @@ namespace CleanValidation.Core.Tests.Guards
             string value = "Hello World";
 
             Guard guard = await Guard.Create()
-                .AgainstFalseAsync(value, async v => await Task.FromResult(v.Contains("Hi")));
+                .AgainstFalseAsync(value, async (v, ct) => await Task.FromResult(v.Contains("Hi")));
 
             IResult result = guard.GetResult();
 
@@ -292,7 +292,7 @@ namespace CleanValidation.Core.Tests.Guards
             string value = "Hello World";
 
             Guard guard = await Guard.Create()
-                .AgainstFalseAsync(value, async v => await Task.FromResult(v.Contains("Hello")));
+                .AgainstFalseAsync(value, async (v, ct) => await Task.FromResult(v.Contains("Hello")));
 
             IResult result = guard.GetResult();
 
@@ -357,7 +357,7 @@ namespace CleanValidation.Core.Tests.Guards
             string value = "Hello World";
 
             Guard<string> guard = await Guard<string>.Create()
-                .AgainstFalseAsync(value, async v => await Task.FromResult(v.Contains("Hey")));
+                .AgainstFalseAsync(value, async (v, ct) => await Task.FromResult(v.Contains("Hey")));
 
             IResult<string> result = guard.GetResult();
 
@@ -372,7 +372,7 @@ namespace CleanValidation.Core.Tests.Guards
             string value = "Hello World";
 
             Guard<string> guard = await Guard<string>.Create()
-                .AgainstFalseAsync(value, async v => await Task.FromResult(v.Contains("World")));
+                .AgainstFalseAsync(value, async (v, ct) => await Task.FromResult(v.Contains("World")));
 
             IResult<string> result = guard.GetResult();
 
